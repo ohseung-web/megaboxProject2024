@@ -1,0 +1,58 @@
+/* *** reset style *** */
+*, *::before, *::after {
+    box-sizing : border-box;
+}
+
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, p, ul, ol, li {
+    margin : 0;
+    padding : 0;
+}
+
+ul, ol {
+    list-style : none;
+}
+
+input, button, textarea, select {
+    font : inherit
+}
+
+
+
+/* *** base style *** */
+body {
+    font-family : -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+    min-height : 100vh;
+    line-height : 1.5;
+    color : #313131 /* 임시 */  
+}
+
+h1, h2, h3, h4, button, input, label {
+    line-height : 1.1;
+}
+
+h1, h2, h3, h4 {
+    font-size : 1.3rem;
+}
+
+a, a:link, a:visited {
+    color : currentColor;
+    text-decoration : none
+}
+
+a:hover {
+    color : #313131
+}
+
+img, picture {
+    vertical-align : top
+}
+
+button, input, label {
+    vertical-align : middle
+}
+
+button {
+    cursor : pointer
+}
+
+
