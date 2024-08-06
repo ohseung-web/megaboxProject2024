@@ -1,0 +1,9 @@
+.tab-list {
+    font-size:1.1rem;
+    cursor : pointer
+}
+
+.tab-list.active {
+    color : #d037c6
+}
+
