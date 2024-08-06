@@ -1,5 +1,6 @@
 import "./Storepage.style.css"
 
+
 const Store = () => {
     return (
     <div>
