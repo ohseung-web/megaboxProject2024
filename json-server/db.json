@@ -1,6 +1,6 @@
 {
-    "data" : "store",
-    "result" :[
+    "name" : "store",
+    "products" :[
         {
             "id" : "240722",
             "category" : "ticket",
