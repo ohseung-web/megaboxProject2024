@@ -1,8 +1,8 @@
 {
-    "name" : "store",
+    "data" : "store",
     "products" :[
         {
-            "id" : "240722",
+            "id" : "240721",
             "category" : "ticket",
             "title" : "[코엑스] 더 부티크 프라이빗 1호 전용 관란권(주중)",
             "subTitle" : "더 부티크 프라이빗 1호 주중 전용 관람권 1매(월~목 전용, 공휴일 제외)",
@@ -12,7 +12,7 @@
             "purchaseValidMonths" : null, 
             "validFrom" : "2024.07.22",
             "validTo" : "2024.11.30",
-            "quantity" : 50, 
+            "quantity" : 30, 
             "purchaseLimit" : 4, 
             "price" : 500000,
             "salePrice" : 350000, 
@@ -53,7 +53,7 @@
             "label" : "EVENT"
         },
         {
-            "id" : "240528",
+            "id" : "240520",
             "category" : "ticket",
             "title" : "메가박스 스타벅스 DIY펜세트",
             "subTitle" : "영화관람권 4매 + 영화초대권 1매 + DIY펜세트",
@@ -87,7 +87,7 @@
             "label" : "EVENT"
         },
         {
-            "id" : "201229",
+            "id" : "201222",
             "category" : "ticket",
             "title" : "일반관람권",
             "subTitle" : "일반관람권",

@@ -1,0 +1,43 @@
+// ********************************************* ( json-server )
+1. json 서버 설치(터미널)
+npm install json-server
+(로컬 설치) npm install json-server --save-dev
+
+2. db.json 생성
+
+3. 서버 실행
+npx json-server --watch data/db.json --port [원하는 포트번호]
+--- 대체로 json-server는 5000에서 실행
+
+
+
+
+
+// ******************************************** ( 스토어 페이지 - 탭메뉴 )
+// 스토어 데이터가 많지 않고 첫번째 탭은 실제로 스토어 전체보기와 같은것으로 보인다. 
+   - 그래서 서버에서 모든 데이터를 한 번에 가져오고
+// 스토어 각 상품의 남은 수량을 실시간 업데이트해야 하므로
+   - SSE를 통해 서버에서 데이터 변경 사항을 실시간으로 UI애 반영해볼 예정
+
+1. json-server 설정 ----------------
+1-1. server 폴더 및 파일 생성 
+server > db.json (json-server)
+
+1-2. package.json 파일에 json-server를 실행하기 위한 스크립트 추가
+"Scripts": {
+   "start:server":"json-server --watch server/db.json --port 5000"
+}
+
+1-3. 서버 실행
+npm run start:server
+
+2. 서버측 SSE 설정 ----------
+2-1. Express 설치  : npm install Express
+2-2. SSE 서버 코드 작성 : sse-server.js
+2-3. (터미널) 서버실행 node server/sse-server.js
+
+1. 탭컨텐츠 컴포넌트 구성
+   - <AllStoreCont /> : 새로운 상품(전체보기)
+   - <CommonStoreCont /> : 메가티켓, 팝콘/음료/굿즈, 포인트몰
+
+
