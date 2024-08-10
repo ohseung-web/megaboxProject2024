@@ -1,11 +1,13 @@
 import "./TabMenu.style.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const TabMenu = ({tabs}) => {
+const TabMenu = ({onTabChange, tabs}) => {
     const [activeTab, setActiveTab] = useState(tabs[0].eventKey)
-    const clickTab = (eventKey)=>{
-        setActiveTab(eventKey)
-    }
+
+    useEffect(()=>{
+        // 부모컴포넌트에 선택한 탭의 Overview(탭컨텐츠)를 전달하기 위한 탭상태 
+        onTabChange(activeTab)
+    }, [activeTab, onTabChange])
 
     return (
     <div className="tab-area">
@@ -14,9 +16,9 @@ const TabMenu = ({tabs}) => {
                 tabs.map((tab, i)=>(
                     <li key={i} 
                         className={`tab-list ${tab.eventKey==activeTab?'active':''}`}
-                        onClick={()=>clickTab(tab.eventKey)}
+                        onClick={()=>setActiveTab(tab.eventKey)}
                     >
-                        {tab.title}
+                        { tab.title }
                     </li>
                 ))
             }

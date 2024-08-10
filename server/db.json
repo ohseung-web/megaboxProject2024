@@ -12,7 +12,7 @@
             "purchaseValidMonths" : null, 
             "validFrom" : "2024.07.22",
             "validTo" : "2024.11.30",
-            "quantity" : 30, 
+            "quantity" : 50, 
             "purchaseLimit" : 4, 
             "price" : 500000,
             "salePrice" : 350000, 

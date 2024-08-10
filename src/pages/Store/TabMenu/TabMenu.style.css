@@ -1,6 +1,12 @@
+.tab-menu {
+    display : flex;
+    border-bottom : 1px solid #503396
+}
+
 .tab-list {
-    font-size:1.1rem;
-    cursor : pointer
+    width : 25%;
+    cursor : pointer;
+    text-align : center;
 }
 
 .tab-list.active {
