@@ -5,10 +5,10 @@ const TabCont = ({products, imgUrlBase}) => {
     
     return (
     <div>
-        <ul>
+        <ul className="tabcont-area">
         {
             products.map(product => (
-                <li key={product.id}>
+                <li className="tabcont-list" key={product.id}>
                     <Card item={product} imgUrlBase={imgUrlBase} />
                 </li>
             ))

@@ -7,5 +7,8 @@
 }
 
 .main-tit {
-    margin-bottom : 20px;
+    font-size : 1.6rem;
+    padding : 35px 0 25px;
+    font-weight : bold;
+    color : #222;
 }

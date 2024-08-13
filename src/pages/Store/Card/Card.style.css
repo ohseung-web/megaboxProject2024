@@ -1,0 +1,61 @@
+.card-box {
+    position : relative;
+}
+
+.card-box .label {
+    position : absolute;
+    left : -1px; top : -1px;
+    padding : 3px 10px;
+    font-size : 0.85rem;
+    color : #fff;
+    background-color : #ed4c57;
+}
+
+.card-box .label.event {
+    background-color : #ed4c57;
+}
+
+.card-box .item-link {
+    display : block;
+    height : 435px;
+    overflow : hidden;
+    border : 1px solid #e4e4e4;
+    border-radius : 10px;
+}
+
+.card-box .item-link:hover {
+    border-color :#503396
+}
+
+.img-area {
+    background-color : #eee;
+}
+
+.img-area img {
+    width : 100%;
+}
+
+.txt-area {
+    padding : 20px 20px 10px;
+}
+
+.txt-area .tit {
+    height : 38px;
+    margin-bottom : 8px;
+    font-size : 0.9rem;
+    font-weight : bold;
+    line-height : 1.3;
+}
+
+.txt-area .sub-tit {
+    height : 34px;
+    border-bottom : 1px solid #e4e4e4;
+    font-size : 0.85rem;
+    line-height : 1.25;
+    color : #666;
+    overflow : hidden;
+    text-overflow : ellipsis;
+    display : -webkit-box;
+    -webkit-line-clamp : 2;
+    -webkit-box-orient : vertical;
+}

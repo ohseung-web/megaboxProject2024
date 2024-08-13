@@ -1,15 +1,32 @@
 .tab-menu {
-    display : flex;
-    border-bottom : 1px solid #503396
+    position : relative;
+    overflow : hidden;
 }
 
 .tab-list {
+    float : left;
     width : 25%;
+    height : 42px;
+    border : 1px solid #ebebeb;
+    border-bottom-color : #503396;
+    border-width : 1px 0 1px 1px;
+    line-height : 42px;
     cursor : pointer;
     text-align : center;
 }
 
+.tab-list:last-child {
+    border-right : 1px solid #ebebeb;
+}
+
 .tab-list.active {
-    color : #d037c6
+    border : 1px solid #503396;
+    border-bottom : 0 none;
+    font-weight : bold;
+    color : #503396
+}
+
+.tab-list.active+li {
+    border-left : 0 none;
 }
 
