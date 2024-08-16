@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+.bookingContainer {
+  width: 100%;
+  height: 736px;
+  margin-top: 30px;
+  /* border: 1px solid red; */
+}
+.bookingContainer .bookingWrap,
+h3 {
+  width: 1400px;
+  /* display: flex;
+  justify-content: space-between;
+  gap: 20px; */
+  margin: 0 auto;
+}
+.bookingContainer h3 {
+  padding: 20px 0;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -1px;
+}
+button {
+  cursor: pointer;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+  font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+}
+.bookingContainer .date-area {
+  width: 1400px;
+  height: 40px;
+  margin: 0 auto;
+  border-top: 1px solid #555;
+  border-left: 1px solid #d8d9db;
+  border-right: 1px solid #d8d9db;
+  border-bottom: 1px solid #d8d9db;
+}
+.bookingContainer .date-area button {
+  width: 70px;
+  /* height: 72px; */
+  border: 0;
+  background-color: transparent;
+  float: left;
+  /* border-bottom: 3px solid transparent; */
+  font-weight: 400;
+  height: 39px;
+  /* border: 1px solid red; */
+}
+.bookingContainer .date-area button span {
+  font-size: 20px;
+}
+.bookingContainer .date-area button em {
+  font-size: 16px;
+  pointer-events: none;
+  font-style: normal;
+}
+/* .bookingContainer .date-area #sat {
+  color: #3b5fcb;
+}
+.bookingContainer .date-area #holi {
+  color: #e81002;
+} */
+.bookingContainer .date-area button.active {
+  background-color: #f7f8f9;
+  border-bottom: 2px solid #503396;
+}
+.bookingContainer .bookingWrap .movie-choice {
+  width: 270px;
+  height: 528px;
+  padding: 0 20px 17px;
+  border-left: 1px solid #d8d9db;
+  border-right: 1px solid #d8d9db;
+  border-bottom: 1px solid #d8d9db;
+}
+.bookingContainer .bookingWrap .movie-choice .movie {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  color: #222;
+  font-size: 1.2em;
+  line-height: 38px;
+}
+.bookingContainer .bookingWrap .movie-choice .btnALL{
+  display: flex;
+}
+.bookingContainer .bookingWrap .movie-choice .btnAllchoice , .btnCuration{
+  width: 115px;
+  height: 30px;
+  left: 0;
+  top: 0;
+  height: 30px;
+  font-size: 0.9333em;
+  color: #222;
+  border: 0;
+  background-color: transparent;
+}
+.bookingContainer .bookingWrap .movie-choice .btnAllchoice{
+  border-top: 1px solid #666;
+  border-left: 1px solid #666;
+  border-right: 1px solid #666;
+}
+.bookingContainer .bookingWrap .movie-choice .btnCuration{
+  border-bottom: 1px solid #666;
+}
+
+.bookingContainer .bookingWrap .movie-choice .list-area {
+  padding: 20px 0 0;
+}
+.bookingContainer .bookingWrap .movie-choice .bookinglist {
+  display: flex;
+  justify-content: left;
+  gap: 5px;
+  letter-spacing: -1px;
+  width: 200px;
+  height: 20px;
+  margin: 15px 0;
+}
+.bookingContainer .bookingWrap .movie-choice .bookinglist .age-all {
+  width: 20px;
+  border-radius: 2px;
+  background-color: rgb(34, 156, 86);
+  color: #f7f8f9;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+.bookingContainer .bookingWrap .movie-choice .bookinglist .movie-tit {
+  display: inline-block;
+  line-height: 20px;
+  font-size: 15px;
+}
