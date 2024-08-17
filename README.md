@@ -1,4 +1,4 @@
-## megabox 2024
+## megabox 2024 -by yuna :kissing_heart:
 ### gitHub & google Drive url
 * https://github.com/ohseung-web/megaboxProject2024.git
 * https://drive.google.com/drive/folders/1uEduYI6iV4O97hh_ENqxVRg9NQlzd9ZF?usp=sharing
