@@ -7,7 +7,7 @@
 * yuna - 메인, 메인-영화 page
 ### 메가박스 메인 페이지 구성 정리
 1. 박스 오피스
-* 인기 영화 나열 1행 4열 
+* 인기 영화 나열 1행 4열(24/08/17 -> )
 * 마우스 오버 시 스토리 포스터 위 출력
 * 마우스 오버 시 관람점수 출력(위치 동일)
 * 인기 영화 포스터 하단 관심개수+예매 버튼제공
@@ -55,3 +55,11 @@
 1행 2열 영화 관련 배너 구성
 ### MEMO
 * `src/api.js` api key 정보 및 axios.create 정보. export로 키 정보 불러오기 용도(api 사용 시 해당 api.js import 필요)
+## 문제사항 및 해결 방법 기록 
+1. 24/08/17  usePopularMovies.js, Homepage.jsx 
+* useP에서 가져온 api 정보를 Homepage에 useState로 출력하는데 오류 발생
+* api 키를 제대로 인식못해서 그런가? env 재확인 (정상)
+* axios.create에서 params key 추가 -> 잠깐 해결된 듯 하다가 다시 같은 문제 발생함
+* homepage.jsx에서 useEffect console 중 movies는 출력되는데 useState에 담았다가 출력하면 빈 문자열로 나옴. 그러다가 또 어느순간은 console에 데이터가 출력됨.(리턴 화면엔 안나옴)
+* 나오다가 안나오는거면.... useEffect 문제인가? (해결못함)
+* boxOffices.map의 li태그가 나오지 않음. 위 문제의 연장선. useEffect의 console이 모두 배열로 출력이 되도 마찬가지로 return은 왜 나오지 않는가... ? 해결못함..

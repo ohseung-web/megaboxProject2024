@@ -9,7 +9,10 @@ const api = axios.create({
     headers : {
         'Accept' : "application/json",
         'Authorization' : `Bearer ${API_KEY}`
-    }
+    },
+    params:{
+        api_key:`${API_KEY}`,
+    },
 })
 
 export default api;
