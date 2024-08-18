@@ -1,7 +1,8 @@
 import React from 'react';
 import './Bookingpage.style.css';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , Link} from 'react-router-dom';
+
 
 function Bookinglist() {
   // TMDB에서 가져온 영화정보를 담는 변수지정
@@ -36,10 +37,11 @@ function Bookinglist() {
   let { Paramdate } = useParams();
 
   // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
-  const inputDate = Paramdate;
-  const newDate = new Date(inputDate);
+ // const inputDate = Paramdate;
+  const newDate = new Date(Paramdate);
   const day = newDate.getDate();
   console.log(Paramdate);
+
   return (
     <>
           <div className="movie-choice">
@@ -54,14 +56,18 @@ function Bookinglist() {
             </div>
             <div className="list-area">
               {movies
-                .filter((movies) => new Date(movies.release_date).getDate() === day)
+                .filter((movies) => new Date(movies.release_date).getDate() === day ? 
+                new Date(movies.release_date).getDate() === day : new Date(movies.release_date).getDate() === 5)
+                // .filter((movies) => new Date(movies.release_date).getDate() === day)
                 .map((movie, i) => {
                   return (
-                    <div key={i} className="bookinglist">
-                      <span className='age-all'>ALL</span>
-                      <p className='movie-tit'>{movie.title}</p>
-                      {/* <p>{date.getDate( movie.release_date )}</p> */}
-                    </div>
+                   <Link to={`/Reservation`} key={movie.id}>
+                      <div key={movie.id} className="bookinglist">
+                        <span className='age-all'>ALL</span>
+                        <p className='movie-tit'>{movie.title}</p>
+                        {/* <p>{date.getDate( movie.release_date )}</p> */}
+                      </div>
+                    </Link>  
                   );
                 })}
             </div>

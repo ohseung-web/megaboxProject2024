@@ -7,7 +7,7 @@ import Movies from './pages/Movies/Moviespage';
 import Booking from './pages/Booking/Bookingpage';
 import Store from './pages/Store/Storepage';
 import Bookinglist from './pages/Booking/Bookinglist';
-
+import Reservation from './pages/Reservation/Reservation';
 // npm 설치
 // *** npm react-dom react-router dom
 // *** npm i axios
@@ -24,6 +24,7 @@ function App() {
         <Route path="/booking" element={<Booking />}>
             <Route path="Bookinglist/:Paramdate" element={<Bookinglist />} />
         </Route>
+        <Route path='/Reservation' element={<Reservation />} />
         <Route path="/theater" element={<div>극장</div>} />
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<div>이벤트 페이지</div>} />
