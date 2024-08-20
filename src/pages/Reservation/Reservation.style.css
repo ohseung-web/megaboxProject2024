@@ -306,10 +306,13 @@ table {
 .reserve_right .movieDetail .detail_left ul li {
   width: 90px;
   height: 20px;
-  line-height: 20px;
+  /* line-height: 20px; */
   margin: 10px;
+  display: flex;
+  align-items: center;
 }
 .reserve_right .movieDetail .detail_left ul img {
+  vertical-align: middle;
   width: 15px;
   height: 15px;
 }
@@ -317,9 +320,9 @@ table {
   display: inline-block;
   color: lightgrey;
   font-size: 13px;
-  width: 60px;
-  height: 17px;
   padding-left: 3px;
+  vertical-align: middle;
+  line-height: 15px;
 }
 .reserve_right .movieDetail .detail_right .seatchoice {
   display: flex;

@@ -12,7 +12,7 @@ let movie = createSlice({
 
 let url = createSlice({
   name : 'url',
-  initialState : 'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-8-5&primary_release_date.lte=2024-8-11&sort_by=popularity.desc'
+  initialState : 'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-8-19&primary_release_date.lte=2024-8-25&sort_by=popularity.desc'
 })
 
 let options = createSlice({
@@ -29,13 +29,13 @@ let options = createSlice({
 let dayCate = createSlice({
   name : 'dayCate',
   initialState : [
-    { id: 0, date: '2024-08-05' },
-    { id: 1, date: '2024-08-06' },
-    { id: 2, date: '2024-08-07' },
-    { id: 3, date: '2024-08-08' },
-    { id: 4, date: '2024-08-09' },
-    { id: 5, date: '2024-08-10' },
-    { id: 6, date: '2024-08-11' },
+    { id: 0, date: '2024-08-19' },
+    { id: 1, date: '2024-08-20' },
+    { id: 2, date: '2024-08-21' },
+    { id: 3, date: '2024-08-22' },
+    { id: 4, date: '2024-08-23' },
+    { id: 5, date: '2024-08-24' },
+    { id: 6, date: '2024-08-25' },
   ]
 })
 

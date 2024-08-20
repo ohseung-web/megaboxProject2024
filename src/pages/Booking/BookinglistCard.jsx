@@ -49,9 +49,9 @@ function BookinglistCard() {
             </div>
             <div className="list-area">
               {movies
-                .filter((movies) => new Date(movies.release_date).getDate() === startDay ?  
-                new Date(movies.release_date).getDate() === startDay: new Date(movies.release_date).getDate() === day)
-                // .filter((movies) => new Date(movies.release_date).getDate() === day )
+                // .filter((movies) => new Date(movies.release_date).getDate() === startDay ?  
+                // new Date(movies.release_date).getDate() === startDay: new Date(movies.release_date).getDate() === day)
+                 .filter((movies) => new Date(movies.release_date).getDate() === day )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
