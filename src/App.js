@@ -6,7 +6,7 @@ import Home from './pages/Home/Homepage';
 import Movies from './pages/Movies/Moviespage';
 import Booking from './pages/Booking/Bookingpage';
 import Store from './pages/Store/Storepage';
-import Bookinglist from './pages/Booking/Bookinglist';
+import BookinglistCard from './pages/Booking/BookinglistCard';
 import Reservation from './pages/Reservation/Reservation';
 // npm 설치
 // *** npm react-dom react-router dom
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/movies" element={<Movies />} />
         <Route path="/booking" element={<Booking />}>
-            <Route path="Bookinglist/:Paramdate" element={<Bookinglist />} />
+            <Route path="BookinglistCard/:Paramdate" element={<BookinglistCard />} />
         </Route>
         <Route path='/Reservation' element={<Reservation />} />
         <Route path="/theater" element={<div>극장</div>} />
