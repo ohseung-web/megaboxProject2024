@@ -1,5 +1,5 @@
 import './Bookingpage.style.css';
-//import './../common/Common.css';
+import './../../common/Common.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';

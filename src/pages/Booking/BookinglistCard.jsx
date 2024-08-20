@@ -1,5 +1,6 @@
 import React from 'react';
 import './Bookingpage.style.css';
+import './../../common/Common.css';
 import { useState, useEffect } from 'react';
 import { useParams , Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -27,10 +28,13 @@ function BookinglistCard() {
 
   // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
  // const inputDate = Paramdate;
-  let { Paramdate } = useParams();
+  let { Paramdate } = useParams(); 
   const newDate = new Date(Paramdate);
   const day = newDate.getDate();
+ 
+  // redux를 사용하기 위해 작성한 store.js에서 받아온 자료
   let startDay = new Date(dayCate[0].date).getDate();
+ 
   return (
     <>
           <div className="movie-choice">
@@ -45,9 +49,9 @@ function BookinglistCard() {
             </div>
             <div className="list-area">
               {movies
-                .filter((movies) => new Date(movies.release_date).getDate() === day ? 
-                new Date(movies.release_date).getDate() === day : new Date(movies.release_date).getDate() === startDay)
-                // .filter((movies) => new Date(movies.release_date).getDate() === day)
+                .filter((movies) => new Date(movies.release_date).getDate() === startDay ?  
+                new Date(movies.release_date).getDate() === startDay: new Date(movies.release_date).getDate() === day)
+                // .filter((movies) => new Date(movies.release_date).getDate() === day )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
