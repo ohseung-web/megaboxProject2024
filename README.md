@@ -56,10 +56,10 @@
 ### MEMO
 * `src/api.js` api key 정보 및 axios.create 정보. export로 키 정보 불러오기 용도(api 사용 시 해당 api.js import 필요)
 ## 문제사항 및 해결 방법 기록 
-1. 24/08/17  usePopularMovies.js, Homepage.jsx 
-* useP에서 가져온 api 정보를 Homepage에 useState로 출력하는데 오류 발생
+1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
+* `usePopularMovies`에서 가져온 api 정보를 `Homepage`에 `useState`로 출력하는데 오류 발생
 * api 키를 제대로 인식못해서 그런가? env 재확인 (정상)
-* axios.create에서 params key 추가 -> 잠깐 해결된 듯 하다가 다시 같은 문제 발생함
-* homepage.jsx에서 useEffect console 중 movies는 출력되는데 useState에 담았다가 출력하면 빈 문자열로 나옴. 그러다가 또 어느순간은 console에 데이터가 출력됨.(리턴 화면엔 안나옴)
-* 나오다가 안나오는거면.... useEffect 문제인가? (해결못함)
-* boxOffices.map의 li태그가 나오지 않음. 위 문제의 연장선. useEffect의 console이 모두 배열로 출력이 되도 마찬가지로 return은 왜 나오지 않는가... ? 해결못함..
+* homepage.jsx에서 useEffect console 중 movies는 출력되는데 useState에 담았다가 출력하면 빈 문자열로 나오고 li태그 미출력
+* console 출력, li태그 미출력은 태그 위치에 작성한 map 문제가능성 => 문법 체크 => 태그를 인식하는 스크립트 괄호처리 문제
+* **해결1. map안에서 태그 바로 입력 시 -> `name.map((data)=>(<tag></tag>))` tag 소괄호 묶음 처리**
+* **해결2. map안에서 스크립트 처리와 동시에 태그입력 시 -> `name.map((data)=>{return(<tag></tag>)})` 중괄호 먼저 작성 후 return 내에서 소괄호 처리 후 태그작성**
