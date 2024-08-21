@@ -73,3 +73,8 @@
 * console 출력, li태그 미출력은 태그 위치에 작성한 map 문제가능성 => 문법 체크 => 태그를 인식하는 스크립트 괄호처리 문제
 * **해결1. map안에서 태그 바로 입력 시 -> `name.map((data)=>(<tag></tag>))` tag 소괄호 묶음 처리**
 * **해결2. map안에서 스크립트 처리와 동시에 태그입력 시 -> `name.map((data)=>{return(<tag></tag>)})` 중괄호 먼저 작성 후 return 내에서 소괄호 처리 후 태그작성**
+2. font-awesome 사용을 위한 주요 패키지 2개 설치
+* `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
+* `import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"`
+* `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';` 원하는 아이콘 import 
+* `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성

@@ -15,7 +15,7 @@ main .box-office .movie-list li .info .overview p {font-size:0.85rem; line-heigh
 main .box-office .movie-list li .info .overview h2 {position:absolute; bottom:30px; width:calc(100% - 40px); font-size:0.85rem; text-align: center; border-top:1px solid rgba(255,255,255,0.5); padding-top:10px;}
 main .box-office .movie-list li .info .overview h2 span {color:#59bec9; font-size:1.2rem; margin-left:10px;}
 main .box-office .movie-list li .vote_reservation {display:flex; justify-content: space-between; margin-top:5px;}
-main .box-office .movie-list li .vote_reservation button {border:0; background:none; line-height:36px; border-radius:5px;}
+main .box-office .movie-list li .vote_reservation * {border:0; background:none; line-height:36px; border-radius:5px; text-align: center;}
 main .box-office .movie-list li .vote_reservation .count {width:80px; color:#fff; border:1px solid rgba(255,255,255,0.5); font-size:0.81rem;}
 main .box-office .movie-list li .vote_reservation .reservation {width:160px; background:#037b94; color:#fff; font-size:0.91rem;}
 /*hover*/
