@@ -10,6 +10,9 @@ const api = axios.create({
         'Accept' : "application/json",
         'Authorization' : `Bearer ${API_KEY}`
     },
+    params:{//한국어 설정 추가
+        language:'ko-KR',
+    },
 })
 
 export default api;

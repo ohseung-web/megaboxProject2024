@@ -5,6 +5,7 @@
 * https://docs.google.com/spreadsheets/d/1yWnKDMxSYyKTw387bhLgFShgW9r9bxEkA-1xg4NJ12Y/edit?usp=sharing
 ### 담당 프로젝트 페이지
 * yuna - 메인, 메인-영화 page
+----
 ### 메가박스 메인 페이지 구성 정리
 1. 박스 오피스
 * 인기 영화 나열 1행 4열(24/08/17 -> )
@@ -53,8 +54,17 @@
 리뷰 정보 나열 
 3. 이벤트
 1행 2열 영화 관련 배너 구성
-### MEMO
+----
+## Update & MEMO
+* 메가박스 w1100px
 * `src/api.js` api key 정보 및 axios.create 정보. export로 키 정보 불러오기 용도(api 사용 시 해당 api.js import 필요)
+* tmdb properties info : `popular` 기준 : backdrop_path(미리보기썸네일), poster_path(포스터경로), title, overview(줄거리), release_date(개봉일), vote_average, vote_count, 연령대등급설정 정보 없음,
+## 240821 설정 및 이미지, 박스 오피스 설정
+* `src/api/api.js` params 설정 `language:'ko-KR'` 한국어 설정 추가
+* `src/hooks/usePopularMovies.js` 이미지 함수 추가 `getImageUrl` -> 기본 경로 `https://image.tmdb.org/t/p/w500/pathname.jpg`
+* `src/pages/Home/Homepage.jsx` `boxOffices.slice(0,4).map...` 박스 오피스 4개까지 출력
+* `src/pages/Home/Homepage.style.css` 박스 오피스까지 디자인완료(font-size 0.81~0.91rem 위주 사용), 주 사용 색상 `#59bec9, #037b94, #fff, #111`
+----
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
 * `usePopularMovies`에서 가져온 api 정보를 `Homepage`에 `useState`로 출력하는데 오류 발생
