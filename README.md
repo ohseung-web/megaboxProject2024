@@ -64,6 +64,14 @@
 * `src/hooks/usePopularMovies.js` 이미지 함수 추가 `getImageUrl` -> 기본 경로 `https://image.tmdb.org/t/p/w500/pathname.jpg`
 * `src/pages/Home/Homepage.jsx` `boxOffices.slice(0,4).map...` 박스 오피스 4개까지 출력
 * `src/pages/Home/Homepage.style.css` 박스 오피스까지 디자인완료(font-size 0.81~0.91rem 위주 사용), 주 사용 색상 `#59bec9, #037b94, #fff, #111`
+* **font-awesome 사용을 위한 주요 패키지 2개 설치**
+* https://fontawesome.com/icons 
+* `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
+* `import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"`
+* `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
+* `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
+* `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
+## 240822 
 ----
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
@@ -73,8 +81,13 @@
 * console 출력, li태그 미출력은 태그 위치에 작성한 map 문제가능성 => 문법 체크 => 태그를 인식하는 스크립트 괄호처리 문제
 * **해결1. map안에서 태그 바로 입력 시 -> `name.map((data)=>(<tag></tag>))` tag 소괄호 묶음 처리**
 * **해결2. map안에서 스크립트 처리와 동시에 태그입력 시 -> `name.map((data)=>{return(<tag></tag>)})` 중괄호 먼저 작성 후 return 내에서 소괄호 처리 후 태그작성**
-2. font-awesome 사용을 위한 주요 패키지 2개 설치
-* `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
-* `import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"`
-* `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';` 원하는 아이콘 import 
-* `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
+2. 24/08/22 **API 인증실패 -> 해결**
+* `usePopularMovies.js` line 6 : https://api.themoviedb.org/3/movie/popular?language... 401(Unathorized) GET error 
+* `Failed to load resource: the server responded with a status of 401` HTTP 401 상태코드(인증실패)
+* 전날 테스트까지 정상으로 작동하던 페이지였는데 npm start 시 오류 발생
+* TMDB 웹사이트 동작 확인(정상), 찾아보니 API 키 또는 인증 관련 설정에 문제가 있을 시 발생한다고 함.
+* TMDB 로그인 - 프로필 수정 - API 섹션에서 **`.env`에 등록된 API 키를 API 읽기 액세스 토큰으로 변경하고 해결**
+* 읽기 전용 액세스 토큰은 API 키보다 더 안전한 인증방식(OAuth기반)을 사용한다. TMDB API의 특정 endPoint에서 이 토큰을 요구하는 정책으로 인해 문제가 해결 됨.
+3. 24/08/22 **이미지 연결 실패**
+* `import { Logo } from './logo.png'` 모듈 형태의 이미지 내보내기 설정 오류 ex) `import { logo, img } from './name.js'`
+* `import Logo from './logo.png'` default export 기본 내보내기 형태로 작성해야 오류 해결!

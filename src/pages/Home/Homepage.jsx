@@ -3,7 +3,7 @@ import { usePopularMoviesQuery, getImageUrl } from "../../hooks/usePopularMovies
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"
 
 const Home = () => {
