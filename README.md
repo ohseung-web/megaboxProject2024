@@ -73,6 +73,7 @@
 * `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
 * `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
 * `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
+* ![240821](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/001.jpg)
 ## 240822 header, pages/Movies
 * `src/hooks/getImageUrl.js` 생성 후 import 개별 설정처리 (tmdb이미지 크기, 경로 연결용)
 * Movies 탭제목, 탭내용 구성 진행
