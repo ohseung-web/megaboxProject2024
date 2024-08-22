@@ -14,9 +14,4 @@ export const usePopularMoviesQuery = ()=>{
     })
 }
 
-//images
-export const getImageUrl = (path, size = 400 ) => {
-    return `https://image.tmdb.org/t/p/w${size}${path}`
-}
-
 // 리액트 커리가 제공하는 캐싱, 상태 관리, 에러처리의 기능을 부가적으로 할수 있어요.

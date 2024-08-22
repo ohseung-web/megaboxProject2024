@@ -6,18 +6,15 @@
 ### 담당 프로젝트 페이지
 * yuna - 메인, 메인-영화 page
 ----
-### 메가박스 메인 페이지 구성 정리
-1. 박스 오피스
-* 인기 영화 나열 1행 4열(24/08/17 -> )
-* 마우스 오버 시 스토리 포스터 위 출력
-* 마우스 오버 시 관람점수 출력(위치 동일)
-* 인기 영화 포스터 하단 관심개수+예매 버튼제공
-2. 빠른 예매 기능
+### 메가박스 메인 페이지 구성 `src/pages/Home/`
+1. 박스 오피스 `movie/popular`
+* 인기 영화 나열 1행 4열 + 관심&예매 + hover 기능 추가 (24/08/17 ~ 24/08/22)
+2. 빠른 예매 기능(24/08/23 ~) `src/pages/Movies/` 연결필요
 * 영화명 입력 검색
 * 상영시간표
 * 박스오피스
 * 빠른예매 링크
-3. 마우스 스크롤 링크 (생략가능)
+3. 마우스 스크롤 링크 (생략)
 4. 혜택 
 * 4개 슬라이드 구성 swiper 
 * 메가박스 오리지널 티켓1, 2, 3, VR 콘서트 안내
@@ -33,8 +30,8 @@
 * 공지사항 1행 1열 한개씩 공지-날짜-더보기 구성
 * 고객센터, 자주 묻는 질문, 1:1 문의, 단체/대관문의, 분실물 문의/접수, 더 부티크 프라이빗 대관안내 
 8. 배너 디자인(영화홍보)
-### 영화 목록 페이지 
-1. 전체영호 제목
+### 영화 목록 페이지 `src/pages/Movies/` 
+1. 전체영화 제목
 2. 탭 제목 구성(5개)
 박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티
 (박스오피스 open 기준)
@@ -59,6 +56,11 @@
 * 메가박스 w1100px
 * `src/api.js` api key 정보 및 axios.create 정보. export로 키 정보 불러오기 용도(api 사용 시 해당 api.js import 필요)
 * tmdb properties info : `popular` 기준 : backdrop_path(미리보기썸네일), poster_path(포스터경로), title, overview(줄거리), release_date(개봉일), vote_average, vote_count, 연령대등급설정 정보 없음,
+* `const {data, isLoading, isError, error} = usePopularMoviesQuery()` api연결정보 불러오기(아래 뜻)
+* `data` : api에서 반환된 인기 영화 목록 데이터
+* `isLoading` : 데이터가 아직 로딩 중인지 여부(boolean 반환)
+* `isError` : 요청에 오류가 발생했는지 여부(boolean 반환)
+* `error` : 오류가 발생한 경우 해당 오류에 대한 정보
 ## 240821 설정 및 이미지, 박스 오피스 설정
 * `src/api/api.js` params 설정 `language:'ko-KR'` 한국어 설정 추가
 * `src/hooks/usePopularMovies.js` 이미지 함수 추가 `getImageUrl` -> 기본 경로 `https://image.tmdb.org/t/p/w500/pathname.jpg`
@@ -71,8 +73,10 @@
 * `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
 * `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
 * `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
-## 240822 
-----
+## 240822 header, pages/Movies
+* `src/hooks/getImageUrl.js` 생성 후 import 개별 설정처리 (tmdb이미지 크기, 경로 연결용)
+* Movies 탭제목, 탭내용 구성 진행
+    * 
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
 * `usePopularMovies`에서 가져온 api 정보를 `Homepage`에 `useState`로 출력하는데 오류 발생

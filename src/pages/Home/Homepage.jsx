@@ -1,5 +1,6 @@
 import "./Homepage.style.css"
-import { usePopularMoviesQuery, getImageUrl } from "../../hooks/usePopularMovies"
+import { usePopularMoviesQuery } from "../../hooks/usePopularMovies"
+import { getImageUrl } from "../../hooks/getImageUrl"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

@@ -18,7 +18,7 @@ const Header = () => {
                 <div className="right">
                     <Link to="/">로그인</Link>
                     <Link to="/">회원가입</Link>
-                    <Link to="/">빠른예매</Link>
+                    <Link to="/booking">빠른예매</Link>
                 </div>
             </div>
             <div className="btm">
