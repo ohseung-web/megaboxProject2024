@@ -6,6 +6,12 @@ import Home from './pages/Home/Homepage';
 import Movies from './pages/Movies/Moviespage'
 import Booking from './pages/Booking/Bookingpage'
 import Store from './pages/Store/Storepage'
+//영화 탭 내용 import
+import BoxOffices from './pages/Movies/TabContent/BoxOffices';
+import Comingsoon from './pages/Movies/TabContent/Comingsoon';
+import SingleMovie from './pages/Movies/TabContent/SingleMovie';
+import Film from './pages/Movies/TabContent/Film';
+import ClassicFilm from './pages/Movies/TabContent/ClassicFilm';
 
 // npm 설치
 // *** npm react-dom react-router dom
@@ -19,7 +25,10 @@ function App() {
       <Header />
 
       <Routes>
-          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/" element={<Movies />}>
+            <Route path="boxoffices" element={<BoxOffices />} />
+            <Route path="comingsoon" element={<Comingsoon />} />
+          </Route>
           <Route path="/booking" element={<Booking />} />
           <Route path="/theater" element={<div>극장</div>} />
           <Route path="/" element={<Home />} />

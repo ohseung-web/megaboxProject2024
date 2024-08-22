@@ -1,5 +1,5 @@
 export default function BoxOffices(){
     return (
-        <div>AllMovies</div>
+        <div>박스오피스</div>
     )
 }

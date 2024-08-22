@@ -73,11 +73,19 @@
 * `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
 * `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
 * `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
-* ![240821](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/001.jpg)
+![240821](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/001.jpg)
 ## 240822 header, pages/Movies
 * `src/hooks/getImageUrl.js` 생성 후 import 개별 설정처리 (tmdb이미지 크기, 경로 연결용)
 * Movies 탭제목, 탭내용 구성 진행
-    * 
+    * 각 탭내용(BoxOffices ~ Classic) import 연결
+    * 컴포넌트 기본값부터 변경값 인식하는 useState 구성(기본값 1)
+    * switch 구성으로 버튼 클릭 시 전달되는 case 값에 따라 import한 components 실행
+    * tabMenu의 `button onClick={()=>setActiveTab(1)}` 1~4 useState에 전달할 번호 전달
+    * 하나의 컴포넌트의 상태에 따라 변동되어 경로가 컴포넌트 하나로 고정되는 문제 발생 `localhost:3000/Movies/`
+* Movies 탭 구조 개별 컴포넌트 주소 `localhost:3000/Movies/BoxOffices/` 방법 re
+    * router 사용방법으로 변경(movies/comingsoon 주소를 위한 다중라우터 처리)
+    * redux 설치 `npm install #reduxjs/toolkit react-redux`
+    * index.js 설정 `import store from './store';`, `<Provider store={store}></Provider>`
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
 * `usePopularMovies`에서 가져온 api 정보를 `Homepage`에 `useState`로 출력하는데 오류 발생
@@ -93,6 +101,12 @@
 * TMDB 웹사이트 동작 확인(정상), 찾아보니 API 키 또는 인증 관련 설정에 문제가 있을 시 발생한다고 함.
 * TMDB 로그인 - 프로필 수정 - API 섹션에서 **`.env`에 등록된 API 키를 API 읽기 액세스 토큰으로 변경하고 해결**
 * 읽기 전용 액세스 토큰은 API 키보다 더 안전한 인증방식(OAuth기반)을 사용한다. TMDB API의 특정 endPoint에서 이 토큰을 요구하는 정책으로 인해 문제가 해결 됨.
-3. 24/08/22 **이미지 연결 실패**
+3. 24/08/22 **이미지 연결 실패 -> 해결**
 * `import { Logo } from './logo.png'` 모듈 형태의 이미지 내보내기 설정 오류 ex) `import { logo, img } from './name.js'`
 * `import Logo from './logo.png'` default export 기본 내보내기 형태로 작성해야 오류 해결!
+4. 24/08/22 **다중라우터**
+* `src/Moviespage.jsx` 각 탭 메뉴 클릭 시 boxoffices, comingsoon 연결 `Link to` 설정
+* `src/App.js` 다중 라우터로 `<Route></Route>` 내부에 추가 `<Route>` 작성 후 boxoff.., comingsoon 연결
+    * 탭 메뉴 클릭 시 주소는 원하는 형태로 변경 됨 `movies/comingsoon`, `movies/boxoffices` 
+        * 주소는 변경되나 실시간 화면에 디자인 변화없음. 말그대로 주소값만 변경. 왜??
+        * 원인찾기 : MoviesPage와 App이 서로 다른 경로에 있는 파일이니 인식을 못하는건가 싶어서 `Redux` 공부 시작..어려워..뭔 소린지 이해가 안가네

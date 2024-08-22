@@ -1,5 +1,5 @@
 import "./Moviespage.style.css"
-import { Link } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import {usePopularMoviesQuery} from "../../hooks/usePopularMovies"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -7,14 +7,13 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 // tabContent Import
 import BoxOffices from "./TabContent/BoxOffices" //박스오피스
 import ComingSoon from "./TabContent/Comingsoon" //상영예정작
-import Single from "./TabContent/Singl" //단독
+import Single from "./TabContent/SingleMovie" //단독
 import Film from "./TabContent/Film" //필름소사이어티
-import Classic from "./TabContent/Classic" //클래식소사이어티
+import Classic from "./TabContent/ClassicFilm" //클래식소사이어티
 
 const Movies = () => {
     const {data, isLoading, isError, error} = usePopularMoviesQuery()
-    const [activeTab, setActiveTab] = useState(1); //default BoxOffices
-
+    /* const [activeTab, setActiveTab] = useState(1); //default BoxOffices
     const tabContentSwitch = () => {
         switch(activeTab){
             case 1:return <BoxOffices />
@@ -24,7 +23,7 @@ const Movies = () => {
             case 5:return <Classic />
             default:return <div>error</div>
         }
-    }
+    } */
     
 
     return (
@@ -36,12 +35,17 @@ const Movies = () => {
         </div>
         <h1>전체영화</h1>
         <ul className="tabMenu">
-            <li><button type="button" onClick={()=>setActiveTab(1)}>박스오피스</button></li>
-            <li><button type="button" onClick={()=>setActiveTab(2)}>상영예정작</button></li>
+            <li><Link to="boxoffices">1</Link></li>
+            <li><Link to="comingsoon">2</Link></li>
         </ul>
         <div className="container">
-            {tabContentSwitch()}
+            <BoxOffices />
         </div>
+        {/* routes */}
+        {/* <Routes>
+            <Route path="/movies/boxoffices" element={<BoxOffices />} />
+            <Route path="comingsoon" element={<ComingSoon />} />
+        </Routes> */}
     </main>
     )
 }
