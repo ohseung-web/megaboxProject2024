@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
 import './Reservation.style.css';
+import './../../common/Common.css';
 import choice from './images/bg-seat-condition-choice-s.png';
 import finish from './images/bg-seat-condition-finish-s.png';
 import impossible from './images/bg-seat-condition-impossible-s.png';
@@ -78,6 +79,12 @@ const ReserationInfo = () =>{
                   )
                 })}
               </div>
+            </div>
+          </div>
+          <div class="reserveStatus">
+            <div class="choicecount">
+              <span>성인</span>
+              <em>1</em>
             </div>
           </div>
           <div className="moviePrice">

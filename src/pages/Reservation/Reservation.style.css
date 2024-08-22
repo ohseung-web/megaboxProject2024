@@ -311,18 +311,15 @@ table {
   display: flex;
   align-items: center;
 }
-.reserve_right .movieDetail .detail_left ul img {
+.reserve_right .movieDetail .detail_left ul img , 
+.detail_left ul span  {
+  display: inline-block;
   vertical-align: middle;
-  width: 15px;
-  height: 15px;
 }
 .reserve_right .movieDetail .detail_left ul span {
-  display: inline-block;
   color: lightgrey;
   font-size: 13px;
-  padding-left: 3px;
-  vertical-align: middle;
-  line-height: 15px;
+  padding-left: 5px;
 }
 .reserve_right .movieDetail .detail_right .seatchoice {
   display: flex;
@@ -345,6 +342,20 @@ table {
   text-align: center;
   color: lightgray;
 }
+.reserve_right .reserveStatus{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reserve_right .reserveStatus .choicecount{
+  width: 270px;
+  height: 25px;
+  /* border: 1px solid lightgray; */
+  font-size: 13px;
+  color:rgb(196,196,196);
+  vertical-align: bottom;
+  margin-top: 10px;
+}
 /* 310 35 */
 .reserve_right .moviePrice {
   display: flex;
@@ -352,7 +363,9 @@ table {
   align-items: center;
   color: white;
   font-size: 13px;
-  height: 65px;
+  height: 30px;
+  padding-top: 5px;
+  padding-bottom: 25px;
 }
 .reserve_right .moviePrice .pricetitle {
   width: 140px;

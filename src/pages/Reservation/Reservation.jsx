@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Reservation.style.css';
+import './../../common/Common.css';
 import reset from './images/ico-reset-small.png';
 import ReserationInfo from './ReserationInfo';
+import { current } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 const  Reservation = () => {
 
@@ -12,7 +15,7 @@ const alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']; //좌석 열 �
 
 // screen 좌석 테이블
 // React에서 사용하는 innerHtml => <div className="seat" dangerouslySetInnerHTML={{__html:SeatTable()}}>
-function SeatTable(){
+  function SeatTable() {
   let seatTable = "<table class='seattable' >";
   for (let i = 0; i < seatArray.length; i++) {
     seatTable += '<tr>';
@@ -27,16 +30,11 @@ function SeatTable(){
   return seatTable;
 }
 
-// 예매인원 구분 count
- const countList =[
-   {id:'audalt',listname:'성인',minus:'-',count:0,plus:'+'},
-   {id:'teenager',listname:'청소년',minus:'-',count:0,plus:'+'},
-   {id:'child',listname:'어린이',minus:'-',count:0,plus:'+'},
-   {id:'oldman',listname:'경로',minus:'-',count:0,plus:'+'},
-   {id:'disabled',listname:'우대',minus:'-',count:0,plus:'+'},
- ]
+// 예매인원 구분 countList를 redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
+ let countList = useSelector((state) => {return state.countList} )
+ const [reservCountList] = useState(countList);
 
-   return(
+  return(
    <>
       <div className="Resercontainer">
         <h3>빠른예매</h3>
@@ -52,14 +50,9 @@ function SeatTable(){
               </div>
               <div className="screen">
                 <div className="screen_header">
-                  {countList.map((cntlist,i)=>{
+                  {countList.map((e,i)=>{
                     return(
-                      <div key={cntlist.id} className="distinguishCnt">
-                        <span>{cntlist.listname}</span>
-                        <button className="minus">{cntlist.minus}</button>
-                        <label className="cnt">{cntlist.count}</label>
-                        <button className="plus">{cntlist.plus}</button>
-                    </div>
+                     <CountCard key={reservCountList[i].id} reservCountList={reservCountList[i]} i={i+1} />
                     ) 
                   })}
                 </div>
@@ -76,5 +69,49 @@ function SeatTable(){
       </div>
     </>
    )
+}
+
+// 예매인원 
+const CountCard = (props) =>{
+  const [reservationCount, setReservationCount] = useState(0);
+
+  //예매인원 plus되는 함수 
+  const reservPlusCountHandler = () =>{
+    if(reservationCount < 8){
+      setReservationCount(current => current + 1)
+       for(let i=0; i<props.reservCountList.length; i++){
+        props.reservCountList[i].count = setReservationCount;
+       }
+    }else{
+      alert("예매인원은 최대 8명까지 가능합니다.")
+    }
+  }
+  // 예매인원 minus되는 함수
+  const reservMinusCountHandler = () =>{
+    if(reservationCount == 0){
+       alert("최소 예매인원은 1명 입니다.")
+       setReservationCount(current => 0)
+       for(let i=0; i<props.reservCountList.length; i++){
+        props.reservCountList[i].count = setReservationCount;
+       }
+    }else{
+      setReservationCount(current => current - 1)
+       for(let i=0; i<props.reservCountList.length; i++){
+        props.reservCountList[i].count = setReservationCount;
+       }
+    }
+  }
+  
+  console.log(reservationCount);
+  return(
+    <>
+       <div key={props.reservCountList.id} className="distinguishCnt">
+          <span>{props.reservCountList.listname}</span>
+          <button className="minus" onClick={reservMinusCountHandler}>{props.reservCountList.minus}</button>
+          <label className="cnt">{reservationCount}</label>
+          <button className="plus" onClick={reservPlusCountHandler}>{props.reservCountList.plus}</button>
+      </div>
+    </>
+  )
 }
 export default Reservation;

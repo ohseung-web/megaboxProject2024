@@ -83,10 +83,11 @@ button {
   font-size: 1.2em;
   line-height: 38px;
 }
-.bookingContainer .bookingWrap .movie-choice .btnALL{
+.bookingContainer .bookingWrap .movie-choice .btnALL {
   display: flex;
 }
-.bookingContainer .bookingWrap .movie-choice .btnAllchoice , .btnCuration{
+.bookingContainer .bookingWrap .movie-choice .btnAllchoice,
+.btnCuration {
   width: 115px;
   height: 30px;
   left: 0;
@@ -97,12 +98,12 @@ button {
   border: 0;
   background-color: transparent;
 }
-.bookingContainer .bookingWrap .movie-choice .btnAllchoice{
+.bookingContainer .bookingWrap .movie-choice .btnAllchoice {
   border-top: 1px solid #666;
   border-left: 1px solid #666;
   border-right: 1px solid #666;
 }
-.bookingContainer .bookingWrap .movie-choice .btnCuration{
+.bookingContainer .bookingWrap .movie-choice .btnCuration {
   border-bottom: 1px solid #666;
 }
 

@@ -24,6 +24,8 @@ const Booking = () => {
       return e.target.value;
     });
   };
+  let startDay = new Date(dayCate[0].date).getDate();
+  console.log("최초데이터 : " + startDay);
 
   return (
     <>
@@ -52,7 +54,7 @@ const Booking = () => {
                   <span>{new Date(d.date).getDate()}</span>
                   <em>·{week[new Date(d.date).getDay()]}</em>
                 </button>
-              </Link>
+               </Link>
             );
           })}
         </div>
@@ -64,5 +66,6 @@ const Booking = () => {
   );
 
 };
+
 
 export default Booking;
