@@ -7,6 +7,10 @@ import all46x46 from '../all_46x46.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"
+//redux
+import { useDispatch } from "react-redux" //redux action dispatch 연결
+import { addToMovies } from "../../../Store";
+
 
 export default function BoxOffices(){
     const {data, isLoading, isError, error} = usePopularMoviesQuery()
@@ -15,10 +19,14 @@ export default function BoxOffices(){
     useEffect(()=>{
         if(data){
             SetBoxOffices(data)
-            //console.log('data ==>', data)
         }else{console.log('error')}
-        
     },[isLoading])
+
+    //redux 상태업데이트함수(Link onclick으로 새로운 값 대입)
+    const dispatchEvent = useDispatch();
+    const handleAddToMovies = (data) => {
+        dispatchEvent(addToMovies(data));
+    }
 
     return (
         <>
@@ -26,11 +34,11 @@ export default function BoxOffices(){
             <div className="box-office tab-container">
                 <ul className="movie-list">
                     {boxOffices.slice(0, 20).map((data, index)=>{
-                        //console.log('return in', getImageUrl()) //https://image.tmdb.org/t/p/w400undefined
                         return(
                             <li key={data.id}>
                                 <div className="info">
-                                    <Link to="">
+                                    {/* <Link to="/moviesdetail"> */}
+                                    <Link to={`/moviesdetail?MovieNo=${data.id}`} onClick={()=>handleAddToMovies(data)}>
                                         <div className="poster">
                                             <span>{index+1}</span>
                                             <img src={getImageUrl(data.poster_path)} alt={data.title} />
