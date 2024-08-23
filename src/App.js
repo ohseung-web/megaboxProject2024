@@ -6,7 +6,7 @@ import Home from './pages/Home/Homepage';
 import Movies from './pages/Movies/Moviespage'
 import Booking from './pages/Booking/Bookingpage'
 import Store from './pages/Store/Storepage'
-//영화 탭 내용 import
+//Moviepage/TabContent 무비 탭 클릭 시 출력되는 탭 내용 import
 import BoxOffices from './pages/Movies/TabContent/BoxOffices';
 import Comingsoon from './pages/Movies/TabContent/Comingsoon';
 import SingleMovie from './pages/Movies/TabContent/SingleMovie';
@@ -25,9 +25,13 @@ function App() {
       <Header />
 
       <Routes>
-          <Route path="/movies/" element={<Movies />}>
-            <Route path="boxoffices" element={<BoxOffices />} />
+          <Route path="/movies" element={<Movies />}>
+            {/* 상대 경로 사용 */}
+            <Route path="" element={<BoxOffices />} />
             <Route path="comingsoon" element={<Comingsoon />} />
+            <Route path="singlemovie" element={<SingleMovie />} />
+            <Route path="film" element={<Film />} />
+            <Route path="classicfilm" element={<ClassicFilm />} />
           </Route>
           <Route path="/booking" element={<Booking />} />
           <Route path="/theater" element={<div>극장</div>} />

@@ -86,6 +86,11 @@
     * router 사용방법으로 변경(movies/comingsoon 주소를 위한 다중라우터 처리)
     * redux 설치 `npm install #reduxjs/toolkit react-redux`
     * index.js 설정 `import store from './store';`, `<Provider store={store}></Provider>`
+## 240823 src/pages/Movies/TabContent 
+* 영화 > 전체영화 (박스오피스~클래식 소사이어티) css + router 설정 완료
+* 각 탭 클릭 시 active 클래스 변경
+* 박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티 api 연결
+---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
 * `usePopularMovies`에서 가져온 api 정보를 `Homepage`에 `useState`로 출력하는데 오류 발생
@@ -104,9 +109,18 @@
 3. 24/08/22 **이미지 연결 실패 -> 해결**
 * `import { Logo } from './logo.png'` 모듈 형태의 이미지 내보내기 설정 오류 ex) `import { logo, img } from './name.js'`
 * `import Logo from './logo.png'` default export 기본 내보내기 형태로 작성해야 오류 해결!
-4. 24/08/22 **다중라우터**
+4. 24/08/23 **다중라우터 -> 해결**
 * `src/Moviespage.jsx` 각 탭 메뉴 클릭 시 boxoffices, comingsoon 연결 `Link to` 설정
 * `src/App.js` 다중 라우터로 `<Route></Route>` 내부에 추가 `<Route>` 작성 후 boxoff.., comingsoon 연결
-    * 탭 메뉴 클릭 시 주소는 원하는 형태로 변경 됨 `movies/comingsoon`, `movies/boxoffices` 
-        * 주소는 변경되나 실시간 화면에 디자인 변화없음. 말그대로 주소값만 변경. 왜??
-        * 원인찾기 : MoviesPage와 App이 서로 다른 경로에 있는 파일이니 인식을 못하는건가 싶어서 `Redux` 공부 시작..어려워..뭔 소린지 이해가 안가네
+* 탭 메뉴 클릭 시 주소는 원하는 형태로 변경 됨 `movies/comingsoon`, `movies/boxoffices` 
+    * 주소는 변경되나 실시간 화면에 디자인 변화없음. 말그대로 주소값만 변경. 왜??
+    * 원인찾기 : MoviesPage와 App이 서로 다른 경로에 있는 파일이니 인식을 못하는건가 싶어서 `Redux` 공부 시작 => redux는 현재 상태와 관련없음
+* **경로 개념 해결**
+    * 다중 라우터 사용 시 하위 라우트의 경로가 `/boxoffices` 등 절대경로로 설정되면 `/movies/boxoffices`가 아닌 `/boxoffices`로 라우팅을 시도하게 된다. 이로 인해 부모 경로와 연결되지 않아 404페이지 호출
+    * `Link to` 부터 절대경로로 연결되지 않도록 작성한다. `<Link to="boxoffices">박스오피스</Link>`
+    * `App.js`에서 다중라우터의 부모 쪽은 절대경로를 표시하고 `<Route path="/movies" element={<Movies />}>`
+        * 다중라우터의 하위 자식은 상대경로로 처리한다. `<Route path="boxoffices" element={<BoxOffices />} />`
+    * 부모 경로에서 하위 라우트가 렌더링 위치를 지정하는 **Outlet**을 import 한다.(Link to가 존재하는 자식 컴포넌트에 작성)
+        * `import { Link, Outlet } from "react-router-dom"`
+        * 출력 위치에 렌더링 위치를 설정한다. `<Outlet />`
+        * 맨 처음 출력 되는 기본 경로는 to와 path를 비우고 작성! `<Link to="">`, `<Route path="" element={<BoxOffices />} />`

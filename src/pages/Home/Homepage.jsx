@@ -34,14 +34,16 @@ const Home = () => {
                     return(
                         <li key={data.id}>
                             <div className="info">
-                                <div className="poster">
-                                    <span>{index+1}</span>
-                                    <img src={getImageUrl(data.poster_path)} alt={data.title} />
-                                </div>
-                                <div className="overview">
-                                    <p>{data.overview}</p>
-                                    <h2 className="vote">전체 관람 인원<span>{data.vote_average}</span></h2>
-                                </div>
+                                <Link to="">
+                                    <div className="poster">
+                                        <span>{index+1}</span>
+                                        <img src={getImageUrl(data.poster_path)} alt={data.title} />
+                                    </div>
+                                    <div className="overview">
+                                        <p>{data.overview}</p>
+                                        <h2 className="vote">전체 관람 인원<span>{data.vote_average}</span></h2>
+                                    </div>
+                                </Link>
                             </div>
                             <div className="vote_reservation">
                                 <button type="button" className="count"><FontAwesomeIcon icon={faHeartBlank} /> {data.vote_count}</button>
