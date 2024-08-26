@@ -20,7 +20,7 @@ input, button, textarea, select {
 
 /* *** base style *** */
 body {
-    font-family : -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+    font-family : 'NanumBarunGothic', -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
     min-height : 100vh;
     line-height : 1.5;
     color : #313131 /* 임시 */  

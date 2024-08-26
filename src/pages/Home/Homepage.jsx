@@ -6,6 +6,9 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"
+//redux
+import { useDispatch } from "react-redux" //redux action dispatch 연결
+import { addToMovies } from "../../Store"
 
 const Home = () => {
     const {data, isLoading, isError, error} = usePopularMoviesQuery()
@@ -19,6 +22,12 @@ const Home = () => {
         
     },[isLoading])
     //if(isLoading) return '<p>is Loadings...</p>';
+
+    //redux 상태업데이트함수(Link onclick으로 새로운 값 대입)
+    const dispatchEvent = useDispatch();
+    const handleAddToMovies = (data) => {
+        dispatchEvent(addToMovies(data));
+    }
     
     return (
     <main>
@@ -34,7 +43,7 @@ const Home = () => {
                     return(
                         <li key={data.id}>
                             <div className="info">
-                                <Link to="">
+                                <Link to={`/moviesdetail?MovieNo=${data.id}`} onClick={()=>handleAddToMovies(data)}>
                                     <div className="poster">
                                         <span>{index+1}</span>
                                         <img src={getImageUrl(data.poster_path)} alt={data.title} />

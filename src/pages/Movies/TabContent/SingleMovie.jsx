@@ -7,6 +7,9 @@ import all46x46 from '../all_46x46.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"
+//redux
+import { useDispatch } from "react-redux"
+import { addToMovies } from "../../../Store"
 
 export default function SingleMovie(){
     const {data, isLoading, isError, error} = useSingleMoviesQuery()
@@ -17,6 +20,11 @@ export default function SingleMovie(){
         }
     },[isLoading])
 
+    const dispatchEvent = useDispatch();
+    const handleAddToMovies = (data)=>{
+        dispatchEvent(addToMovies(data));
+    }
+
     return (
         <>
             <div className="box-office tab-container">
@@ -25,7 +33,7 @@ export default function SingleMovie(){
                         <li key={data.id}>
                             <div className="info">
                                 {/* <Link to="/moviesdetail"> */}
-                                <Link to={`/moviesdetail?MovieNo=${data.id}`}>
+                                <Link to={`/moviesdetail?MovieNo=${data.id}`} onClick={()=>handleAddToMovies(data)}>
                                     <div className="poster">
                                         <span>{index+1}</span>
                                         <img src={getImageUrl(data.poster_path)} alt={data.title} />

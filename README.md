@@ -6,19 +6,19 @@
 ### 담당 프로젝트 페이지 **yuna - 메인, 메인-영화 page**
 ----
 ### 메가박스 메인 페이지 구성 `src/pages/Home/`
-1. 박스 오피스 `movie/popular` : 인기 영화 나열 1행 4열 + 관심&예매 + hover 기능 추가 (24/08/17 ~ 24/08/22)
-2. 빠른 예매 기능(24/08/23 ~) `src/pages/Movies/` 연결필요
+1. 24/08/22 : 박스 오피스 `movie/popular` : 인기 영화 나열 1행 4열 + 관심&예매 + hover 기능 추가 (24/08/17 시작)
+2. 빠른 예매 기능 `src/pages/Movies/` 연결필요
 3. 혜택 : 4개 슬라이드 구성 swiper/메가박스 오리지널 티켓1, 2, 3, VR 콘서트 안내/하단 아이콘 1행 5열 구성 /vip lounge, 멤버십, 할인카드안내, 이벤트, 스토어
 4. 큐레이션 : 영화 소개 왼쪽 메인 요소 1개/우측 아래 1행 4열 구성으로 영화 소개 /상세정보, 예매 버튼, 스토리 구성
 5. 메가박스 안내 :돌비시네마, 메가4d, 프라이빗, 부티크, 돌비atmos, 컴포트관
 6. 공지사항 및 고객센터 안내 : 공지사항 1행 1열 한개씩 공지-날짜-더보기 구성/고객센터, 자주 묻는 질문, 1:1 문의, 단체/대관문의, 분실물 문의/접수, 더 부티크 프라이빗 대관안내 
 ### 영화 목록 페이지 `src/pages/Movies/` 
-1. 전체영화 제목
-2. 탭 제목 구성(5개)/박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티(박스오피스 open 기준)
-2. 필터 개봉작 on/off /154개의 영화가 검색되었습니다./영화명 검색 + 검색 버튼
-3 영화 목록 /영화 한개당 포스터, 연령, 제목, 예매율, 개봉일, 좋아요, 예매 버튼 구성(돌비 시네마는 필요한 경우만 배치)/5행 4열 기본 구성(더보기 기능 추가)
+1. 24/08/22 : 전체영화 제목
+2. 24/08/23 : 탭 제목 구성(5개)/박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티(박스오피스 open 기준)
+3. 필터 개봉작 on/off /154개의 영화가 검색되었습니다./영화명 검색 + 검색 버튼
+4. 24/08/23 : 영화 목록 /영화 한개당 포스터, 연령, 제목, 예매율, 개봉일, 좋아요, 예매 버튼 구성(돌비 시네마는 필요한 경우만 배치)/5행 4열 기본 구성(더보기 기능 추가)
 ### 영화 상세 페이지
-1. 한글제목, 영어제목, 좋아요, 공유하기, 관 정보, 포스터, 예매버튼, 실 관람 평점, 예매율, 누적관객수 
+1. 24/08/26 : 한글제목, 영어제목, 좋아요, 공유하기, 관 정보, 포스터, 예매버튼, 실 관람 평점, 예매율, 누적관객수 
 2. 탭 제목 구성 1행 4열/주요정보, 실관람평, 무비포스트, 예고편/스틸컷/관람포인트, 실관람평점, 누적관객수/리뷰 정보 나열 
 3. 이벤트/1행 2열 영화 관련 배너 구성
 ----
@@ -66,9 +66,12 @@
 ## 240826 src/pages/Movies/MoviesDetails, Common/Footer
 * 영화 목록에서 특정 영화 클릭 시 정보 넘어가는 redux 구현
 * 상단 미리보기 라인까지 css 완료
-* ![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/003.jpg)
+![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/003.jpg)
 * Footer HTML&CSS 완료
-* ![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/004.jpg)
+![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/004.jpg)
+* `public/index.html` : 나눔바른고딕 웹 폰트 연결(실제 메가박스 동일글꼴), 파비콘(public/favicon.ico), title(MEGABOX PLAY SHARE, 메가박스) 수정
+* Homepage(박스오피스 영역 Link연결) : redux, moviesdetail 로 이동 연결 완료 **useDispatch, addToMovies 연결필수**
+* 영화-상영예정작/단독영화 클릭 시 MoviesDetail 이동 연결 완료
 ---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
