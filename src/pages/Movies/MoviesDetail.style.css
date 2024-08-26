@@ -1,1 +1,20 @@
-.movie-details-wrap {background:#ff0;}
+.movieDetailsWrap {}
+.movieDetailsWrap .thumnailBox {position:relative; background-color:#111; height:520px; background-repeat: no-repeat; background-position: center; background-size:contain;}
+.movieDetailsWrap .thumnailBox::before {content:''; display:block; position:absolute; left:0; top:0; height:100%; width:50%; background:linear-gradient(90deg, #111 70%, rgba(0,0,0,0.5))}
+.movieDetailsWrap .thumnailBox::after {content:''; display:block; position:absolute; right:0; top:0; height:100%; width:50%; background:linear-gradient(-90deg, #111 70%, rgba(0,0,0,0.5))}
+.movieDetailsWrap .thumnailBox .thumnail {z-index:900; width:1100px; margin:0 auto; position:relative; display:flex; justify-content: space-between; padding-top:50px;}
+.movieDetailsWrap .thumnailBox .thumnail .info {}
+.movieDetailsWrap .thumnailBox .thumnail .info .date {background:#432e75; color:#fff; display:inline-block; padding:3px 5px; font-size:0.91rem;}
+.movieDetailsWrap .thumnailBox .thumnail .info h1 {font-size:2.3rem; color:#fff; padding:20px 0 50px;}
+.movieDetailsWrap .thumnailBox .thumnail .info .link {}
+.movieDetailsWrap .thumnailBox .thumnail .info .link a {color:#fff; display:inline-block; border:1px solid #888; padding:5px 15px; border-radius:7px; margin-right:7px;}
+.movieDetailsWrap .thumnailBox .thumnail .info .link a:hover {background:#fff; color:#432e75; border-color:#329eb1;}
+.movieDetailsWrap .thumnailBox .thumnail .info .details {position:absolute; left:0; bottom:20px; display:flex; flex-flow:column wrap; height:80px;}
+.movieDetailsWrap .thumnailBox .thumnail .info .details dt {line-height:30px; width:100px; color:#bbb; font-size:0.91rem;}
+.movieDetailsWrap .thumnailBox .thumnail .info .details dd {color:#fff; font-size:1.7rem;}
+.movieDetailsWrap .thumnailBox .thumnail .poster {display:flex; flex-flow:column nowrap;}
+.movieDetailsWrap .thumnailBox .thumnail .poster img {width:260px; border-radius:5px;}
+.movieDetailsWrap .thumnailBox .thumnail .poster a {background:#329eb1; color:#fff; border-radius:5px; margin-top:7px; text-align: center; font-size:1.2rem; font-weight:600; line-height:50px;}
+.movieDetailsWrap .container {width:1100px; margin:0 auto;}
+.movieDetailsWrap .container .originalTitle {font-size:1.7rem; font-weight:600; letter-spacing: -1px; padding-top:50px;}
+.movieDetailsWrap .container .overview {line-height:1.7; padding:20px 0 50px;}

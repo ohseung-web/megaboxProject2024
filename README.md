@@ -89,7 +89,14 @@
 ## 240823 src/pages/Movies/TabContent 
 * 영화 > 전체영화 (박스오피스~클래식 소사이어티) css + router 설정 완료
 * 각 탭 클릭 시 active 클래스 변경
+* 영화 클릭 시 주소 창에 쿼리문자열 변경 ex) `localhost:3000/movies/detail?MovieNo=533535`
+* 영화 클릭 `LInk to` 속성으로 `to={`/moviesdetail?MovieNo=${data.id}`}` 구성
+* 영화 클릭 시 redux에 의해 클릭한 data정보가 넘어가고 MoviesDetails.jsx 파일이 실행되도록 `Link onClick={()=>handleAddToMovies(data)}` 구성
 * ![240823](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/002.png)
+## 240826 src/pages/Movies/MoviesDetails
+* 영화 목록에서 특정 영화 클릭 시 정보 넘어가는 redux 구현
+* 상단 미리보기 라인까지 css 완료
+* ![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/003.jpg)
 ---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
@@ -124,10 +131,17 @@
         * `import { Link, Outlet } from "react-router-dom"`
         * 출력 위치에 렌더링 위치를 설정한다. `<Outlet />`
         * 맨 처음 출력 되는 기본 경로는 to와 path를 비우고 작성! `<Link to="">`, `<Route path="" element={<BoxOffices />} />`
-5. Redux 활용한 클릭한 영화 정보 MoviesDetail 넘기기 실패
+5. **Redux 활용한 클릭한 영화 정보 MoviesDetail 넘기기 실패**
+* 24/08/23(Friday)
 * 다양한 컴포넌트를 활용해야하므로 redux를 이용한 방법으로 결정!
 * redux setting 모아놓은 Store.js 생성하여 redux toolkit연결, 영화정보를 저장받아올 moviesSlice 생성
 * 클릭한 영화를 담을 addToMovies 변수 생성
 * `BoxOffices.jsx` 에서 `useDispatch, addToMovies` import 연결하고 클릭한 Link대상 onClick 추가하여 handleAddToMovies 클릭한 영화 data 저장
 * `MoviesDetail.jsx` redux정보를 useSelector로 받아오고 movies변수에 담은 후 `{movies.title}` 출력(배열로 구성되어 데이터 안나옴)
 * (위 이어서) `{movies.map((data,index)=>({<>{data.title}</>}))}` 클릭한 영화 정보가 나오긴 하나 다른 영화 이어서 클릭 시 배열로 인해 데이터가 쌓이는 문제가 발생함.
+* 24/08/26(Monday) **해결**
+* 영화정보가 누적되는 이유는? `Redux` 상태가 배열(`initialState:[]`) 설정이기 때문 -> 그래서 addToMovies 액션 호출 시 마다 새 항목이 추가됨.
+* 영화정보를 누적하지 않기 위해 단일 객체로 변경 `initialState:[]` => `initialState:{}`
+* `state.push(action.payload)` -> `return { ...action.payload };` 변경(클릭한 영화 하나의 정보만 유지하는 방법)
+* `state.push()`는 배열에 새로운 항목을 추가하므로 배열 개념이 아닌 객체 개념으로 사용해야 하기 때문에 `push` 제거 필요.
+* `...action.payload` 는 객체의 모든 키-값 쌍을 새로운 객체로 복사하는 의미이므로 기존의 영화 데이터를 제거하고 새로운 영화정보로 state가 갱신될 수 있음.

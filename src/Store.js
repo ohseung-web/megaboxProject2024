@@ -3,10 +3,10 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const moviesSlice = createSlice({
     name:'movieDetail',
-    initialState:[],
+    initialState:{},//클릭한 영화 정보 단일 객체 인식
     reducers:{
         addToMovies:(state, action)=>{
-            state.push(action.payload);
+            return { ...action.payload };//이전 데이터 지우고 새로운 데이터 할당(모든 키-값 복사)
         }
     }
 })
