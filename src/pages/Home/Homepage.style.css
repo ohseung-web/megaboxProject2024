@@ -1,6 +1,7 @@
-main {background:#111;}
-/* box-offices */
-main .box-office {width:1100px; margin:0 auto; padding:70px 0; }
+main {}
+main .visual_bg {background:#111; padding:50px 0 150px;}
+/* box-offices(Movies/TabContent BoxOffices 공통디자인) */
+main .box-office {width:1100px; margin:0 auto; padding:0 0 70px; }
 main .box-office .title {text-align:center; color:#fff; position:relative; padding:20px 0;}
 main .box-office .title h1 {font-size:0.91rem; border-bottom:1px solid rgba(255,255,255,0.5);display:inline-block; padding:0 0 7px;}
 main .box-office .title .movie_more {position:absolute; right:0; bottom:10px; color:#aaa; font-size:0.91rem;}
@@ -21,3 +22,25 @@ main .box-office .movie-list li .vote_reservation .reservation {width:160px; bac
 /*hover*/
 main .box-office .movie-list li .info:hover .overview {opacity:1;}
 main .box-office .title .movie_more:hover {text-decoration: underline;}
+/* ===========2. 영화 예매 및 시간표, 박스오피스, 빠른 예매 링크 */
+main .searchLink {width:1100px; margin:0 auto; display:flex; justify-content: space-around;}
+main .searchLink > * {position:relative;}
+main .searchLink > *::after {width:2px; height:20px; position:absolute; right:-50%;background:#444; display:inline-block; content:'';}
+main .searchLink > *:last-child::after {display:none;}
+main .searchLink .search {border-bottom:1px solid #888; display:inline-block;}
+main .searchLink .search * {background:none; border:0;}
+main .searchLink .search input {width:170px; color:#fff; outline:none;}
+main .searchLink .search .searchBtn {width:18px; cursor:pointer; color:#fff;}
+main .searchLink .calender {}
+main .searchLink .film {}
+main .searchLink .ticket {}
+main .searchLink a {color:#fff; display:flex; align-items: center;}
+main .searchLink a svg[class*=fa] {font-size:24px;}
+main .searchLink a span {margin-left:7px;}
+main .searchLink a:hover span {text-decoration: underline;}
+main .mouse {font-size:22px; color:#fff; text-align:center; transform:translateY(50px); animation:mouse_ani 1s ease alternate infinite;}
+@keyframes mouse_ani {
+    0% {transform:translateY(80px)}
+    100% {transform:translateY(60px)}
+}
+/*  ===========3. 혜택  */

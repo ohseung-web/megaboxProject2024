@@ -1,5 +1,5 @@
 /* 탭 내용 src/pages/TabContent/... */
-main .tab-container {}
+main .tab-container {padding-top:50px;}
 main .tab-container .movie-list {flex-flow:row wrap;}
 main .tab-container .movie-list li {width:25%;}
 main .tab-container .movie-list li .info_detail * {color:#000; text-align:left;}

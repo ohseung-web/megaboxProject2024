@@ -126,3 +126,6 @@
     * `backgroundImage:` 안 속성 처리는 템플릿 리터럴처리! `url(${})` 
     * url 경로 내부는 기존에 import 한 경로와 path를 활용하여 작성 `${getImageUrl(movies.poster_path)}` ${} 내에 자바스크립트 표현식 사용
     * `<tag style={{backgroundImage:`url(${getImagesUrl(movies.poster_path)})`}}`
+7. **240826 메인(Homepage.jsx) 큐레이션 api 출력 실패**
+* boxOffice 설정한 것과 같은 방식으로 `useSingleMoviesQuery` 연결, Single용 useState 생성, data 로딩 쿼리 변수 생성
+* useEffect로 dataSin 로딩 시 SetBoxSingle(dataSin) 저장 설정, console.log 출력 시 빈 배열로 아무것도 나오지 않음. 같은 방법으로 했는데 왜??
