@@ -3,54 +3,24 @@
 * https://github.com/ohseung-web/megaboxProject2024.git
 * https://drive.google.com/drive/folders/1uEduYI6iV4O97hh_ENqxVRg9NQlzd9ZF?usp=sharing
 * https://docs.google.com/spreadsheets/d/1yWnKDMxSYyKTw387bhLgFShgW9r9bxEkA-1xg4NJ12Y/edit?usp=sharing
-### 담당 프로젝트 페이지
-* yuna - 메인, 메인-영화 page
+### 담당 프로젝트 페이지 **yuna - 메인, 메인-영화 page**
 ----
 ### 메가박스 메인 페이지 구성 `src/pages/Home/`
-1. 박스 오피스 `movie/popular`
-* 인기 영화 나열 1행 4열 + 관심&예매 + hover 기능 추가 (24/08/17 ~ 24/08/22)
+1. 박스 오피스 `movie/popular` : 인기 영화 나열 1행 4열 + 관심&예매 + hover 기능 추가 (24/08/17 ~ 24/08/22)
 2. 빠른 예매 기능(24/08/23 ~) `src/pages/Movies/` 연결필요
-* 영화명 입력 검색
-* 상영시간표
-* 박스오피스
-* 빠른예매 링크
-3. 마우스 스크롤 링크 (생략)
-4. 혜택 
-* 4개 슬라이드 구성 swiper 
-* 메가박스 오리지널 티켓1, 2, 3, VR 콘서트 안내
-* 하단 아이콘 1행 5열 구성 
-* vip lounge, 멤버십, 할인카드안내, 이벤트, 스토어
-5. 큐레이션
-* 영화 소개 왼쪽 메인 요소 1개와 
-* 우측 아래 1행 4열 구성으로 영화 소개 
-* 상세정보, 예매 버튼, 스토리 구성
-6. 메가박스 안내
-* 돌비시네마, 메가4d, 프라이빗, 부티크, 돌비atmos, 컴포트관
-7. 공지사항 및 고객센터 안내
-* 공지사항 1행 1열 한개씩 공지-날짜-더보기 구성
-* 고객센터, 자주 묻는 질문, 1:1 문의, 단체/대관문의, 분실물 문의/접수, 더 부티크 프라이빗 대관안내 
-8. 배너 디자인(영화홍보)
+3. 혜택 : 4개 슬라이드 구성 swiper/메가박스 오리지널 티켓1, 2, 3, VR 콘서트 안내/하단 아이콘 1행 5열 구성 /vip lounge, 멤버십, 할인카드안내, 이벤트, 스토어
+4. 큐레이션 : 영화 소개 왼쪽 메인 요소 1개/우측 아래 1행 4열 구성으로 영화 소개 /상세정보, 예매 버튼, 스토리 구성
+5. 메가박스 안내 :돌비시네마, 메가4d, 프라이빗, 부티크, 돌비atmos, 컴포트관
+6. 공지사항 및 고객센터 안내 : 공지사항 1행 1열 한개씩 공지-날짜-더보기 구성/고객센터, 자주 묻는 질문, 1:1 문의, 단체/대관문의, 분실물 문의/접수, 더 부티크 프라이빗 대관안내 
 ### 영화 목록 페이지 `src/pages/Movies/` 
 1. 전체영화 제목
-2. 탭 제목 구성(5개)
-박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티
-(박스오피스 open 기준)
-2. 필터 
-개봉작 on/off 
-154개의 영화가 검색되었습니다.
-영화명 검색 + 검색 버튼
-3 영화 목록 
-영화 한개당 포스터, 연령, 제목, 예매율, 개보일, 좋아요, 예매 버튼 구성(돌비 시네마는 필요한 경우만 배치)
-5행 4열 기본 구성(더보기 기능 추가)
+2. 탭 제목 구성(5개)/박스오피스, 상영예정작, 단독, 필름소사이어티, 클래식소사이어티(박스오피스 open 기준)
+2. 필터 개봉작 on/off /154개의 영화가 검색되었습니다./영화명 검색 + 검색 버튼
+3 영화 목록 /영화 한개당 포스터, 연령, 제목, 예매율, 개봉일, 좋아요, 예매 버튼 구성(돌비 시네마는 필요한 경우만 배치)/5행 4열 기본 구성(더보기 기능 추가)
 ### 영화 상세 페이지
-100vh 높이만큼 영화 상세 미리보기
 1. 한글제목, 영어제목, 좋아요, 공유하기, 관 정보, 포스터, 예매버튼, 실 관람 평점, 예매율, 누적관객수 
-2. 탭 제목 구성 1행 4열
-주요정보, 실관람평, 무비포스트, 예고편/스틸컷
-관람포인트, 실관람평점, 누적관객수
-리뷰 정보 나열 
-3. 이벤트
-1행 2열 영화 관련 배너 구성
+2. 탭 제목 구성 1행 4열/주요정보, 실관람평, 무비포스트, 예고편/스틸컷/관람포인트, 실관람평점, 누적관객수/리뷰 정보 나열 
+3. 이벤트/1행 2열 영화 관련 배너 구성
 ----
 ## Update & MEMO
 * 메가박스 w1100px
@@ -67,12 +37,12 @@
 * `src/pages/Home/Homepage.jsx` `boxOffices.slice(0,4).map...` 박스 오피스 4개까지 출력
 * `src/pages/Home/Homepage.style.css` 박스 오피스까지 디자인완료(font-size 0.81~0.91rem 위주 사용), 주 사용 색상 `#59bec9, #037b94, #fff, #111`
 * **font-awesome 사용을 위한 주요 패키지 2개 설치**
-* https://fontawesome.com/icons 
-* `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
-* `import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"`
-* `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
-* `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
-* `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
+    * https://fontawesome.com/icons 
+    * `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
+    * `import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"`
+    * `import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';`
+    * `import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"`
+    * `<FontAwesomeIcon icon={faHeart} />` return 내의 원하는 위치에 import 변수 작성
 ![240821](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/001.jpg)
 ## 240822 header, pages/Movies
 * `src/hooks/getImageUrl.js` 생성 후 import 개별 설정처리 (tmdb이미지 크기, 경로 연결용)
@@ -133,15 +103,15 @@
         * 맨 처음 출력 되는 기본 경로는 to와 path를 비우고 작성! `<Link to="">`, `<Route path="" element={<BoxOffices />} />`
 5. **Redux 활용한 클릭한 영화 정보 MoviesDetail 넘기기 실패**
 * 24/08/23(Friday)
-* 다양한 컴포넌트를 활용해야하므로 redux를 이용한 방법으로 결정!
-* redux setting 모아놓은 Store.js 생성하여 redux toolkit연결, 영화정보를 저장받아올 moviesSlice 생성
-* 클릭한 영화를 담을 addToMovies 변수 생성
-* `BoxOffices.jsx` 에서 `useDispatch, addToMovies` import 연결하고 클릭한 Link대상 onClick 추가하여 handleAddToMovies 클릭한 영화 data 저장
-* `MoviesDetail.jsx` redux정보를 useSelector로 받아오고 movies변수에 담은 후 `{movies.title}` 출력(배열로 구성되어 데이터 안나옴)
-* (위 이어서) `{movies.map((data,index)=>({<>{data.title}</>}))}` 클릭한 영화 정보가 나오긴 하나 다른 영화 이어서 클릭 시 배열로 인해 데이터가 쌓이는 문제가 발생함.
+    * 다양한 컴포넌트를 활용해야하므로 redux를 이용한 방법으로 결정!
+    * redux setting 모아놓은 Store.js 생성하여 redux toolkit연결, 영화정보를 저장받아올 moviesSlice 생성
+    * 클릭한 영화를 담을 addToMovies 변수 생성
+    * `BoxOffices.jsx` 에서 `useDispatch, addToMovies` import 연결하고 클릭한 Link대상 onClick 추가하여 handleAddToMovies 클릭한 영화 data 저장
+    * `MoviesDetail.jsx` redux정보를 useSelector로 받아오고 movies변수에 담은 후 `{movies.title}` 출력(배열로 구성되어 데이터 안나옴)
+    * (위 이어서) `{movies.map((data,index)=>({<>{data.title}</>}))}` 클릭한 영화 정보가 나오긴 하나 다른 영화 이어서 클릭 시 배열로 인해 데이터가 쌓이는 문제가 발생함.
 * 24/08/26(Monday) **해결**
-* 영화정보가 누적되는 이유는? `Redux` 상태가 배열(`initialState:[]`) 설정이기 때문 -> 그래서 addToMovies 액션 호출 시 마다 새 항목이 추가됨.
-* 영화정보를 누적하지 않기 위해 단일 객체로 변경 `initialState:[]` => `initialState:{}`
-* `state.push(action.payload)` -> `return { ...action.payload };` 변경(클릭한 영화 하나의 정보만 유지하는 방법)
-* `state.push()`는 배열에 새로운 항목을 추가하므로 배열 개념이 아닌 객체 개념으로 사용해야 하기 때문에 `push` 제거 필요.
-* `...action.payload` 는 객체의 모든 키-값 쌍을 새로운 객체로 복사하는 의미이므로 기존의 영화 데이터를 제거하고 새로운 영화정보로 state가 갱신될 수 있음.
+    * 영화정보가 누적되는 이유는? `Redux` 상태가 배열(`initialState:[]`) 설정이기 때문 -> 그래서 addToMovies 액션 호출 시 마다 새 항목이 추가됨.
+    * 영화정보를 누적하지 않기 위해 단일 객체로 변경 `initialState:[]` => `initialState:{}`
+    * `state.push(action.payload)` -> `return { ...action.payload };` 변경(클릭한 영화 하나의 정보만 유지하는 방법)
+    * `state.push()`는 배열에 새로운 항목을 추가하므로 배열 개념이 아닌 객체 개념으로 사용해야 하기 때문에 `push` 제거 필요.
+    * `...action.payload` 는 객체의 모든 키-값 쌍을 새로운 객체로 복사하는 의미이므로 기존의 영화 데이터를 제거하고 새로운 영화정보로 state가 갱신될 수 있음.
