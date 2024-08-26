@@ -63,10 +63,12 @@
 * 영화 클릭 `LInk to` 속성으로 `to={`/moviesdetail?MovieNo=${data.id}`}` 구성
 * 영화 클릭 시 redux에 의해 클릭한 data정보가 넘어가고 MoviesDetails.jsx 파일이 실행되도록 `Link onClick={()=>handleAddToMovies(data)}` 구성
 * ![240823](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/002.png)
-## 240826 src/pages/Movies/MoviesDetails
+## 240826 src/pages/Movies/MoviesDetails, Common/Footer
 * 영화 목록에서 특정 영화 클릭 시 정보 넘어가는 redux 구현
 * 상단 미리보기 라인까지 css 완료
 * ![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/003.jpg)
+* Footer HTML&CSS 완료
+* ![240826](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/004.jpg)
 ---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
@@ -115,3 +117,9 @@
     * `state.push(action.payload)` -> `return { ...action.payload };` 변경(클릭한 영화 하나의 정보만 유지하는 방법)
     * `state.push()`는 배열에 새로운 항목을 추가하므로 배열 개념이 아닌 객체 개념으로 사용해야 하기 때문에 `push` 제거 필요.
     * `...action.payload` 는 객체의 모든 키-값 쌍을 새로운 객체로 복사하는 의미이므로 기존의 영화 데이터를 제거하고 새로운 영화정보로 state가 갱신될 수 있음.
+6. **240826 자주 틀리는 react style 괄호 처리 메모**
+* react jsx 태그 내에서 style 작성 시 Javascript 객체로 스타일을 전달해야 한다.
+    * `style={{ ... }}` : JSX 인라인 스타일 지정 시 style속성은 js 객체로 전달한다. 중괄호 두번!
+    * `backgroundImage:` 안 속성 처리는 템플릿 리터럴처리! `url(${})` 
+    * url 경로 내부는 기존에 import 한 경로와 path를 활용하여 작성 `${getImageUrl(movies.poster_path)}` ${} 내에 자바스크립트 표현식 사용
+    * `<tag style={{backgroundImage:`url(${getImagesUrl(movies.poster_path)})`}}`
