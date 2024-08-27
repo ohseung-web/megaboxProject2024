@@ -76,6 +76,7 @@
 * 큐레이션 영역(영화-단독영화) API 연결 완료 data 개별설정(아래 해결방법 기록에 자세히)
 * Link to 연결로 상세 영화 페이지 이동 연결 구성(영화 포스터 클릭, 상세정보 클릭, 큐레이션 더보기 클릭 링크 구현)
 * CSS 디자인 완료
+![240827](https://github.com/ohseung-web/megaboxProject2024/blob/yuna/ReadMeImages/005.jpg)
 ---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
