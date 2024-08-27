@@ -72,6 +72,10 @@
 * `public/index.html` : 나눔바른고딕 웹 폰트 연결(실제 메가박스 동일글꼴), 파비콘(public/favicon.ico), title(MEGABOX PLAY SHARE, 메가박스) 수정
 * Homepage(박스오피스 영역 Link연결) : redux, moviesdetail 로 이동 연결 완료 **useDispatch, addToMovies 연결필수**
 * 영화-상영예정작/단독영화 클릭 시 MoviesDetail 이동 연결 완료
+## 240827 메인-큐레이션 API 연결&Link&CSS 완료 
+* 큐레이션 영역(영화-단독영화) API 연결 완료 data 개별설정(아래 해결방법 기록에 자세히)
+* Link to 연결로 상세 영화 페이지 이동 연결 구성(영화 포스터 클릭, 상세정보 클릭, 큐레이션 더보기 클릭 링크 구현)
+* CSS 디자인 완료
 ---
 ## 문제사항 및 해결 방법 기록 
 1. 24/08/17 ~ 24/08/21  `src/hooks/usePopularMovies.js`, `src/pages/Homepage.jsx` **api 출력 error**
@@ -129,3 +133,10 @@
 7. **240826 메인(Homepage.jsx) 큐레이션 api 출력 실패**
 * boxOffice 설정한 것과 같은 방식으로 `useSingleMoviesQuery` 연결, Single용 useState 생성, data 로딩 쿼리 변수 생성
 * useEffect로 dataSin 로딩 시 SetBoxSingle(dataSin) 저장 설정, console.log 출력 시 빈 배열로 아무것도 나오지 않음. 같은 방법으로 했는데 왜??
+* **240827 큐레이션 api 출력 성공**
+    * 한 파일안에서 api hook을 2개 이상 출력할 경우 data, isLoading의 이름을 개별로 설정해서 작성해야함. 안그러면 undefined가 나오며 인식되지 않음.
+    * 수정 전 `const {data, isLoading} = usePopularMoviesQuery();`
+    * **수정 후**
+        * `const {data:dataPopular, isLoading:isLoadingPopular} = usePopularMoviesQuery()`
+        * `const {data:dataSingle, isLoading:isLoadingSingle} = useSingleMoviesQuery()`
+    * useState는 별도로 각각 상태 변수를 만들고 useEffect에서 `isLoadingPopular, isLoadingSingle`이 로딩되면 `dataSingle, dataPopular`로 상태 변수에 삽입해야함.

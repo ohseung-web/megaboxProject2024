@@ -1,6 +1,6 @@
 import "./Homepage.style.css"
 import { usePopularMoviesQuery } from "../../hooks/usePopularMovies" //박스오피스
-import { useSingleMoviesQuery } from "../../hooks/useSingleMovies" // 큐레이션
+import { useSingleMoviesQuery } from "../../hooks/useSingleMovies" // 큐레이션(단독)
 import { getImageUrl } from "../../hooks/getImageUrl"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
@@ -13,19 +13,23 @@ import { addToMovies } from "../../Store"
 
 
 const Home = () => {
-    const {data, isLoading, isError, error} = usePopularMoviesQuery()
-    const {dataSin, isLoadingSin, isErrorSin, errorSin} = useSingleMoviesQuery()
+    const {data:dataPopular, isLoading:isLoadingPopular} = usePopularMoviesQuery()
+    const {data:dataSingle, isLoading:isLoadingSingle} = useSingleMoviesQuery()
     const [boxOffices, SetBoxOffices] = useState([])
     const [boxSingle, SetBoxSingle] = useState([])
     
     useEffect(()=>{
-        if(data){SetBoxOffices(data)}
-        if(dataSin){SetBoxSingle(dataSin);}
-        console.log(boxOffices)
-        console.log(boxSingle) //왜안나와..?
+        if(dataPopular){
+            SetBoxOffices(dataPopular); 
+            SetBoxSingle(dataSingle)
+        }
+        console.log(dataPopular)
+        console.log(dataSingle)
         
-    },[isLoadingSin, isLoading])
+    },[isLoadingPopular, isLoadingSingle])
     //if(isLoading) return '<p>is Loadings...</p>';
+    //if(isLoadingSin) return <div>Loading...</div>;
+    //if(errorSin) return <div>error single movies...</div>;
 
     //redux 상태업데이트함수(Link onclick으로 새로운 값 대입)
     const dispatchEvent = useDispatch();
@@ -40,7 +44,7 @@ const Home = () => {
             <div className="box-office">
                 <div className="title">
                     <h1>박스 오피스</h1>
-                    <Link to="/movies" className="movie_more">더 많은 영화보기 <FontAwesomeIcon icon={faPlus} /></Link>
+                    <Link to="/movies" className="moreView">더 많은 영화보기 <FontAwesomeIcon icon={faPlus} /></Link>
                 </div>
                 <ul className="movie-list">
                     {boxOffices.slice(0, 4).map((data, index)=>{
@@ -89,15 +93,42 @@ const Home = () => {
             <div className="curation">
                 <div className="title">
                     <h1>큐레이션</h1>
-                    <Link to="/movies/singlemovie">큐레이션 더보기</Link>
+                    <Link to="/movies/singlemovie" className="moreView">큐레이션 더보기 <FontAwesomeIcon icon={faPlus} /></Link>
                 </div>
                 <div className="container">
-                    <ul>
-                        {boxSingle.map((data,index)=>(
-                            <li key={index}>{data.title}</li>
+                    {/* 대표 큐레이션 포스터 */}
+                    {boxSingle.slice(0,1).map((dataS,indexS)=>(
+                        <div className="bigThum" key={indexS}>
+                            <Link to={`/moviesdetail?MovieNo=${dataS.id}`} onClick={()=>handleAddToMovies(dataS)}>
+                                <img src={getImageUrl(dataS.poster_path)} alt={dataS.title} />
+                            </Link>
+                            <div className="link">
+                            <Link to={`/moviesdetail?MovieNo=${dataS.id}`} onClick={()=>handleAddToMovies(dataS)}>상세정보</Link>
+                                <Link to="/booking" className="reservation">예매</Link>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="contents">
+                        {/* 대표 큐레이션 제목+내용 */}
+                        {boxSingle.slice(0,1).map((dataS,indexS)=>(
+                            <div className="titleContent" key={indexS}>
+                                <p className="subTitle">#필름소사이어티</p>
+                                <h2>{dataS.title}</h2>
+                                <p>{dataS.overview}</p>
+                            </div>
                         ))}
-                    </ul>
-                    
+                        {/* 추가 큐레이션 리스트 */}
+                        <ul className="curationList">
+                            {boxSingle.slice(1,5).map((dataS,indexS)=>(
+                                <li key={indexS}>
+                                    <Link to={`/moviesdetail?MovieNo=${dataS.id}`} onClick={()=>handleAddToMovies(dataS)}>
+                                        <span><img src={getImageUrl(dataS.poster_path)} alt={dataS.title} /></span>
+                                        <span>{dataS.title}</span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
