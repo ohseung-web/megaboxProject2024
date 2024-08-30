@@ -46,91 +46,65 @@ let countList = createSlice({
   name: 'countList',
   initialState: [
     {
-      id: 0,
+      id: 'audalt',
       listname: '성인',
+      minus: '-',
       count: 0,
+      plus: '+',
       price: 14000,
     },
     {
-      id: 1,
+      id: 'teenager',
       listname: '청소년',
+      minus: '-',
       count: 0,
+      plus: '+',
       price: 11000,
     },
     {
-      id: 2,
+      id: 'child',
       listname: '어린이',
+      minus: '-',
       count: 0,
+      plus: '+',
       price: 7000,
     },
     {
-      id: 3,
+      id: 'oldman',
       listname: '경로',
+      minus: '-',
       count: 0,
+      plus: '+',
       price: 7000,
     },
     {
-      id: 4,
+      id: 'disabled',
       listname: '우대',
+      minus: '-',
       count: 0,
+      plus: '+',
       price: 5000,
     },
   ],
   // redux에서 state를 변경하는 방법
   // state를 변경하고 싶은 함수를 작성하여 사용한다.
-  // action.payload는 countList의 index값 0, 1, 2,3,4가 출력된다.
   reducers: {
-    //plus버튼 클릭시 인원수 증가함수
-    plusCount(state,action) {
+    plusCount(state, action) {
       let index = state.findIndex((a) => {
         return a.id === action.payload;
       });
-      let totalCount = 0;
-      for(let i=0; i<5; i++){
-          totalCount += state[i].count;
-      }
-      
-      if (totalCount < 8){
-          state[index].count++
-      }else{
-        alert("예매인원은 최대 8명까지 가능합니다.");
-      }
-  
-      // console.log("action.payload :" + action.payload);
-      // console.log("a.id "+ index)
-      // console.log("state "+ state[index].listname)
-      // console.log("count "+ state[index].count)
-      // console.log("totalCount "+ totalCount)
+      state[index].count++
     },
-    // minus 버튼 클릭시 인원수 감소함수
-    minusCount(state, action) {
-      let index = state.findIndex((a) => {
-        return a.id === action.payload;
-      });
-      let totalCount = 0;
-      for(let i=0; i<5; i++){
-          totalCount += state[i].count;
-      }
-      
-      if (totalCount > 0 && state[index].count > 0 ){
-          state[index].count--
-      }else{
-        alert("최소 예매인원은 1명 입니다.");
-      }
-   
-    },
-    //초기화 함수
-    reSet(state){
-      for(let i=0; i<5;i++){
-          state[i].count = 0;
-      }
-
-    },
-    
+    // minusCount(state, action) {
+    //   let index = state.findIndex((a) => {
+    //     return a.id === action.payload;
+    //   });
+    //   state[index].count -= 1;
+    // },
   },
 });
 // 작성한 함수는 반드시 export 하여 사용한다.
-export let { plusCount,minusCount,reSet} = countList.actions;
+export let { plusCount} = countList.actions;
 
 // 위에서 생성한 변수들을 redux에 등록한다.
 export default configureStore({

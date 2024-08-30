@@ -4,7 +4,8 @@ import './../../common/Common.css';
 import reset from './images/ico-reset-small.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
+import { plusCount, minusCount, reSet,totalprice } from '../../store.js';
 
 const  Reservation = () => {
 
@@ -31,8 +32,8 @@ const alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']; //좌석 열 �
 }
 
 // 예매인원 구분 countList를 redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
- let countList = useSelector((state) => {return state.countList} )
- const [reservCountList] = useState(countList);
+ let state = useSelector((state) => state ) //redux에서 state는 자료를 읽어오기만 할 수 있다.
+ let dispatch = useDispatch() //redux에서 state를 변경할 때 함수를 내보내 준다.
 
   return(
    <>
@@ -43,16 +44,22 @@ const alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']; //좌석 열 �
           <div className="reserve_left">
               <div className="reserve_header">
                   <span>관람인원선택</span>
-                  <button type="button" className="resetbtn">
+                  <button type="button" className="resetbtn" onClick={()=>{dispatch(reSet())}}>
                   <img src={reset} alt="" />&nbsp;<span
                   >초기화</span>
                   </button>  
               </div>
               <div className="screen">
                 <div className="screen_header">
-                  {countList.map((e,i)=>{
+                  {state.countList.map((e,i)=>{
                     return(
-                     <CountCard key={reservCountList[i].id} reservCountList={reservCountList[i]} i={i+1} />
+                    //  <CountCard key={reservCountList[i].id} reservCountList={reservCountList[i]} i={i+1} />
+                    <div key={state.countList[i].id} className="distinguishCnt">
+                      <span>{state.countList[i].listname}</span>
+                      <button className="minus" onClick={()=>{dispatch(minusCount(state.countList[i].id))}}>-</button>
+                      <label className="cnt">{state.countList[i].count}</label>
+                      <button className="plus" onClick={ ()=>{dispatch(plusCount(state.countList[i].id))} }>+</button> 
+                    </div>
                     ) 
                   })}
                 </div>
@@ -71,47 +78,4 @@ const alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']; //좌석 열 �
    )
 }
 
-// 예매인원 
-const CountCard = (props) =>{
-  const [reservationCount, setReservationCount] = useState(0);
-
-  //예매인원 plus되는 함수 
-  const reservPlusCountHandler = () =>{
-    if(reservationCount < 8){
-      setReservationCount(current => current + 1)
-       for(let i=0; i<props.reservCountList.length; i++){
-        props.reservCountList[i].count = setReservationCount;
-       }
-    }else{
-      alert("예매인원은 최대 8명까지 가능합니다.")
-    }
-  }
-  // 예매인원 minus되는 함수
-  const reservMinusCountHandler = () =>{
-    if(reservationCount == 0){
-       alert("최소 예매인원은 1명 입니다.")
-       setReservationCount(current => 0)
-       for(let i=0; i<props.reservCountList.length; i++){
-        props.reservCountList[i].count = setReservationCount;
-       }
-    }else{
-      setReservationCount(current => current - 1)
-       for(let i=0; i<props.reservCountList.length; i++){
-        props.reservCountList[i].count = setReservationCount;
-       }
-    }
-  }
-  
-  console.log(reservationCount);
-  return(
-    <>
-       <div key={props.reservCountList.id} className="distinguishCnt">
-          <span>{props.reservCountList.listname}</span>
-          <button className="minus" onClick={reservMinusCountHandler}>{props.reservCountList.minus}</button>
-          <label className="cnt">{reservationCount}</label>
-          <button className="plus" onClick={reservPlusCountHandler}>{props.reservCountList.plus}</button>
-      </div>
-    </>
-  )
-}
 export default Reservation;
