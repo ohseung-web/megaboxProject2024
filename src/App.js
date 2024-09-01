@@ -3,6 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './common/Header/Header';
 import Footer from './common/Footer/Footer';
 import Home from './pages/Home/Homepage';
+<<<<<<< HEAD
+import Movies from './pages/Movies/Moviespage';
+import Booking from './pages/Booking/Bookingpage';
+import Store from './pages/Store/Storepage';
+import BookinglistCard from './pages/Booking/BookinglistCard';
+import Reservation from './pages/Reservation/Reservation';
+=======
 import Movies from './pages/Movies/Moviespage'
 import Booking from './pages/Booking/Bookingpage'
 import Store from './pages/Store/Storepage'
@@ -14,6 +21,7 @@ import Film from './pages/Movies/TabContent/Film';
 import ClassicFilm from './pages/Movies/TabContent/ClassicFilm';
 import MoviesDetail from './pages/Movies/MoviesDetail';
 
+>>>>>>> main
 // npm 설치
 // *** npm react-dom react-router dom
 // *** npm i axios
@@ -26,6 +34,22 @@ function App() {
       <Header />
 
       <Routes>
+<<<<<<< HEAD
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/booking" element={<Booking />}>
+          <Route
+            path="BookinglistCard/:Paramdate"
+            element={<BookinglistCard />}
+          />
+        </Route>
+        <Route path="/Reservation" element={<Reservation />} />
+        <Route path="/theater" element={<div>극장</div>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/events" element={<div>이벤트 페이지</div>} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/benefits" element={<div>혜택 페이지</div>} />
+        <Route path="*" element={<div>404 페이지</div>} />
+=======
           <Route path="/movies" element={<Movies />}>
             <Route path="" element={<BoxOffices />} />
             <Route path="comingsoon" element={<Comingsoon />} />
@@ -41,10 +65,10 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/benefits" element={<div>혜택 페이지</div>} />
           <Route path="*" element={<div>404 페이지</div>} />
+>>>>>>> main
       </Routes>
 
       <Footer />
-      
     </>
   );
 }
