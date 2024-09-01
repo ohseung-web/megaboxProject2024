@@ -20,7 +20,7 @@ input, button, textarea, select {
 
 /* *** base style *** */
 body {
-    font-family : -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+    font-family : 'NanumBarunGothic', -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
     min-height : 100vh;
     line-height : 1.5;
     color : #313131 /* 임시 */  
@@ -35,7 +35,7 @@ h1, h2, h3, h4 {
 }
 
 a, a:link, a:visited {
-    color : currentColor;
+    /* color : currentColor; */
     text-decoration : none
 }
 
@@ -55,4 +55,6 @@ button {
     cursor : pointer
 }
 
-
+/* design + */
+/* 전연령 아이콘 */
+.allAgeIcon {width:24px;}

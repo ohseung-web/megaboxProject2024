@@ -1,3 +1,17 @@
-.footer {
-    background-color : aqua
-}
+.footerBg {background-color : #f8f8fa;}
+.footerBg footer {width:1100px; margin:0 auto; padding:40px 0;}
+.footerBg footer .fTop {margin:0 0 20px; position:relative;}
+.footerBg footer .fTop a {color:#000; font-size:0.81rem;  margin-right:14px;}
+.footerBg footer .fTop a:hover {text-decoration: underline;}
+.footerBg footer .fTop a:last-child {margin:0;}
+.footerBg footer .fTop a:last-child:hover {text-decoration: none;}
+.footerBg footer .fTop a em {font-weight:600; font-style:normal;}
+.footerBg footer .fTop .searchMovie {position:absolute; right:0; top:0; border:1px solid #aaa; border-radius:20px; font-size:0.81rem; padding:5px 10px;}
+.footerBg footer .fBtm {display:flex; justify-content: space-between;}
+.footerBg footer .fBtm .logo {}
+.footerBg footer .fBtm .logo img {}
+.footerBg footer .fBtm .copyright {font-size:0.81rem; line-height:1.5; letter-spacing: -0.5px;}
+.footerBg footer .fBtm .sns {}
+.footerBg footer .fBtm .sns a {margin-left:4px;}
+.footerBg footer .fBtm .sns a:first-child {margin:0;}
+.footerBg footer .fBtm .sns a img {width:32px;}
