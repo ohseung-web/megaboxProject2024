@@ -1,7 +1,7 @@
 import "./Card.style.css"
 
 const Card = ({item, imgUrlBase}) => {
-    // 공통 카드 구성 정리합니다.
+    // 공통 카드 구성 정리합니다......
     console.log(item)
     return (
     <div className="card-box">
