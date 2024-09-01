@@ -5,7 +5,7 @@ import reset from './images/ico-reset-small.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { plusCount, minusCount, reSet, totalprice } from '../../store.js';
+import { plusCount, minusCount, reSet, totalprice } from '../../store1.js';
 import { useRef } from 'react';
 
 const Reservation = () => {
@@ -26,7 +26,7 @@ const Reservation = () => {
   let seatTableTotalcount = useRef(0);
   const [isClicked, setisClicked] = useState(false);
   const [selectSeat, setSelectSeat] = useState([]);
-  
+
   //연습
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
@@ -37,19 +37,25 @@ const Reservation = () => {
     seatTableTotalcount.current = totalcount;
   };
 
- 
   const seatTableClick = () => {
     if (seatTableTotalcount.current === 0) {
       alert('예매인원을 선택하세요');
     } else if (seatTableTotalcount.current === 1) {
       // 짝수열 체크
-      const hasEvenColumn = seatArray.some(row =>
-        row.some(seat => seat.number % 2 === 0)
+      const hasEvenColumn = seatArray.some((row) =>
+        row.some((seat) => seat.number % 2 === 0)
       );
-      alert(hasEvenColumn ? '짝수 열이 있는 좌석이 선택되었습니다.' : '짝수 열이 있는 좌석이 없습니다.');
+      alert(
+        hasEvenColumn
+          ? '짝수 열이 있는 좌석이 선택되었습니다.'
+          : '짝수 열이 있는 좌석이 없습니다.'
+      );
     } else if (seatTableTotalcount.current === 2) {
       // 모든 좌석 데이터를 상태로 설정
-      console.log('Selected seats:', selectSeat.map(seat => seat.id).join(', '));
+      console.log(
+        'Selected seats:',
+        selectSeat.map((seat) => seat.id).join(', ')
+      );
     }
   };
 

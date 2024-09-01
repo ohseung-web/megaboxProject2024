@@ -6,33 +6,6 @@ import { faBars, faMagnifyingGlass, faCalendarDays } from '@fortawesome/free-sol
 import { faUser as faUserBlank } from "@fortawesome/free-regular-svg-icons"
 
 const Header = () => {
-<<<<<<< HEAD
-  return (
-    <div className="header">
-      <ul>
-        <li>
-          <Link to="/movies">영화</Link>
-        </li>
-        <li>
-          <Link to="/booking">예매</Link>
-        </li>
-        <li>
-          <Link to="/theater">극장</Link>
-        </li>
-        <li>
-          <Link to="/">MEGABOX</Link>
-        </li>
-        <li>
-          <Link to="/events">이벤트</Link>
-        </li>
-        <li>
-          <Link to="/store">스토어</Link>
-        </li>
-        <li>
-          <Link to="/benefits">혜택</Link>
-        </li>
-      </ul>
-=======
     return (
     <div className="h_bg">
         <header>
@@ -70,7 +43,6 @@ const Header = () => {
                 </div>
             </div>
         </header>
->>>>>>> main
     </div>
   );
 };

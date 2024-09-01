@@ -5,26 +5,21 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-<<<<<<< HEAD
 import { Provider } from 'react-redux';
-import store from './store';
-=======
-import store from './Store'; // redux
-import { Provider } from 'react-redux';
->>>>>>> main
+import store1 from './store1';
 
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <Provider store={store}>
+  <Provider store={store1}>
   <QueryClientProvider client={queryClient}>
-    <Provider  store={store}>
+    {/* <Provider  store={store1}> */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    {/* </Provider> */}
   </QueryClientProvider>
   </Provider> 
   // </React.StrictMode>
