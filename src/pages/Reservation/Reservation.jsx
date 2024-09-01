@@ -26,7 +26,8 @@ const Reservation = () => {
   let seatTableTotalcount = useRef(0);
   const [isClicked, setisClicked] = useState(false);
   const [selectSeat, setSelectSeat] = useState([]);
-
+  
+  //연습
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
     let totalcount = 0;
