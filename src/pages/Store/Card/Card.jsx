@@ -1,6 +1,7 @@
 import "./Card.style.css"
 
 const Card = ({item, imgUrlBase}) => {
+    // 공통 카드 구성
     console.log(item)
     return (
     <div className="card-box">
