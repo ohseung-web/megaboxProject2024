@@ -14,13 +14,8 @@ import Film from './pages/Movies/TabContent/Film';
 import ClassicFilm from './pages/Movies/TabContent/ClassicFilm';
 import MoviesDetail from './pages/Movies/MoviesDetail';
 
-// npm 설치
-// *** npm react-dom react-router dom
-// *** npm i axios
-// *** npm i @tanstack/react-query
-// *** npm i @tanstack/react-query-devtools
-
 function App() {
+
   return (
     <>
       <Header />
