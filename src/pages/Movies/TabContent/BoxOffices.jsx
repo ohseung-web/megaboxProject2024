@@ -5,8 +5,8 @@ import { Link } from "react-router-dom"
 import './TabContent.style.css'
 import all46x46 from '../all_46x46.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as faHeartBlank } from "@fortawesome/free-regular-svg-icons"
+// import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faHeartBlank, faHeart, faPlus } from "@fortawesome/free-regular-svg-icons"
 //redux
 import { useDispatch } from "react-redux" //redux action dispatch 연결
 import { addToMovies } from "../../../Store";
