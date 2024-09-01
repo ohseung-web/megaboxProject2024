@@ -40,8 +40,8 @@ const ReserationInfo = () =>{
         total =  total + (state.countList[i].count *  state.countList[i].price);
       }) 
         totalprice.current =  total;
-        console.log("total " + total)
-        console.log("totalprice " + totalprice.current)
+        // console.log("total " + total)
+        // console.log("totalprice " + totalprice.current)
     }
   
     // 관람인원 구분하는 함수 성인, 청소년, 어린이, 경로, 우대
@@ -49,7 +49,7 @@ const ReserationInfo = () =>{
        let people = "";
        state.countList.map((e,i)=>{
           if(state.countList[i].count > 0){
-            people = people + ( state.countList[i].listname + state.countList[i].count +"·" )
+            people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
          }
        })
         choicePeople.current = people;
@@ -129,12 +129,13 @@ const ReserationInfo = () =>{
           <div className="movieButton">
               <button className="beforebtn">이전</button>
               <button className="nextbtn"  
-              style={{
-                    backgroundColor:
-                      totalprice.current != 0
-                        ? 'rgb(50, 158, 177)': ' rgb(224, 224, 224)',
-                    color : totalprice.current !=0 ? 'white':'gray'    
-                  }}>다음</button>
+                style={{
+                      backgroundColor:
+                        totalprice.current != 0
+                          ? 'rgb(50, 158, 177)': ' rgb(224, 224, 224)',
+                      color : totalprice.current !=0 ? 'white':'gray'    
+                    }}>
+              다음</button>
           </div>
     </>
   )
