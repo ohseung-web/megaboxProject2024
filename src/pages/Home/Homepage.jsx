@@ -9,7 +9,7 @@ import { faHeart, faPlus, faSearch, faFilm, faTicket, faMouse } from '@fortaweso
 import { faHeart as faHeartBlank, faCalendarDays } from "@fortawesome/free-regular-svg-icons"
 //redux
 import { useDispatch } from "react-redux" //redux action dispatch 연결
-import { addToMovies } from "../../Store"
+import { addToMovies } from "../../Store2"
 
 
 const Home = () => {
