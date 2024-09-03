@@ -1,24 +1,44 @@
-    import { configureStore, createSlice } from '@reduxjs/toolkit';
-    // redux를 사용하려면 반드시 아래처럼 설치 후 환경설정을 한다.
-    // npm install @reduxjs/toolkit react-redux
-    // index.js 아래처럼 환경 설정한다.
-    // import store from './store';
-    // <Provider store={store}></Provider>
+//npm install @reduxjs/toolkit react-redux //설치 먼저 진행
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+// redux를 사용하려면 반드시 아래처럼 설치 후 환경설정을 한다.
+// npm install @reduxjs/toolkit react-redux
+// index.js 아래처럼 환경 설정한다.
+// import store from './store';
+// <Provider store={store}></Provider>
 
-    const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-    let movie = createSlice({
+//===================기존 yuna branch log
+const moviesSlice = createSlice({
+    name:'movieDetail',
+    initialState:{},//클릭한 영화 정보 단일 객체 인식
+    reducers:{
+        addToMovies:(state, action)=>{
+            return { ...action.payload };//이전 데이터 지우고 새로운 데이터 할당(모든 키-값 복사)
+        }
+    }
+})
+export const { addToMovies } = moviesSlice.actions;
+
+/* 
+const store = configureStore({
+    reducer: {
+        // 여기에 리듀서를 추가할 수 있습니다.
+        cart:moviesSlice.reducer,
+    },
+});  
+*/
+//===================승현쌤 코드 추가 240903
+let movie = createSlice({
     name: 'movie',
     initialState: [],
-    });
-
-    let url = createSlice({
+});
+let url = createSlice({
     name: 'url',
     initialState:
         'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-8-05&primary_release_date.lte=2024-8-11&sort_by=popularity.desc',
-    });
-
-    let options = createSlice({
+});
+let options = createSlice({
     name: 'options',
     initialState: {
         method: 'GET',
@@ -27,9 +47,8 @@
         Authorization: `Bearer ${API_KEY}`,
         },
     },
-    });
-
-    let dayCate = createSlice({
+});
+let dayCate = createSlice({
     name: 'dayCate',
     initialState: [
         { id: 0, date: '2024-08-05' },
@@ -40,9 +59,8 @@
         { id: 5, date: '2024-08-10' },
         { id: 6, date: '2024-08-11' },
     ],
-    });
-
-    let countList = createSlice({
+});
+let countList = createSlice({
     name: 'countList',
     initialState: [
         {
@@ -125,18 +143,24 @@
         }
         },
     },
-    });
+});
+// 작성한 함수는 반드시 export 하여 사용한다.
+export let { plusCount, minusCount, reSet } = countList.actions;
 
-    // 작성한 함수는 반드시 export 하여 사용한다.
-    export let { plusCount, minusCount, reSet } = countList.actions;
-
-    // 위에서 생성한 변수들을 redux에 등록한다.
-    export default configureStore({
+// 위에서 생성한 변수들을 redux에 등록한다.
+//==============seung + yuna 공통 default configureStroe
+export default configureStore({
     reducer: {
         movie: movie.reducer,
         url: url.reducer,
         options: options.reducer,
         dayCate: dayCate.reducer,
         countList: countList.reducer,
+        cart:moviesSlice.reducer, //yuna movies
     },
-    });
+});
+
+
+
+//======================
+// export default store;
