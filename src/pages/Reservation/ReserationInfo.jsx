@@ -9,7 +9,7 @@ import common from './images/bg-seat-condition-common-s.png';
 import poster from './images/hero.jpg';
 import age from './images/age12.png';
 import { useSelector , useDispatch} from 'react-redux';
-import { plusCount, minusCount, reSet, totalPrice } from '../../store1.js';
+import { plusCount, minusCount, reSet, totalprice } from '../../Store.js';
 import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
 import { atom, useRecoilState } from 'recoil';

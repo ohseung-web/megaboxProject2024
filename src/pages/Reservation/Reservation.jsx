@@ -7,7 +7,7 @@ import choice from './images/bg-seat-condition-choice.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { plusCount, minusCount, reSet, totalprice } from '../../store1.js';
+import { plusCount, minusCount, reSet} from '../../Store.js';
 import { useRef } from 'react';
 
 const Reservation = () => {
@@ -17,6 +17,11 @@ const Reservation = () => {
   const seatArray = Array.from(Array(10), (row, rowIndex) =>
     Array.from(Array(10), (col, colIndex) => rowIndex * 10 + colIndex + 1)
   );
+  // const [seatArray] = useState(
+  //   Array.from({ length: 10 }, (_, rowIndex) =>
+  //     Array.from({ length: 10 }, (_, colIndex) => ({ rowIndex, colIndex }))
+  //   )
+  // );
   const alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']; //좌석 열 알파벳
 
   // 예매인원 구분 countList를 redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
@@ -24,12 +29,13 @@ const Reservation = () => {
   let dispatch = useDispatch(); //redux에서 state를 변경할 때 함수를 내보내 준다.
 
   //좌석 예매시작
-  //totalcount = 1이면 짝수번째 자리는 선택불가 되도록 지정한다.
+  // seatTableTotalcount 전체 예매인원수를 담는 변수
   let seatTableTotalcount = useRef(0);
-  const [isClicked, setisClicked] = useState(false);
+  // 마우스 오버저장하는 변수
+  const [hoverSeat, setHoverSeat] = useState(null);
+  // 선택한 좌석 행번호, 열번호 저장하는 변수
   const [selectSeat, setSelectSeat] = useState([]);
 
-  //연습
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
     let totalcount = 0;
@@ -38,56 +44,52 @@ const Reservation = () => {
     });
     seatTableTotalcount.current = totalcount;
   };
-
+   console.log('현재인원수 : ' + seatTableTotalcount.current);
   //some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환합니다.
-  const seatTableClick = () => {
+  // 전체예매 인원수가 선택한 좌석의 인원수보다 크면 더이상 선택할 수 없도록 alert창 띄운다.
+  // 클릭한 좌석의 행번호, 열번호를 selectSeat에 배열에 저장한다.
+  const handleSeatClick = (rowIndex, colIndex) => {
     if (seatTableTotalcount.current === 0) {
       alert('예매인원을 선택하세요');
-    } else if (seatTableTotalcount.current === 1) {
-      // 짝수열만 체크해서 배경색을 보라색으로 변경
-      seatArray.some((row) =>
-        row.some((_, colIndex) => setisClicked(getSeatStyle(colIndex)))
+    }else if(seatTableTotalcount.current > selectSeat.length){
+      setSelectSeat(prev => 
+        prev.some(seat => seat.rowIndex === rowIndex && seat.colIndex === colIndex) 
+          ? prev.filter(seat => !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)) 
+          : [...prev, { rowIndex, colIndex }]
       );
-      //   // 선택한 좌석 담아 주기
-    } else if (seatTableTotalcount.current === 2) {
-      // 모든 좌석 데이터를 상태로 설정
-      const newSeatSelects = [];
-      seatArray.forEach((row) => {
-        row.forEach(({ rowIndex, colIndex }) => {
-          newSeatSelects.push({ rowIndex, colIndex });
-        });
-      });
-      setSelectSeat(newSeatSelects);
-      console.log(
-        'Selected seats:',
-        selectSeat.map((seat, i) => seat[i])
-      );
-    } 
+    }else{
+      alert("이미 좌석을 모두 선택하였습니다.") 
+    }
   };
 
-  console.log('현재인원수 : ' + seatTableTotalcount.current);
-  // const [seatArray] = useState(
-  //   Array.from({ length: 10 }, (_, rowIndex) =>
-  //     Array.from({ length: 10 }, (_, colIndex) => ({ rowIndex, colIndex }))
-  //   )
-  // );
-   console.log(seatArray)
-  // 좌석 클릭 핸들러
-  const handleSeatClick = (rowIndex, colIndex) => {
-    setSelectSeat({ rowIndex, colIndex });
-  };
   console.log("선택한 좌석")
   console.log(selectSeat)
-  // 예매인원이 1인경우 짝수열만 backgroundImage 변경하는 함수
-  const getSeatStyle = (colIndex) => {
-    if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
-      return { backgroundImage: `url(${impossible})` };
-    }
-    return { backgroundColor: 'gray' };
-    //return colIndex % 2 !== 0 ? { backgroundImage: `url(${impossible})` } : {};
-  };
 
-  return (
+  //마우스 오버될때 배경이미지 변경하는 함수
+  const hoverSeatEnter= (rowIndex,colIndex) =>{
+      setHoverSeat({rowIndex,colIndex})
+  }
+ //마우스 오버삭제될 때 배경이미지 변경하는 함수
+ const hoverSeatRemove = ()  =>{
+     setHoverSeat(null)
+ }
+  // 좌석 배경이미지 변경하는 함수
+  const getSeatStyle = (rowIndex, colIndex) => {
+     // 예매인원이 1인경우 짝수열만 backgroundImage 변경하는 부분
+    if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
+        return { backgroundImage: `url(${impossible})`,backgroundRepeat :'no-repeat' , backgroundSize:'cover' };
+    }else if(seatTableTotalcount.current === 0){ //예매인원이 0인 경우 마우스오버해도 배경이미지가 변경되지 않는 부분
+       return hoverSeat ? {}:{}
+    }
+    // 마우스를 오버하면 배경이미지 변경하고, 선택한 좌석의 배경이미지를 변경하는 부분     
+      return hoverSeat && hoverSeat.rowIndex === rowIndex && hoverSeat.colIndex === colIndex
+      ? { backgroundImage: `url(${choice})`,backgroundRepeat :'no-repeat' , backgroundSize:'cover' } 
+        : selectSeat.some(seat => seat.rowIndex === rowIndex && seat.colIndex === colIndex)
+        ? { backgroundImage: `url(${choice})`,backgroundRepeat :'no-repeat' , backgroundSize:'cover'}
+       : {} 
+  };
+  
+   return (
     <>
       <div className="Resercontainer">
         <h3>빠른예매</h3>
@@ -150,15 +152,12 @@ const Reservation = () => {
                             <td
                               key={`${rowIndex}-${colIndex}`}
                               className='seatTd'
-                              value={`${rowIndex},${colIndex}`}
-                              onClick={() => handleSeatClick({rowIndex,colIndex})}
-                              style={
-                                isClicked
-                                  ? getSeatStyle(colIndex)
-                                  : { backgroundColor: 'gray' }
-                              }
+                              onMouseEnter={() => hoverSeatEnter(rowIndex,colIndex)}
+                              onMouseLeave={hoverSeatRemove}
+                              onClick={() => handleSeatClick(rowIndex,colIndex)}
+                              style={getSeatStyle(rowIndex,colIndex)}
                             >
-                              {rowIndex+","+colIndex}
+                              {colIndex+1}
                             </td>
                           ))}
                         </tr>
