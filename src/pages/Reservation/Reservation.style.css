@@ -144,6 +144,9 @@ table {
   cursor: pointer;
   border: 1px solid rgb(94, 221, 235);
 }
+/* .seattable td.active{
+  background-image: url('./images/bg-seat-condition-choice.png');
+} */
 .seattable td:first-child {
   border: none;
   background-color: transparent;

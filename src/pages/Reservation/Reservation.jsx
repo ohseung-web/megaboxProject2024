@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Reservation.style.css';
 import './../../common/Common.css';
 import reset from './images/ico-reset-small.png';
+import impossible from './images/bg-seat-condition-impossible.png';
+import choice from './images/bg-seat-condition-choice.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +13,7 @@ import { useRef } from 'react';
 const Reservation = () => {
   //예매좌석 100좌석 2차원 배열로 지정
   //const seatArray = Array.from(Array(10), () => new Array(10));
-  // 좌석 배열을 1부터 100까지 숫자로 채움
+  // 좌석 배열을 1부터 100까지 숫자로 채움 고로, 값이 배열에 저장됨
   const seatArray = Array.from(Array(10), (row, rowIndex) =>
     Array.from(Array(10), (col, colIndex) => rowIndex * 10 + colIndex + 1)
   );
@@ -37,26 +39,52 @@ const Reservation = () => {
     seatTableTotalcount.current = totalcount;
   };
 
+  //some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환합니다.
   const seatTableClick = () => {
     if (seatTableTotalcount.current === 0) {
       alert('예매인원을 선택하세요');
     } else if (seatTableTotalcount.current === 1) {
-      // 짝수열 체크
-      const hasEvenColumn = seatArray.some((row) =>
-        row.some((seat) => seat.number % 2 === 0)
+      // 짝수열만 체크해서 배경색을 보라색으로 변경
+      seatArray.some((row) =>
+        row.some((_, colIndex) => setisClicked(getSeatStyle(colIndex)))
       );
-      alert(
-        hasEvenColumn
-          ? '짝수 열이 있는 좌석이 선택되었습니다.'
-          : '짝수 열이 있는 좌석이 없습니다.'
-      );
+      //   // 선택한 좌석 담아 주기
     } else if (seatTableTotalcount.current === 2) {
       // 모든 좌석 데이터를 상태로 설정
+      const newSeatSelects = [];
+      seatArray.forEach((row) => {
+        row.forEach(({ rowIndex, colIndex }) => {
+          newSeatSelects.push({ rowIndex, colIndex });
+        });
+      });
+      setSelectSeat(newSeatSelects);
       console.log(
         'Selected seats:',
-        selectSeat.map((seat) => seat.id).join(', ')
+        selectSeat.map((seat, i) => seat[i])
       );
+    } 
+  };
+
+  console.log('현재인원수 : ' + seatTableTotalcount.current);
+  // const [seatArray] = useState(
+  //   Array.from({ length: 10 }, (_, rowIndex) =>
+  //     Array.from({ length: 10 }, (_, colIndex) => ({ rowIndex, colIndex }))
+  //   )
+  // );
+   console.log(seatArray)
+  // 좌석 클릭 핸들러
+  const handleSeatClick = (rowIndex, colIndex) => {
+    setSelectSeat({ rowIndex, colIndex });
+  };
+  console.log("선택한 좌석")
+  console.log(selectSeat)
+  // 예매인원이 1인경우 짝수열만 backgroundImage 변경하는 함수
+  const getSeatStyle = (colIndex) => {
+    if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
+      return { backgroundImage: `url(${impossible})` };
     }
+    return { backgroundColor: 'gray' };
+    //return colIndex % 2 !== 0 ? { backgroundImage: `url(${impossible})` } : {};
   };
 
   return (
@@ -110,21 +138,27 @@ const Reservation = () => {
               <div className="screen_seat">
                 <p className="screentext">SCREEN</p>
                 <div className="seat">
-                  <table className="seattable" onClick={seatTableClick}>
+                  <table
+                    className="seattable"
+                    onChange={seatTableCheckHandler()}
+                  >
                     <tbody>
                       {seatArray.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                           <td className="alpha">{alpha[rowIndex]}</td>
                           {seatArray[0].map((col, colIndex) => (
                             <td
-                              key={colIndex}
-                              className="seatTd"
-                              onChange={seatTableCheckHandler()}
-                              style={{
-                                backgroundColor: isClicked ? 'purple' : 'none',
-                              }}
+                              key={`${rowIndex}-${colIndex}`}
+                              className='seatTd'
+                              value={`${rowIndex},${colIndex}`}
+                              onClick={() => handleSeatClick({rowIndex,colIndex})}
+                              style={
+                                isClicked
+                                  ? getSeatStyle(colIndex)
+                                  : { backgroundColor: 'gray' }
+                              }
                             >
-                              {colIndex + 1}
+                              {rowIndex+","+colIndex}
                             </td>
                           ))}
                         </tr>
