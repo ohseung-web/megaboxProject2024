@@ -5,7 +5,7 @@ import reset from './images/ico-reset-small.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { plusCount, minusCount, reSet, totalprice } from '../../store.js';
+import { plusCount, minusCount, reSet, totalprice } from '../../Store.js';
 import { useRef } from 'react';
 
 const Reservation = () => {
