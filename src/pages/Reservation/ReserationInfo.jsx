@@ -9,13 +9,13 @@ import common from './images/bg-seat-condition-common-s.png';
 import poster from './images/hero.jpg';
 import age from './images/age12.png';
 import { useSelector , useDispatch} from 'react-redux';
-import { plusCount, minusCount, reSet, totalprice } from '../../Store.js';
+import { plusCount, minusCount, reSet, totalPrice } from '../../Store.js';
 import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
 import { atom, useRecoilState } from 'recoil';
 
-const ReserationInfo = () =>{
-
+const ReserationInfo = ({selectSeat,hoverSeat,seatTableTotalcount,totalPrice,choicePeople}) =>{
+ 
   //좌석 선택
   const seatChoice = [
     {id:0,chooseseat : '-'},
@@ -30,30 +30,33 @@ const ReserationInfo = () =>{
 
    let state = useSelector((state) => state) //redux에서 state는 자료를 읽어오기만 할 수 있다.
    let dispatch = useDispatch() 
-   let totalprice = useRef(0)
-   let choicePeople = useRef('')
-   
+   //let totalprice = useRef(0)
+   //let choicePeople = useRef('')
+    
    // 영화 예매 총금액 구하는 함수
-   const totalPriceHandler = () =>{
-     let total = 0;
-      state.countList.map((e,i)=>{
-        total =  total + (state.countList[i].count *  state.countList[i].price);
-      }) 
-        totalprice.current =  total;
-        // console.log("total " + total)
-        // console.log("totalprice " + totalprice.current)
-    }
-  
+  //  const totalPriceHandler = () =>{
+  //    let total = 0;
+  //    let possbileCount = seatTableTotalcount; //선택가능인원 체크
+  //    if(selectSeat !== 0){
+  //       state.countList
+  //       .filter((countlist) => countlist.count !== 0 ) // 0번 가운트, 1번카운트 [1,1]
+  //       .map((e)=>{
+  //         total += (possbileCount * e.price);
+  //         possbileCount -= e.count;
+  //        }) 
+  //    }
+  //       totalprice.current =  totalPrice;
+  //   }
     // 관람인원 구분하는 함수 성인, 청소년, 어린이, 경로, 우대
-    const choicePeopleHandler = () =>{
-       let people = "";
-       state.countList.map((e,i)=>{
-          if(state.countList[i].count > 0){
-            people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
-         }
-       })
-        choicePeople.current = people;
-    }
+    // const choicePeopleHandler = () =>{
+    //    let people = "";
+    //    state.countList.map((e,i)=>{
+    //       if(state.countList[i].count > 0){
+    //         people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
+    //      }
+    //    })
+    //     choicePeople.current = people;
+    // }
     
   return (
     <>
@@ -100,6 +103,7 @@ const ReserationInfo = () =>{
                     <img src={common} alt="" />
                     <span>일반</span>
                   </li>
+                  <li><span>{selectSeat}</span></li>
               </ul>
             </div>
             <div className="detail_right">
@@ -115,14 +119,14 @@ const ReserationInfo = () =>{
           </div>
           <div class="reserveStatus">
             <div class="choicecount">
-              <span onChange={choicePeopleHandler()}>{choicePeople.current}</span>
+              <span>{choicePeople}</span>
               {/* <em >{countPeople.current}</em> */}
             </div>
           </div>
           <div className="moviePrice">
               <div className="pricetitle">최종결제금액</div>
               <div className="price">
-                <span onChange={totalPriceHandler()}>{totalprice.current.toLocaleString('ko-kr')}</span>
+                <span>{ totalPrice.toLocaleString('ko-kr')}</span> 
                 <em>원</em>
               </div>
           </div>
@@ -131,9 +135,9 @@ const ReserationInfo = () =>{
               <button className="nextbtn"  
                 style={{
                       backgroundColor:
-                        totalprice.current != 0
+                      totalPrice != 0
                           ? 'rgb(50, 158, 177)': ' rgb(224, 224, 224)',
-                      color : totalprice.current !=0 ? 'white':'gray'    
+                      color : totalPrice !=0 ? 'white':'gray'    
                     }}>
               다음</button>
           </div>

@@ -7,7 +7,7 @@ import choice from './images/bg-seat-condition-choice.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { plusCount, minusCount, reSet} from '../../Store.js';
+import { plusCount, minusCount, reSet, totalPrice} from '../../Store.js';
 import { useRef } from 'react';
 
 const Reservation = () => {
@@ -35,6 +35,10 @@ const Reservation = () => {
   const [hoverSeat, setHoverSeat] = useState(null);
   // 선택한 좌석 행번호, 열번호 저장하는 변수
   const [selectSeat, setSelectSeat] = useState([]);
+  // 예매인원 총금액
+  const [totalPrice, setTotalPrice] = useState(0);
+  // 예매인원 구분(성인, 청소년, 어린이, 경로, 우대)
+  const [choicePeople, setChoicePeople] = useState('');
 
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
@@ -45,6 +49,7 @@ const Reservation = () => {
     seatTableTotalcount.current = totalcount;
   };
    console.log('현재인원수 : ' + seatTableTotalcount.current);
+
   //some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환합니다.
   // 전체예매 인원수가 선택한 좌석의 인원수보다 크면 더이상 선택할 수 없도록 alert창 띄운다.
   // 클릭한 좌석의 행번호, 열번호를 selectSeat에 배열에 저장한다.
@@ -52,11 +57,16 @@ const Reservation = () => {
     if (seatTableTotalcount.current === 0) {
       alert('예매인원을 선택하세요');
     }else if(seatTableTotalcount.current > selectSeat.length){
+      const isSeatSelected = selectSeat.some(seat => seat.rowIndex === rowIndex && seat.colIndex === colIndex);
+      
       setSelectSeat(prev => 
-        prev.some(seat => seat.rowIndex === rowIndex && seat.colIndex === colIndex) 
+        isSeatSelected
           ? prev.filter(seat => !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)) 
           : [...prev, { rowIndex, colIndex }]
       );
+
+      totalPriceHandler()
+      choicePeopleHandler()
     }else{
       alert("이미 좌석을 모두 선택하였습니다.") 
     }
@@ -64,6 +74,27 @@ const Reservation = () => {
 
   console.log("선택한 좌석")
   console.log(selectSeat)
+
+  // 영화 예매 총금액 구하는 함수
+  const totalPriceHandler = () =>{
+    let total = 0;
+       state.countList.map((e,i)=>{
+         total += (state.countList[i].count * state.countList[i].price);
+        }) 
+    setTotalPrice(total);
+   }
+   console.log("totalprice"+totalPrice)
+
+  // 영화예매 인원 구분
+   const choicePeopleHandler = () =>{
+    let people = "";
+    state.countList.map((e,i)=>{
+       if(state.countList[i].count > 0){
+         people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
+      }
+    })
+    setChoicePeople(people);
+ } 
 
   //마우스 오버될때 배경이미지 변경하는 함수
   const hoverSeatEnter= (rowIndex,colIndex) =>{
@@ -169,7 +200,7 @@ const Reservation = () => {
             </div>
           </div>
           <div className="reserve_right">
-            <ReserationInfo />
+            <ReserationInfo seatTableTotalcount={seatTableTotalcount.current} selectSeat= {selectSeat.length} totalPrice={totalPrice} choicePeople={choicePeople} />
           </div>
         </div>
       </div>
