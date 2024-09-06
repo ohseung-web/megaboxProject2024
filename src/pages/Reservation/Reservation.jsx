@@ -39,7 +39,7 @@ const Reservation = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   // 예매인원 구분(성인, 청소년, 어린이, 경로, 우대)변수
   const [choicePeople, setChoicePeople] = useState('');
-  // 선택한 좌석의 행,열번호 저장
+  // 선택한 좌석의 행,열번호 저장하는 변수
   const [choiceSeatNumber, setChoiceSeatNumber] =useState([]);
 
   // 전체 예매 인원수 계산하는 함수
@@ -57,7 +57,9 @@ const Reservation = () => {
   const handleSeatClick = (rowIndex, colIndex) => {
     if (seatTableTotalcount.current === 0) {
       alert('예매인원을 선택하세요');
-    } else if (seatTableTotalcount.current > selectSeat.length) {
+    }else if(seatTableTotalcount.current === 1 && colIndex % 2 !== 0){
+      alert("선택할 수 없는 좌석입니다.")
+    }else if (seatTableTotalcount.current > selectSeat.length) {
       setSelectSeat((prev) => {
         const isSeatSelected = selectSeat.some(
           (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
@@ -73,14 +75,13 @@ const Reservation = () => {
           return [...prev, { rowIndex, colIndex }];
         }
       });
-    } else if (seatTableTotalcount.current === selectSeat.length) {
+    } else {
       alert('이미 좌석을 모두 선택하였습니다.');
     }
    // choiceCountHandler();
    // totalPriceHandler();
    // choicePeopleHandler();
   };
-
 
   let seatCount = selectSeat.length; // 선택한 좌석수
   let adultCount = state.countList[0].count; // 선택한 성인 인원수
@@ -89,7 +90,6 @@ const Reservation = () => {
   let seniorCount = state.countList[3].count; // 선택한 경로 인원수
   let spacialCount = state.countList[4].count; // 선택한 우대 인원수
   
-
   // 예매좌석을 선택할때 마다 useEffect()가 실행된다. 
   useEffect(()=>{
     // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
@@ -100,7 +100,6 @@ const Reservation = () => {
       let choiceSeatNumber = selectSeat.map((seat,i)=>{
          return `${alpha[seat.rowIndex]}${seat.colIndex+1}`
       })
-       
       setChoiceSeatNumber(choiceSeatNumber);
     }
 
@@ -133,7 +132,7 @@ const Reservation = () => {
       setTotalPrice(total);
     };
   
-    // 예매 좌석을 클릭 할때마다 영화정보창에 관림인원 구분이 출력되는 함수
+    // 예매 좌석을 클릭 할때마다 영화정보창에 관림인원분류 성인1, 어린이2 형태로 출력되는 함수
     const choicePeopleHandler = () => {
       let people = '';
         if (adult > 0) people += `${state.countList[0].listname} ${adult} `;
