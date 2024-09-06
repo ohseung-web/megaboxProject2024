@@ -142,17 +142,10 @@ let countList = createSlice({
             state[i].count = 0;
         }
         },
-        //총금액 함수
-        totalPrice(state){
-            let totalprice = 0;
-            for(let i=0; i<state.length; i++){
-                totalprice += (state[i].count * state[i].price)
-            }
-        },
     },
 });
 // 작성한 함수는 반드시 export 하여 사용한다.
-export let { plusCount, minusCount, reSet,totalPrice } = countList.actions;
+export let { plusCount, minusCount, reSet} = countList.actions;
 
 // 위에서 생성한 변수들을 redux에 등록한다.
 //==============seung + yuna 공통 default configureStroe

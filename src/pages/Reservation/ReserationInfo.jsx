@@ -9,7 +9,7 @@ import common from './images/bg-seat-condition-common-s.png';
 import poster from './images/hero.jpg';
 import age from './images/age12.png';
 import { useSelector , useDispatch} from 'react-redux';
-import { plusCount, minusCount, reSet, totalPrice } from '../../Store.js';
+import { plusCount, minusCount, reSet } from '../../Store.js';
 import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
 import { atom, useRecoilState } from 'recoil';
@@ -30,34 +30,7 @@ const ReserationInfo = ({selectSeat,hoverSeat,seatTableTotalcount,totalPrice,cho
 
    let state = useSelector((state) => state) //redux에서 state는 자료를 읽어오기만 할 수 있다.
    let dispatch = useDispatch() 
-   //let totalprice = useRef(0)
-   //let choicePeople = useRef('')
-    
-   // 영화 예매 총금액 구하는 함수
-  //  const totalPriceHandler = () =>{
-  //    let total = 0;
-  //    let possbileCount = seatTableTotalcount; //선택가능인원 체크
-  //    if(selectSeat !== 0){
-  //       state.countList
-  //       .filter((countlist) => countlist.count !== 0 ) // 0번 가운트, 1번카운트 [1,1]
-  //       .map((e)=>{
-  //         total += (possbileCount * e.price);
-  //         possbileCount -= e.count;
-  //        }) 
-  //    }
-  //       totalprice.current =  totalPrice;
-  //   }
-    // 관람인원 구분하는 함수 성인, 청소년, 어린이, 경로, 우대
-    // const choicePeopleHandler = () =>{
-    //    let people = "";
-    //    state.countList.map((e,i)=>{
-    //       if(state.countList[i].count > 0){
-    //         people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
-    //      }
-    //    })
-    //     choicePeople.current = people;
-    // }
-    
+ 
   return (
     <>
          <div className="movieTitle">

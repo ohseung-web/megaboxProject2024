@@ -16,18 +16,6 @@ function BookinglistCard() {
   let options = useSelector((state) => {return state.options});
   let dayCate = useSelector((state) => {return state.dayCate});
 
- // useQuery 훅을 이용하여 간편하게 아래처럼 API와 연결할 수 있다.
-  const getServerData = async () => {
-    const data = await fetch(url,options)
-    .then((response) => response.json());
-    return data;
-  };
-  // useQuery 훅을 이용하여 아래처럼 movies 변수에 가져온 데이터를 담는다.
-
-  //  const { data } = useQuery(["data"], getServerData);
-  
-  
-
    // useEffect()를 이용하여 return()안이 랜더링 될 때 위의 TMDB에서 불러온 url과 options을 json으로 response(응답)받는다, 그런 다음 그  자료를 setMovies의 변수에 저장한다.
    useEffect(() => {
     fetch(url, options)
