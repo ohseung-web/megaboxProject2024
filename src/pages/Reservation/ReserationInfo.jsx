@@ -14,7 +14,7 @@ import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
 import { atom, useRecoilState } from 'recoil';
 
-const ReserationInfo = ({selectSeat,hoverSeat,seatTableTotalcount,totalPrice,choicePeople}) =>{
+const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,choiceSeatNumber}) =>{
  
   //좌석 선택
   const seatChoice = [
@@ -30,7 +30,8 @@ const ReserationInfo = ({selectSeat,hoverSeat,seatTableTotalcount,totalPrice,cho
 
    let state = useSelector((state) => state) //redux에서 state는 자료를 읽어오기만 할 수 있다.
    let dispatch = useDispatch() 
- 
+    console.log(choiceSeatNumber)
+    console.log("길이:" + choiceSeatNumber.length)
   return (
     <>
          <div className="movieTitle">
@@ -84,7 +85,7 @@ const ReserationInfo = ({selectSeat,hoverSeat,seatTableTotalcount,totalPrice,cho
               <div className="seatchoice">
                 {seatChoice.map((choice,i)=>{
                   return(
-                    <div key={choice.id} className="choice">{choice.chooseseat}</div>
+                    <div key={choice.id} className="choice">{choiceSeatNumber.length === 0 ? choice.chooseseat : choiceSeatNumber[i] }</div>
                   )
                 })}
               </div>

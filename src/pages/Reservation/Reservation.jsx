@@ -39,6 +39,8 @@ const Reservation = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   // 예매인원 구분(성인, 청소년, 어린이, 경로, 우대)변수
   const [choicePeople, setChoicePeople] = useState('');
+  // 선택한 좌석의 행,열번호 저장
+  const [choiceSeatNumber, setChoiceSeatNumber] =useState([]);
 
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
@@ -50,7 +52,7 @@ const Reservation = () => {
   };
 
   // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하는 함수
-  // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환합니다.
+  // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
   // 전체예매 인원수가 선택한 좌석의 인원수보다 크면 더이상 선택할 수 없도록 alert창 띄운다.
   const handleSeatClick = (rowIndex, colIndex) => {
     if (seatTableTotalcount.current === 0) {
@@ -79,15 +81,29 @@ const Reservation = () => {
    // choicePeopleHandler();
   };
 
+
   let seatCount = selectSeat.length; // 선택한 좌석수
   let adultCount = state.countList[0].count; // 선택한 성인 인원수
   let teenagerCount = state.countList[1].count; //선택한 청소년 인원수
   let childernCount = state.countList[2].count; //선택한 어린이 인원수
   let seniorCount = state.countList[3].count; // 선택한 경로 인원수
   let spacialCount = state.countList[4].count; // 선택한 우대 인원수
+  
 
-  // 예매좌석을 선택할때 마다 useEffect()가 실행된다.
+  // 예매좌석을 선택할때 마다 useEffect()가 실행된다. 
   useEffect(()=>{
+    // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
+    console.log("선택한 좌석 번호 : " + selectSeat.map(seat => `row:${seat.rowIndex} col:${seat.colIndex}`).join(","))
+
+    //선택한 좌석의 행번호,열번호가 예매정보의 선택좌석에 A1,B3처럼 출력되도록 하는 함수
+    const choiceSeatDisply =() =>{
+      let choiceSeatNumber = selectSeat.map((seat,i)=>{
+         return `${alpha[seat.rowIndex]}${seat.colIndex+1}`
+      })
+       
+      setChoiceSeatNumber(choiceSeatNumber);
+    }
+
     // 예매인원 선택우선 순위 좌석 클릭 할때마다 인원수 증가하는 함수
     const choiceCountHandler = () => {
       let adult = 0, teenager = 0, childern = 0, senior = 0, spacial = 0;
@@ -130,11 +146,10 @@ const Reservation = () => {
     
     totalPriceHandler();
     choicePeopleHandler();
-
+    choiceSeatDisply();
   },[selectSeat])
   
-
-  // 초기화버튼 클릭하면 선택좌석 selectSeat의 배열초기화, 총예매인원수=0, 총금액=0, 선택한인원구분=''
+  // 초기화버튼 클릭하면 선택좌석 selectSeat의 배열초기화, 총예매인원수=0, 총금액=0, 선택한인원구분='' 초기화 하는 함수
   const seatReset = () => {
     setSelectSeat([]);
     setTotalPrice(0);
@@ -149,7 +164,7 @@ const Reservation = () => {
     setHoverSeat(null);
   };
   // 좌석 배경이미지 변경하는 함수
-  const getSeatStyle = (rowIndex, colIndex, isSeatSelected, onClick) => {
+  const getSeatStyle = (rowIndex, colIndex) => {
     // 예매인원이 1인경우 짝수열만 backgroundImage 변경하는 부분
     if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
       return {
@@ -206,7 +221,6 @@ const Reservation = () => {
               <div className="screen_header">
                 {state.countList.map((e, i) => {
                   return (
-                    //  <CountCard key={reservCountList[i].id} reservCountList={reservCountList[i]} i={i+1} />
                     <div key={state.countList[i].id} className="distinguishCnt">
                       <span>{state.countList[i].listname}</span>
                       <button
@@ -271,6 +285,7 @@ const Reservation = () => {
               selectSeat={selectSeat.length}
               totalPrice={totalPrice}
               choicePeople={choicePeople}
+              choiceSeatNumber={choiceSeatNumber} 
             />
           </div>
         </div>

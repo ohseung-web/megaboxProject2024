@@ -7,7 +7,8 @@ import BookinglistCard from './BookinglistCard';
 import { useSelector } from 'react-redux';
 
 const Booking = () => {
-  
+  // TMDB 이미지 파일 가져오는 방법 =>  <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>
+
   // new Date(dayCate.date).getDate() => 날짜의 일을 구한다.(1,2,3,4...)
   // new Date(dayCate.date).getDay() => 날짜의 요일을 구한다. (0(일),1(월),2(화),3(수),4(목),5(금),6(토))
   // btn 자료
