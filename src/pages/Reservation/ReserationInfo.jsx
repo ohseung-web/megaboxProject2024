@@ -73,7 +73,7 @@ const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,
                     <img src={common} alt="" />
                     <span>일반</span>
                   </li>
-                  <li><span>{selectSeat}</span></li>
+                  {/* <li><span>{selectSeat}</span></li> */}
               </ul>
             </div>
             <div className="detail_right">
@@ -94,7 +94,6 @@ const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,
           <div class="reserveStatus">
             <div class="choicecount">
               <span>{choicePeople}</span>
-              {/* <em >{countPeople.current}</em> */}
             </div>
           </div>
           <div className="moviePrice">
@@ -109,9 +108,9 @@ const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,
               <button className="nextbtn"  
                 style={{
                       backgroundColor:
-                      totalPrice != 0
+                      totalPrice != 0 && selectSeat === seatTableTotalcount
                           ? 'rgb(50, 158, 177)': ' rgb(224, 224, 224)',
-                      color : totalPrice !=0 ? 'white':'gray'    
+                      color : totalPrice !=0 && selectSeat === seatTableTotalcount ? 'white':'gray'    
                     }}>
               다음</button>
           </div>

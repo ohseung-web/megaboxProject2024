@@ -28,7 +28,7 @@ const Reservation = () => {
   let state = useSelector((state) => state); //redux에서 state는 자료를 읽어오기만 할 수 있다.
   let dispatch = useDispatch(); //redux에서 state를 변경할 때 함수를 내보내 준다.
 
-  //좌석 예매시작
+  //좌석 예매시작 ==========================================
   // seatTableTotalcount 전체 예매인원수를 담는 변수
   let seatTableTotalcount = useRef(0);
   // 마우스 오버저장하는 변수
@@ -55,32 +55,44 @@ const Reservation = () => {
   // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
   // 전체예매 인원수가 선택한 좌석의 인원수보다 크면 더이상 선택할 수 없도록 alert창 띄운다.
   const handleSeatClick = (rowIndex, colIndex) => {
-    if (seatTableTotalcount.current === 0) {
-      alert('예매인원을 선택하세요');
-    }else if(seatTableTotalcount.current === 1 && colIndex % 2 !== 0){
-      alert("선택할 수 없는 좌석입니다.")
-    }else if (seatTableTotalcount.current > selectSeat.length) {
+      // 예매인원을 선택하지 않은 경우
+      if (seatTableTotalcount.current === 0) {
+        alert('예매인원을 선택하세요');
+        return;
+      }
+      // 예매인원이 1명이면서 짝수쪽 열의 좌석일 경우 선택불가능
+      if(seatTableTotalcount.current === 1 && colIndex % 2 !== 0){
+        alert("선택할 수 없는 좌석입니다.")
+        return;
+      }
+      // 좌석 선택 가능 여부 확인
       setSelectSeat((prev) => {
-        const isSeatSelected = selectSeat.some(
+        //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
+        const isSeatSelected = selectSeat.some( 
           (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
         );
+
         if (isSeatSelected) {
           //좌석이 이미 선택된경우, 좌석취소
           return prev.filter(
             (seat) =>
               !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)
           );
-        } else {
-          //좌석이 선택되지 않은경우, 선택
-          return [...prev, { rowIndex, colIndex }];
+        }else {
+          //좌석이 선택되지 않은경우, 좌석추가
+          if(seatTableTotalcount.current > prev.length){
+            return [...prev, { rowIndex, colIndex }];
+          }else{
+            // 선택한 좌석의 수가 전체인원수 보다 크면 좌석추가 하지 않음
+            alert('이미 좌석을 모두 선택하였습니다.'); 
+            return prev;
+          }
         }
+
       });
-    } else {
-      alert('이미 좌석을 모두 선택하였습니다.');
-    }
-   // choiceCountHandler();
-   // totalPriceHandler();
-   // choicePeopleHandler();
+      // choiceCountHandler();
+      // totalPriceHandler();
+      // choicePeopleHandler();
   };
 
   let seatCount = selectSeat.length; // 선택한 좌석수
@@ -95,7 +107,7 @@ const Reservation = () => {
     // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
     console.log("선택한 좌석 번호 : " + selectSeat.map(seat => `row:${seat.rowIndex} col:${seat.colIndex}`).join(","))
 
-    //선택한 좌석의 행번호,열번호가 예매정보의 선택좌석에 A1,B3처럼 출력되도록 하는 함수
+    //선택한 좌석의 행번호,열번호가 예매정보창의 선택좌석에 A1,B3처럼 출력되도록 하는 함수
     const choiceSeatDisply =() =>{
       let choiceSeatNumber = selectSeat.map((seat,i)=>{
          return `${alpha[seat.rowIndex]}${seat.colIndex+1}`
@@ -103,7 +115,7 @@ const Reservation = () => {
       setChoiceSeatNumber(choiceSeatNumber);
     }
 
-    // 예매인원 선택우선 순위 좌석 클릭 할때마다 인원수 증가하는 함수
+    // 예매인원 선택우선 순위 좌석 클릭 할때마다 예매정보창에 예매인원수 증가하는 함수
     const choiceCountHandler = () => {
       let adult = 0, teenager = 0, childern = 0, senior = 0, spacial = 0;
 
@@ -158,7 +170,7 @@ const Reservation = () => {
   const hoverSeatEnter = (rowIndex, colIndex) => {
     setHoverSeat({ rowIndex, colIndex });
   };
-  //마우스 오버삭제될 때 배경이미지 변경하는 함수
+  //마우스 오버삭제될 때 배경이미지 초기화 함수
   const hoverSeatRemove = () => {
     setHoverSeat(null);
   };
