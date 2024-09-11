@@ -9,6 +9,12 @@ import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import { plusCount, minusCount, reSet } from '../../Store.js';
 import { useRef } from 'react';
+import UserModal from './UserModal.jsx';
+// 모달창 만들기 위해 아래 react-modal 라이브러리를 설치한다.
+// npm install react-modal
+// npm install react-modal @types/react-modal
+// modal을 import 한다.
+import Modal from 'react-modal';
 
 const Reservation = () => {
   //예매좌석 100좌석 2차원 배열로 지정
@@ -26,6 +32,7 @@ const Reservation = () => {
 
   // 예매인원 구분 countList를 redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
   let state = useSelector((state) => state); //redux에서 state는 자료를 읽어오기만 할 수 있다.
+  let msgRedux = useSelector((state)=>state.countList.msg);
   let dispatch = useDispatch(); //redux에서 state를 변경할 때 함수를 내보내 준다.
 
   //좌석 예매시작 ==========================================
@@ -40,126 +47,201 @@ const Reservation = () => {
   // 예매인원 구분(성인, 청소년, 어린이, 경로, 우대)변수
   const [choicePeople, setChoicePeople] = useState('');
   // 선택한 좌석의 행,열번호 저장하는 변수
-  const [choiceSeatNumber, setChoiceSeatNumber] =useState([]);
+  const [choiceSeatNumber, setChoiceSeatNumber] = useState([]);
+  // Modal 라이브러리 open유무 확인하는 변수
+  const [modalOpen, setmodalOpen] = useState(false);
+  // UserModal 창 messg 저장하는 변수
+  const [msg,setMsg] = useState(0);
 
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
     let totalcount = 0;
-    state.countList.map((e, i) => {
-      totalcount = totalcount + state.countList[i].count;
+    state.countList.items.map((e, i) => {
+      totalcount = totalcount + state.countList.items[i].count;
     });
     seatTableTotalcount.current = totalcount;
   };
 
+  // 다른페이지에서 Rewervation페이지로 이동하면 무조건 초기화 진행
+  useEffect((()=>{
+      dispatch(reSet());
+      seatReset();
+  }),[])
+
+  //Modal 라이브러리 스타일 함수
+  const customStyles = {
+    overlay: {
+      backgroundColor: 'rgba(0,0,0,0.7)',
+    },
+    content: {
+      left: '0',
+      margin: 'auto',
+      width: '400px',
+      height: '150px',
+      padding: '0',
+      overflow: 'hidden',
+      border: 'none'
+      // border: '3px solid #111',
+    },
+  };
+
   // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하는 함수
   // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
-  // 전체예매 인원수가 선택한 좌석의 인원수보다 크면 더이상 선택할 수 없도록 alert창 띄운다.
   const handleSeatClick = (rowIndex, colIndex) => {
-      // 예매인원을 선택하지 않은 경우
-      if (seatTableTotalcount.current === 0) {
-        alert('예매인원을 선택하세요');
-        return;
-      }
-      // 예매인원이 1명이면서 짝수쪽 열의 좌석일 경우 선택불가능
-      if(seatTableTotalcount.current === 1 && colIndex % 2 !== 0){
-        alert("선택할 수 없는 좌석입니다.")
-        return;
-      }
-      // 좌석 선택 가능 여부 확인
-      setSelectSeat((prev) => {
-        //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
-        const isSeatSelected = selectSeat.some( 
-          (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
+    // 예매인원을 선택하지 않은 경우
+    if (seatTableTotalcount.current === 0) {
+        setmodalOpen(true);
+        setMsg(1);
+      //alert('예매인원을 선택하세요');
+      return ;
+    }
+    // 예매인원이 1명이면서 짝수쪽 열의 좌석일 경우 선택불가능
+    if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
+       setmodalOpen(true);
+       setMsg(2);
+     // alert('선택할 수 없는 좌석입니다.');
+      return ;
+    }
+    // 좌석 선택 가능 여부 확인
+    setSelectSeat((prev) => {
+      //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
+      const isSeatSelected = selectSeat.some(
+        (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
+      );
+
+      if (isSeatSelected) {
+        //좌석이 이미 선택된경우, 좌석취소
+        return prev.filter(
+          (seat) => !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)
         );
-
-        if (isSeatSelected) {
-          //좌석이 이미 선택된경우, 좌석취소
-          return prev.filter(
-            (seat) =>
-              !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)
-          );
-        }else {
-          //좌석이 선택되지 않은경우, 좌석추가
-          if(seatTableTotalcount.current > prev.length){
-            return [...prev, { rowIndex, colIndex }];
-          }else{
-            // 선택한 좌석의 수가 전체인원수 보다 크면 좌석추가 하지 않음
-            alert('이미 좌석을 모두 선택하였습니다.'); 
-            return prev;
-          }
+      } else {
+        //좌석이 선택되지 않은경우, 좌석추가
+        if (seatTableTotalcount.current > prev.length) {
+          return [...prev, { rowIndex, colIndex }];
+        } else {
+          // 선택한 좌석의 수가 전체인원수 보다 크면 좌석추가 하지 않음
+          setmodalOpen(true);
+          setMsg(3)
+         // alert('이미 좌석을 모두 선택하였습니다.');
+          return prev;
         }
-
-      });
-      // choiceCountHandler();
-      // totalPriceHandler();
-      // choicePeopleHandler();
+      }
+    });
+    // choiceCountHandler();
+    // totalPriceHandler();
+    // choicePeopleHandler();
   };
 
   let seatCount = selectSeat.length; // 선택한 좌석수
-  let adultCount = state.countList[0].count; // 선택한 성인 인원수
-  let teenagerCount = state.countList[1].count; //선택한 청소년 인원수
-  let childernCount = state.countList[2].count; //선택한 어린이 인원수
-  let seniorCount = state.countList[3].count; // 선택한 경로 인원수
-  let spacialCount = state.countList[4].count; // 선택한 우대 인원수
-  
-  // 예매좌석을 선택할때 마다 useEffect()가 실행된다. 
-  useEffect(()=>{
+  let adultCount = state.countList.items[0].count; // 선택한 성인 인원수
+  let teenagerCount = state.countList.items[1].count; //선택한 청소년 인원수
+  let childernCount = state.countList.items[2].count; //선택한 어린이 인원수
+  let seniorCount = state.countList.items[3].count; // 선택한 경로 인원수
+  let spacialCount = state.countList.items[4].count; // 선택한 우대 인원수
+ 
+  // 예매좌석을 선택할때 마다 useEffect()가 실행된다.
+  useEffect(() => {
     // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
-    console.log("선택한 좌석 번호 : " + selectSeat.map(seat => `row:${seat.rowIndex} col:${seat.colIndex}`).join(","))
+    console.log(
+      '선택한 좌석 번호 : ' +
+        selectSeat
+          .map((seat) => `row:${seat.rowIndex} col:${seat.colIndex}`)
+          .join(',')
+    );
 
     //선택한 좌석의 행번호,열번호가 예매정보창의 선택좌석에 A1,B3처럼 출력되도록 하는 함수
-    const choiceSeatDisply =() =>{
-      let choiceSeatNumber = selectSeat.map((seat,i)=>{
-         return `${alpha[seat.rowIndex]}${seat.colIndex+1}`
-      })
+    const choiceSeatDisply = () => {
+      let choiceSeatNumber = selectSeat.map((seat, i) => {
+        return `${alpha[seat.rowIndex]}${seat.colIndex + 1}`;
+      });
       setChoiceSeatNumber(choiceSeatNumber);
-    }
+    };
 
     // 예매인원 선택우선 순위 좌석 클릭 할때마다 예매정보창에 예매인원수 증가하는 함수
     const choiceCountHandler = () => {
-      let adult = 0, teenager = 0, childern = 0, senior = 0, spacial = 0;
+      let  adult = 0,teenager = 0,childern = 0,senior = 0,spacial = 0
 
       for (let i = 0; i < seatCount; i++) {
         if (i < adultCount) adult++;
         else if (i < adultCount + teenagerCount) teenager++;
         else if (i < adultCount + teenagerCount + childernCount) childern++;
-        else if (i < adultCount + teenagerCount + childernCount + seniorCount) senior++;
+        else if (i < adultCount + teenagerCount + childernCount + seniorCount)
+         senior++;
         else spacial++;
       }
 
       return { adult, teenager, childern, senior, spacial };
     };
-  
+
     const { adult, teenager, childern, senior, spacial } = choiceCountHandler();
 
     // 영화 예매 총금액 구하는 함수
     const totalPriceHandler = () => {
       let total = 0;
       total =
-        adult * state.countList[0].price +
-        teenager * state.countList[1].price +
-        childern * state.countList[2].price +
-        senior * state.countList[3].price +
-        spacial * state.countList[4].price;
+        adult * state.countList.items[0].price +
+        teenager * state.countList.items[1].price +
+        childern * state.countList.items[2].price +
+        senior * state.countList.items[3].price +
+        spacial * state.countList.items[4].price;
       setTotalPrice(total);
     };
-  
+
     // 예매 좌석을 클릭 할때마다 영화정보창에 관림인원분류 성인1, 어린이2 형태로 출력되는 함수
     const choicePeopleHandler = () => {
       let people = '';
-        if (adult > 0) people += `${state.countList[0].listname} ${adult} `;
-        if (teenager > 0) people += `${state.countList[1].listname} ${teenager} `;
-        if (childern > 0) people += `${state.countList[2].listname} ${childern} `;
-        if (senior > 0) people += `${state.countList[3].listname} ${senior} `;
-        if (spacial > 0) people += `${state.countList[4].listname} ${spacial} `;
+      if (adult > 0) people += `${state.countList.items[0].listname} ${adult} `;
+      if (teenager > 0) people += `${state.countList.items[1].listname} ${teenager} `;
+      if (childern > 0) people += `${state.countList.items[2].listname} ${childern} `;
+      if (senior > 0) people += `${state.countList.items[3].listname} ${senior} `;
+      if (spacial > 0) people += `${state.countList.items[4].listname} ${spacial} `;
       setChoicePeople(people);
-    }; 
-    
+    };
+
     totalPriceHandler();
     choicePeopleHandler();
     choiceSeatDisply();
-  },[selectSeat])
+  }, [selectSeat]);
+
+   //---------------------------------------------------------------------------------------
+  // 전체예매인원과 선택한 좌석의 갯수가 같을 때 예매인원을 변경 시 window.confirm창 띄우는 함수
+  const totalCountOver = () => {
+    if (seatTableTotalcount.current === seatCount &&
+         seatTableTotalcount.current !== 0) {
+        // confirm 대화상자
+        const userConfirm = window.confirm('선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ');
+        if (userConfirm) {
+            seatReset();
+            dispatch(reSet());
+        }else{
+          // state.countList[0].count;
+          // state.countList[1].count;
+          // state.countList[2].count;
+          // state.countList[3].count;
+          // state.countList[4].count;
+          return;
+        }
+     }
+  };
   
+  //---------------------------------------------------------------------------------------
+  // redux msg 출력 함수
+  const msgHandler =() =>{
+      if(state.countList.msg === 4){
+          setmodalOpen(true)
+          setMsg(4)
+      }else{
+          setmodalOpen(true)
+          setMsg(5)
+      }
+  }
+  //minus, plus 버튼클릭 시 호출 되는 함수
+  const handleButtonClick = (action,id) =>{
+        dispatch(action(id));
+        totalCountOver();
+        msgHandler();
+  }
+  console.log("msgRedux :" + state.countList.msg)
   // 초기화버튼 클릭하면 선택좌석 selectSeat의 배열초기화, 총예매인원수=0, 총금액=0, 선택한인원구분='' 초기화 하는 함수
   const seatReset = () => {
     setSelectSeat([]);
@@ -207,9 +289,23 @@ const Reservation = () => {
       : {};
   };
 
+  // 모달 close 함수
+  const modalClose =() =>{
+      setmodalOpen(false);
+  }
+ 
   return (
     <>
       <div className="Resercontainer">
+      <Modal
+        isOpen={modalOpen}
+        ariaHideApp={false} 
+        style={customStyles}
+        onRequestClose={() => setmodalOpen(false)} // overlay클릭하면 모달종료
+      >
+        {/* UserModal 컴포넌트를 이곳에 추가하세요 */}
+        <UserModal modalClose={modalClose} msg={msg}/>
+      </Modal>
         <h3>빠른예매</h3>
         <div className="line"></div>
         <div className="reserve">
@@ -230,24 +326,20 @@ const Reservation = () => {
             </div>
             <div className="screen">
               <div className="screen_header">
-                {state.countList.map((e, i) => {
+                {state.countList.items.map((e, i) => {
                   return (
-                    <div key={state.countList[i].id} className="distinguishCnt">
-                      <span>{state.countList[i].listname}</span>
+                    <div key={state.countList.items[i].id} className="distinguishCnt">
+                      <span>{state.countList.items[i].listname}</span>
                       <button
                         className="minus"
-                        onClick={() => {
-                          dispatch(minusCount(state.countList[i].id));
-                        }}
+                        onClick={() => handleButtonClick(minusCount,state.countList.items[i].id)}
                       >
                         -
                       </button>
-                      <label className="cnt">{state.countList[i].count}</label>
+                      <label className="cnt">{state.countList.items[i].count}</label>
                       <button
                         className="plus"
-                        onClick={() => {
-                          dispatch(plusCount(state.countList[i].id));
-                        }}
+                        onClick={() => handleButtonClick(plusCount,state.countList.items[i].id)}
                       >
                         +
                       </button>
@@ -296,7 +388,7 @@ const Reservation = () => {
               selectSeat={selectSeat.length}
               totalPrice={totalPrice}
               choicePeople={choicePeople}
-              choiceSeatNumber={choiceSeatNumber} 
+              choiceSeatNumber={choiceSeatNumber}
             />
           </div>
         </div>

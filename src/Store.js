@@ -62,56 +62,61 @@ let dayCate = createSlice({
 });
 let countList = createSlice({
     name: 'countList',
-    initialState: [
-        {
-        id: 0,
-        listname: '성인',
-        count: 0,
-        price: 14000,
-        },
-        {
-        id: 1,
-        listname: '청소년',
-        count: 0,
-        price: 11000,
-        },
-        {
-        id: 2,
-        listname: '어린이',
-        count: 0,
-        price: 7000,
-        },
-        {
-        id: 3,
-        listname: '경로',
-        count: 0,
-        price: 7000,
-        },
-        {
-        id: 4,
-        listname: '우대',
-        count: 0,
-        price: 5000,
-        },
-    ],
+    initialState: { 
+      items : [
+            {
+            id: 0,
+            listname: '성인',
+            count: 0,
+            price: 14000,
+            },
+            {
+            id: 1,
+            listname: '청소년',
+            count: 0,
+            price: 11000,
+            },
+            {
+            id: 2,
+            listname: '어린이',
+            count: 0,
+            price: 7000,
+            },
+            {
+            id: 3,
+            listname: '경로',
+            count: 0,
+            price: 7000,
+            },
+            {
+            id: 4,
+            listname: '우대',
+            count: 0,
+            price: 5000,
+            },
+       ],
+      msg:0
+   },
     // redux에서 state를 변경하는 방법
     // state를 변경하고 싶은 함수를 작성하여 사용한다.
     // action.payload는 countList의 index값 0, 1, 2,3,4가 출력된다.
     reducers: {
         //plus버튼 클릭시 인원수 증가함수
         plusCount(state, action) {
-        let index = state.findIndex((a) => {
+        let index = state.items.findIndex((a) => {
             return a.id === action.payload;
         });
         let totalCount = 0;
-        for (let i = 0; i < state.length; i++) {
-            totalCount += state[i].count;
+        for (let i = 0; i < state.items.length; i++) {
+            totalCount += state.items[i].count;
         }
 
         if (totalCount < 8) {
-            state[index].count++;
+            state.items[index].count++;
+            state.msg = 0;
         } else {
-            alert('예매인원은 최대 8명까지 가능합니다.');
+            state.msg = 4;
+            //alert('예매인원은 최대 8명까지 가능합니다.');
         }
 
         // console.log("action.payload :" + action.payload);
@@ -122,25 +127,28 @@ let countList = createSlice({
         },
         // minus 버튼 클릭시 인원수 감소함수
         minusCount(state, action) {
-        let index = state.findIndex((a) => {
+        let index = state.items.findIndex((a) => {
             return a.id === action.payload;
         });
         let totalCount = 0;
-        for (let i = 0; i < state.length; i++) {
-            totalCount += state[i].count;
+        for (let i = 0; i < state.items.length; i++) {
+            totalCount += state.items[i].count;
         }
 
-        if (totalCount > 0 && state[index].count > 0) {
-            state[index].count--;
+        if (totalCount > 0 && state.items[index].count > 0) {
+            state.items[index].count--;
+            state.msg = 0;
         } else {
-            alert('최소 예매인원은 1명 입니다.');
+            state.msg =5;
+           // alert('최소 예매인원은 1명 입니다.');
         }
         },
         //초기화 함수
         reSet(state) {
-        for (let i = 0; i < state.length; i++) {
-            state[i].count = 0;
+        for (let i = 0; i < state.items.length; i++) {
+            state.items[i].count = 0;
         }
+         state.msg = 0;
         },
     },
 });

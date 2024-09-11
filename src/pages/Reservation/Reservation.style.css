@@ -3,10 +3,13 @@
   list-style: none;
   font-style: normal;
 } */
+ body{
+  position: relative;
+ }
 .Resercontainer {
   width: 1105px;
   height: 736px;
-  /* position: absolute; */
+  /* position: relative; */
   margin: 30px auto;
 }
 .Resercontainer h3 {
@@ -411,3 +414,98 @@ table {
   background-color: rgb(224, 224, 224);
   color: gray;
 }
+/* 모달 CSS */
+ /* .modal{
+  visibility: visible;
+  width: 400px;
+  position: fixed;
+  top: 280px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+  opacity: 0;
+} */
+ .modal .modal_header{
+  position: absolute;
+  width: 100%;
+  height: 45px;
+  top: 0;
+  left: 0;
+  background-color: #503396;
+}
+ .modal .modal_header h3{
+  color: white;
+  padding: 15px 20px 0 20px;
+  font-size: 18px;
+}
+.modal_content{
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 45px;
+  left: 0;
+  padding: 20px 20px 0 20px;
+  background-color: white;
+}
+.modal_content p{
+  font-size: 14px;
+  text-align: left;
+  line-height: 1.5em;
+  color: #222;
+}
+.modal_content .btn_group{
+  padding: 15px 0 20px 0;
+  text-align: center;
+}
+.modal_content .btn_group button{
+  display: inline-block;
+  height: 36px;
+  margin: 0 3px;
+  padding: 0 15px;
+  text-align: center;
+  line-height: 34px;
+  color: #503396;
+  font-weight: 500;
+  border: 1px solid #503396;
+  border-radius: 4px;
+  vertical-align: middle;
+  background-color: #fff;
+  cursor: pointer;
+}
+.modal_content .btn_group .purple{
+  color: white;
+  background-color: #503396;
+}
+.modal_content .btn_group .close{
+  display: none;
+}
+.modal_content .btn_group .close.on{
+  display: inline-block;
+}
+.modal .btn-close{
+  display: block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 15px;
+  right: 20px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+.modal .btn-close .icon{
+  font-size: 18px;
+  color: white;
+}
+/* .overlay{
+  visibility: visible;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+  z-index: 1;
+  opacity: 1;
+} */
