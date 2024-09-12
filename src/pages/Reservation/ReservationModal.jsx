@@ -21,8 +21,10 @@ const UserModal = ({modalClose, msg}) =>{
             setMsgString( "이미 좌석을 모두 선택하였습니다.")
         }else if(msg === 4){
             setMsgString( "예매인원은 최대 8명까지 가능합니다.")
-        }else{
+        }else if(msg===5){
             setMsgString( "최소 예매인원은 1명 입니다.")
+        }else if(msg===6){
+            setMsgString("선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ")
         }
     }  
    

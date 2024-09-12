@@ -26,7 +26,7 @@ const Booking = () => {
     });
   };
   let startDay = new Date(dayCate[0].date).getDate();
-  console.log("최초데이터 : " + startDay);
+  //console.log("최초데이터 : " + startDay);
 
   return (
     <>

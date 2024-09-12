@@ -9,7 +9,7 @@ import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import { plusCount, minusCount, reSet } from '../../Store.js';
 import { useRef } from 'react';
-import UserModal from './UserModal.jsx';
+import ReservationModal from './ReservationModal.jsx';
 // 모달창 만들기 위해 아래 react-modal 라이브러리를 설치한다.
 // npm install react-modal
 // npm install react-modal @types/react-modal
@@ -32,26 +32,28 @@ const Reservation = () => {
 
   // 예매인원 구분 countList를 redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
   let state = useSelector((state) => state); //redux에서 state는 자료를 읽어오기만 할 수 있다.
-  let msgRedux = useSelector((state)=>state.countList.msg);
   let dispatch = useDispatch(); //redux에서 state를 변경할 때 함수를 내보내 준다.
 
-  //좌석 예매시작 ==========================================
+  //좌석 예매시작 =====================================================================================
   // seatTableTotalcount 전체 예매인원수를 담는 변수
   let seatTableTotalcount = useRef(0);
-  // 마우스 오버저장하는 변수
+  // 마우스 오버시 저장하는 변수
   const [hoverSeat, setHoverSeat] = useState(null);
-  // 선택한 좌석 행번호, 열번호 저장하는 변수
+  // 선택한 좌석 행번호, 열번호 {rowIndex, colIndex}처럼 [{rowIndex:0,colIndex:1}...]선택한 좌석의 위치를 저장하는 변수
   const [selectSeat, setSelectSeat] = useState([]);
   // 예매인원 총금액 변수
   const [totalPrice, setTotalPrice] = useState(0);
   // 예매인원 구분(성인, 청소년, 어린이, 경로, 우대)변수
   const [choicePeople, setChoicePeople] = useState('');
-  // 선택한 좌석의 행,열번호 저장하는 변수
+  // 선택한 좌석의 행번호,열번호가 예매정보창의 선택좌석에 A1,B3처럼 출력되도록 A1, B2..저장하는 변수
   const [choiceSeatNumber, setChoiceSeatNumber] = useState([]);
   // Modal 라이브러리 open유무 확인하는 변수
   const [modalOpen, setmodalOpen] = useState(false);
-  // UserModal 창 messg 저장하는 변수
+  // ReservationModal창의 messg내용을 저장하는 변수 예) 1,2,3,4,5,6... 번호마다 메시지 내용이 다름
   const [msg,setMsg] = useState(0);
+  // 예매인원의 이전상태를 저쟝하는 변수
+  const [prevState,setPrevState] =useState(null);
+  const [seatCount02, setSeatCount02] = useState(0); // 적절한 초기값 설정
 
   // 전체 예매 인원수 계산하는 함수
   const seatTableCheckHandler = () => {
@@ -62,15 +64,24 @@ const Reservation = () => {
     seatTableTotalcount.current = totalcount;
   };
 
-  // 다른페이지에서 Rewervation페이지로 이동하면 무조건 초기화 진행
+  // 다른페이지에서 Rewervation페이지로 이동하면 무조건 초기화 진행되는 useEffect()가 실행된다.
   useEffect((()=>{
-      dispatch(reSet());
       seatReset();
   }),[])
+
+   // 초기화버튼 클릭하면 선택좌석 selectSeat의 배열초기화, 총예매인원수=0, 총금액=0, 선택한인원구분='' 초기화 하는 함수
+   const seatReset = () => {
+    dispatch(reSet());
+    setSelectSeat([]);
+    setTotalPrice(0);
+    setChoicePeople('');
+  };
 
   //Modal 라이브러리 스타일 함수
   const customStyles = {
     overlay: {
+      top : '91px',
+      height: '800px',
       backgroundColor: 'rgba(0,0,0,0.7)',
     },
     content: {
@@ -84,6 +95,17 @@ const Reservation = () => {
       // border: '3px solid #111',
     },
   };
+   //모달창이 화면에 출력될 때 body의 스크롤바를 감추는 useEffect()가 실행된다.
+    useEffect((()=>{
+      if(modalOpen){
+         document.body.style.overflow = 'hidden'
+      }else{
+         document.body.style.overflow ='auto'
+      }
+      return () =>{
+          document.body.style.overflow ='auto'
+      }
+   }),[modalOpen])
 
   // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하는 함수
   // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
@@ -138,9 +160,7 @@ const Reservation = () => {
   let childernCount = state.countList.items[2].count; //선택한 어린이 인원수
   let seniorCount = state.countList.items[3].count; // 선택한 경로 인원수
   let spacialCount = state.countList.items[4].count; // 선택한 우대 인원수
- 
-  // 예매좌석을 선택할때 마다 useEffect()가 실행된다.
-  useEffect(() => {
+ // 좌석을 선택할때 일어나는 함수들 모음 ============================================================================
     // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
     console.log(
       '선택한 좌석 번호 : ' +
@@ -197,13 +217,38 @@ const Reservation = () => {
       if (spacial > 0) people += `${state.countList.items[4].listname} ${spacial} `;
       setChoicePeople(people);
     };
+    //==========================================================================================
+     // 예매좌석을 선택할때 마다 useEffect()가 실행된다.
+    useEffect(() => {
+        totalPriceHandler();
+        choicePeopleHandler();
+        choiceSeatDisply();
+    }, [selectSeat]);
 
-    totalPriceHandler();
-    choicePeopleHandler();
-    choiceSeatDisply();
-  }, [selectSeat]);
+  // redux의 msg를 불러와 modal창에 출력하는 함수
+  const msgHandler =() =>{
+      if(state.countList.msg === 0){
+          setmodalOpen(false);
+          return;
+      }
+      if(state.countList.msg === 4){
+          setmodalOpen(true)
+          setMsg(4)
+          return;
+      }else{
+          setmodalOpen(true)
+          setMsg(5)
+          return;
+      }
+  }
+  //redux의 msg 값이 변경될 때마다 useEffect()가 실행된다.
+  useEffect((()=>{
+      if(state.countList.msg != undefined){
+          msgHandler();
+      }
+  }),[state.countList.msg])
 
-   //---------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------
   // 전체예매인원과 선택한 좌석의 갯수가 같을 때 예매인원을 변경 시 window.confirm창 띄우는 함수
   const totalCountOver = () => {
     if (seatTableTotalcount.current === seatCount &&
@@ -212,42 +257,24 @@ const Reservation = () => {
         const userConfirm = window.confirm('선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ');
         if (userConfirm) {
             seatReset();
-            dispatch(reSet());
         }else{
-          // state.countList[0].count;
-          // state.countList[1].count;
-          // state.countList[2].count;
-          // state.countList[3].count;
-          // state.countList[4].count;
-          return;
+           //confim에서 취소 버튼 클릭시 이전상태로 복원
+           if(prevState){
+               setSeatCount02(prevState.seatCount)
+               seatTableTotalcount.current = prevState.seatTableTotalcount
+           }
         }
      }
-  };
-  
-  //---------------------------------------------------------------------------------------
-  // redux msg 출력 함수
-  const msgHandler =() =>{
-      if(state.countList.msg === 4){
-          setmodalOpen(true)
-          setMsg(4)
-      }else{
-          setmodalOpen(true)
-          setMsg(5)
-      }
-  }
+  }; 
+ //---------------------------------------------------------------------------------------
   //minus, plus 버튼클릭 시 호출 되는 함수
   const handleButtonClick = (action,id) =>{
+        //이전 상태 저장
+        setPrevState({seatCount,seatTableTotalcount:seatTableTotalcount.current})
         dispatch(action(id));
         totalCountOver();
-        msgHandler();
   }
-  console.log("msgRedux :" + state.countList.msg)
-  // 초기화버튼 클릭하면 선택좌석 selectSeat의 배열초기화, 총예매인원수=0, 총금액=0, 선택한인원구분='' 초기화 하는 함수
-  const seatReset = () => {
-    setSelectSeat([]);
-    setTotalPrice(0);
-    setChoicePeople('');
-  };
+ 
   //마우스 오버될때 배경이미지 변경하는 함수
   const hoverSeatEnter = (rowIndex, colIndex) => {
     setHoverSeat({ rowIndex, colIndex });
@@ -289,7 +316,7 @@ const Reservation = () => {
       : {};
   };
 
-  // 모달 close 함수
+  // 모달 close 함수 ReservateionMoadal 컴포넌트의 매개변수로 보내기 위해 작성한 함수
   const modalClose =() =>{
       setmodalOpen(false);
   }
@@ -297,15 +324,15 @@ const Reservation = () => {
   return (
     <>
       <div className="Resercontainer">
-      <Modal
-        isOpen={modalOpen}
-        ariaHideApp={false} 
-        style={customStyles}
-        onRequestClose={() => setmodalOpen(false)} // overlay클릭하면 모달종료
-      >
-        {/* UserModal 컴포넌트를 이곳에 추가하세요 */}
-        <UserModal modalClose={modalClose} msg={msg}/>
-      </Modal>
+        <Modal
+          isOpen={modalOpen}
+          ariaHideApp={false} 
+          style={customStyles}
+          onRequestClose={() => setmodalOpen(false)} // overlay클릭하면 모달종료
+        >
+            {/* UserModal 컴포넌트를 이곳에 추가하세요 */}
+            <ReservationModal modalClose={modalClose} msg={msg}/>
+        </Modal>
         <h3>빠른예매</h3>
         <div className="line"></div>
         <div className="reserve">
@@ -316,7 +343,6 @@ const Reservation = () => {
                 type="button"
                 className="resetbtn"
                 onClick={() => {
-                  dispatch(reSet());
                   seatReset();
                 }}
               >

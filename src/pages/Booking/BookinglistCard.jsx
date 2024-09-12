@@ -25,7 +25,7 @@ function BookinglistCard() {
       });
     // .then((json) => console.log(json))
     // .catch((err) => console.error('error:' + err));
-  }, []);
+    }, []);
 
   // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
  // const inputDate = Paramdate;

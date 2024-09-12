@@ -95,7 +95,7 @@ let countList = createSlice({
             price: 5000,
             },
        ],
-      msg:0
+      msg: 0
    },
     // redux에서 state를 변경하는 방법
     // state를 변경하고 싶은 함수를 작성하여 사용한다.
@@ -113,12 +113,12 @@ let countList = createSlice({
 
         if (totalCount < 8) {
             state.items[index].count++;
-            state.msg = 0;
+            //state.msg = 0;
         } else {
             state.msg = 4;
             //alert('예매인원은 최대 8명까지 가능합니다.');
         }
-
+        //console.log("모달 메시지 번호 :" + state.msg);
         // console.log("action.payload :" + action.payload);
         // console.log("a.id "+ index)
         // console.log("state "+ state[index].listname)
@@ -137,7 +137,7 @@ let countList = createSlice({
 
         if (totalCount > 0 && state.items[index].count > 0) {
             state.items[index].count--;
-            state.msg = 0;
+            //state.msg = 0;
         } else {
             state.msg =5;
            // alert('최소 예매인원은 1명 입니다.');
@@ -148,7 +148,7 @@ let countList = createSlice({
         for (let i = 0; i < state.items.length; i++) {
             state.items[i].count = 0;
         }
-         state.msg = 0;
+            state.msg = 0;
         },
     },
 });
