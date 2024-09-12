@@ -25,9 +25,7 @@ const Booking = () => {
       return e.target.value;
     });
   };
-  let startDay = new Date(dayCate[0].date).getDate();
-  //console.log("최초데이터 : " + startDay);
-
+  
   return (
     <>
       <div className="bookingContainer">
@@ -60,7 +58,7 @@ const Booking = () => {
           })}
         </div>
         <div className="bookingWrap">
-          <BookinglistCard />
+          <BookinglistCard  />
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 function BookinglistCard() {
   // TMDB에서 가져온 영화정보를 담는 변수지정
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);   
   
   // redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
   let url = useSelector((state) => {return state.url});
@@ -35,6 +35,25 @@ function BookinglistCard() {
  
   // redux를 사용하기 위해 작성한 store.js에서 받아온 자료
   let startDay = new Date(dayCate[0].date).getDate();
+             
+  console.log(
+    'filter링한 영화 : ' +
+    movies
+         .filter((movies) => {
+            const releaseDate = new Date(movies.release_date).getDate();
+            if(releaseDate === day && day !== startDay) {
+               // day와 같을때만 filter
+               return releaseDate === day && releaseDate !== startDay
+            }else if(releaseDate === startDay ){
+               return true 
+            }
+            // 그 이외는 filter되지 않음
+            //return releaseDate === day || (releaseDate === startDay && day !== startDay)
+         })  
+        .map((movies) => `${movies.title}`)
+        .join(',')
+  );
+  
   return (
     <>
           <div className="movie-choice">
@@ -49,9 +68,7 @@ function BookinglistCard() {
             </div>
             <div className="list-area">
               {movies
-                 .filter((movies) => new Date(movies.release_date).getDate() === startDay ?  
-                 new Date(movies.release_date).getDate() === startDay: new Date(movies.release_date).getDate() === day)
-                //.filter((movies) => new Date(movies.release_date).getDate() === day )
+                .filter((movies) => new Date(movies.release_date).getDate() === day )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
