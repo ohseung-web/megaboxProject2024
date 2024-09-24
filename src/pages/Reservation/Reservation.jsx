@@ -52,10 +52,6 @@ const Reservation = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   // ReservationModal창의 messg내용을 저장하는 변수 예) 1,2,3,4,5,6... 번호마다 메시지 내용이 다름
   const [msg,setMsg] = useState(0);
-  // 예매인원의 이전상태를 저쟝하는 변수
- // const [prevState,setPrevState] =useState(null);
-  // 선택한 예매좌석의 개수를 저장하는 변수
- // const [selectSeatCount, setselectSeatCount] = useState(0); 
   // 선택한 예매인원의 최초 인원수를 저장하는 변수
   const [selectGroupCount, setSelectGroupCount] = useState([])
 
@@ -68,7 +64,7 @@ const Reservation = () => {
     seatTableTotalcount.current = totalcount;
   };
 
-  // 다른페이지에서 Rewervation페이지로 이동하면 무조건 초기화 진행되는 useEffect()가 실행된다.
+  // 다른페이지에서 Rewervation페이지로 이동하면 무조건 초기화 진행되는 useEffect()
   useEffect((()=>{
       seatReset();
   }),[])
@@ -121,6 +117,7 @@ const Reservation = () => {
   let totalSelectCount = 0; // adultCount+teenagerCount+childernCount+seniorCount+spacialCount
 
   // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하는 함수
+  // 조건에 만족할 때 Modal창이 뜨도록 작성한 함수
   // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
   const handleSeatClick = (rowIndex, colIndex) => {
     // 예매인원을 선택하지 않은 경우
@@ -143,21 +140,18 @@ const Reservation = () => {
       setMsg(3)
       return ;
     } 
-
     // 좌석 선택 가능 여부 확인
     setSelectSeat((prev) => {
       //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
       const isSeatSelected = selectSeat.some(
         (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
       );
-
       if (isSeatSelected) {
         //좌석이 이미 선택된경우, 좌석취소
         return prev.filter(
           (seat) => !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)
         );
       } else {
-        
         //좌석이 선택되지 않은경우, 좌석추가
         if (seatTableTotalcount.current > prev.length ) {
           return [...prev, { rowIndex, colIndex }];
@@ -232,7 +226,6 @@ const Reservation = () => {
     //==========================================================================================
      // 예매좌석을 선택할때 마다 아래 함수들을 실행하는 useEffect()
     useEffect(() => {
-        //setselectSeatCount(seatCount);
         totalPriceHandler();
         choicePeopleHandler();
         choiceSeatDisply();
@@ -262,33 +255,28 @@ const Reservation = () => {
   }),[state.countList.msg])
 
   //---------------------------------------------------------------------------------------
-  // 이전상태를 관리하는 useEffect()
-  // useEffect(() =>{
-  //    setPrevState({ selectSeatCount, seatTableTotalcount:seatTableTotalcount.current })
-  // },[selectSeatCount])
-  
   // 전체예매인원과 선택한 좌석의 갯수가 같을 때 예매인원을 변경 시 window.confirm창 띄우는 함수
-  const totalCountOver = () => {
-    if (seatTableTotalcount.current === seatCount &&
-         seatTableTotalcount.current !== 0) {
-        // confirm 대화상자
-        const userConfirm = window.confirm('선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ');
-        if (userConfirm) {
-            //confirm의 확인버튼 클릭시 리셋 시킴
-            seatReset();
-        }else{
-           //confirm에서 취소 버튼 클릭시 이전에 선택한 예매인원을 selectGroupCount에 저장한다.
-           //이전 상태로 복원이 안되는 이유는 selectSeatCount를 UI로 연결하지 않았기때문이다.
-            setSelectGroupCount((prev)=>
-              [...prev,  adultCount, teenagerCount, childernCount, seniorCount, spacialCount ])
-            // selectGroupCount 총계
-            selectGroupCount.map((selectCount, i)=>{
-            totalSelectCount += selectCount[i]
-            })
-        }
-     }
+  // const totalCountOver = () => {
+  //   if (seatTableTotalcount.current === seatCount &&
+  //        seatTableTotalcount.current !== 0) {
+  //       // confirm 대화상자
+  //       const userConfirm = window.confirm('선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ');  
+  //       if (userConfirm) {
+  //           //confirm의 확인버튼 클릭시 리셋 시킴
+  //           seatReset();
+  //       }else{
+  //          //confirm에서 취소 버튼 클릭시 이전에 선택한 예매인원을 selectGroupCount에 저장한다.
+  //          //이전 상태로 복원이 안되는 이유는 selectSeatCount를 UI로 연결하지 않았기때문이다.
+  //           setSelectGroupCount((prev)=>
+  //             [...prev,  adultCount, teenagerCount, childernCount, seniorCount, spacialCount ])
+  //           // selectGroupCount 총계
+  //           selectGroupCount.map((selectCount, i)=>{
+  //           totalSelectCount += selectCount[i]
+  //           })
+  //       }
+  //    }
     
-  }; 
+  // }; 
   console.log(
     'confirm 취소 버튼 클릭 시 : ' +
     selectGroupCount
@@ -296,11 +284,38 @@ const Reservation = () => {
   );
   console.log("selectGroupCount : " + selectGroupCount.length)
  //---------------------------------------------------------------------------------------
-  //minus, plus 버튼클릭 시 호출 되는 함수
+  //minus, plus 버튼클릭 시 redux에서 호출 되는 함수
   const handleButtonClick = (action,id) =>{
         dispatch(action(id));
-        totalCountOver();
   }
+  // 전체예매인원과 선택한 좌석의 갯수가 같을 때 예매인원을 plus버튼을 클릭하여 수정할 때는 예매인원이 증가되도록 하고, minus버튼을 클릭하여 수정할 때는 confirm창이 뜨고, confirm창의 확인버튼 클릭시 reset되도록 하고, 취소번튼 클릭시는 예매인원이 변경되지 않도록 하는 함수
+  const handleMinusClick  = (id,currentCount) =>{
+      if(seatTableTotalcount.current === seatCount && seatTableTotalcount.current !== 0){
+         // confirm 대화상자
+          const userConfirm = window.confirm('선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까? ');
+         if(userConfirm){ 
+            handleButtonClick(minusCount,id)
+            //------- 
+            if (userConfirm) {
+              //confirm의 확인버튼 클릭시 리셋 시킴
+              seatReset();
+            }else{
+              //confirm에서 취소 버튼 클릭시 이전에 선택한 예매인원을 selectGroupCount에 저장한다.
+              //이전 상태로 복원이 안되는 이유는 selectSeatCount를 UI로 연결하지 않았기때문이다.
+                setSelectGroupCount((prev)=>
+                  [...prev,  adultCount, teenagerCount, childernCount, seniorCount, spacialCount ])
+                // selectGroupCount 총계구하는 부분
+                  selectGroupCount.map((selectCount, i)=>{
+                  totalSelectCount += selectCount[i]
+                })
+            }
+            //----------------------
+           } 
+      }else{
+         handleButtonClick(minusCount,id)
+      } 
+  }
+
   //마우스 오버될때 배경이미지 변경하는 함수
   const hoverSeatEnter = (rowIndex, colIndex) => {
     setHoverSeat({ rowIndex, colIndex });
@@ -393,7 +408,7 @@ const Reservation = () => {
                       <span>{state.countList.items[i].listname}</span>
                       <button
                         className="minus"
-                        onClick={() => handleButtonClick(minusCount,state.countList.items[i].id)}
+                        onClick={() => handleMinusClick(state.countList.items[i].id,minusCount)}
                       >
                         -
                       </button>

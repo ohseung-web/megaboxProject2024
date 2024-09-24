@@ -18,7 +18,7 @@ const UserModal = ({modalClose, msg}) =>{
         }else if(msg === 2){
             setMsgString( "선택할 수 없는 좌석입니다.")
         }else if(msg===3) {
-            setMsgString( "이미 좌석을 모두 선택하였습니다.")
+            setMsgString( "좌석 선택이 완료 되었습니다.")
         }else if(msg === 4){
             setMsgString( "예매인원은 최대 8명까지 가능합니다.")
         }else if(msg===5){
@@ -42,7 +42,7 @@ const UserModal = ({modalClose, msg}) =>{
             <div class="modal_content">
                 <p>{msgString}</p>
                 <div class="btn_group">
-                    <button type="button" class="close">취소</button>
+                    {/* <button type="button" class="close">취소</button> */}
                     <button type="button" class="purple confirm" onClick={modalClose} >확인</button>
                 </div>
             </div>

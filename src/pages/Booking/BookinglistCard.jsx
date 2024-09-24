@@ -30,30 +30,32 @@ function BookinglistCard() {
   // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
  // const inputDate = Paramdate;
   let { Paramdate } = useParams(); 
-  const newDate = new Date(Paramdate);
-  const day = newDate.getDate();
+  //const newDate = new Date(Paramdate);
+ // const day = newDate.getTime();
  
   // redux를 사용하기 위해 작성한 store.js에서 받아온 자료
-  let startDay = new Date(dayCate[0].date).getDate();
-             
-  console.log(
-    'filter링한 영화 : ' +
-    movies
-         .filter((movies) => {
-            const releaseDate = new Date(movies.release_date).getDate();
-            if(releaseDate === day && day !== startDay) {
-               // day와 같을때만 filter
-               return releaseDate === day && releaseDate !== startDay
-            }else if(releaseDate === startDay ){
-               return true 
-            }
-            // 그 이외는 filter되지 않음
-            //return releaseDate === day || (releaseDate === startDay && day !== startDay)
-         })  
-        .map((movies) => `${movies.title}`)
-        .join(',')
-  );
-  
+  // getTime() => 주어진 일시와 1970년 1월 1일 00시 00분 00초 사이의 간격(밀리초 단위)인 타임스탬프를 반환합니다.
+ // const startDay = new Date(dayCate[0].date).getTime();
+ // const releaseDate = new Date(movies.release_date).getTime();
+ // filter된 결과만 보여주는 movies 함수
+ 
+ const filterMovie = movies.filter ((movie) => {  
+  const day = new Date(Paramdate);
+  const startDay = new Date(dayCate[0].date);
+  const releaseDate = new Date(movie.release_date)
+
+  console.log('Paramdate:',day.toDateString());
+  console.log('Start Day:', startDay.toDateString());
+  console.log('Movies:', movies.map(movie => ({ title: movie.title, releaseDate: new Date(movie.release_date).toDateString() }))); 
+
+
+  const isSamday = releaseDate.toDateString() === day.toDateString();
+  const isStartday = releaseDate.toDateString() === startDay.toDateString();
+
+    return ( isSamday && !isStartday ) || isStartday
+    
+ }) 
+ 
   return (
     <>
           <div className="movie-choice">
@@ -67,8 +69,8 @@ function BookinglistCard() {
                 </button>
             </div>
             <div className="list-area">
-              {movies
-                .filter((movies) => new Date(movies.release_date).getDate() === day )
+              {filterMovie
+                // .filter((movies) => new Date(movies.release_date).getDate() === day )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
