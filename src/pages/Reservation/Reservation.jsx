@@ -129,18 +129,26 @@ const Reservation = () => {
     }
     // 예매인원이 1명이면서 짝수쪽 열의 좌석일 경우 선택불가능
     if (seatTableTotalcount.current === 1 && colIndex % 2 !== 0) {
-       setmodalOpen(true);
-       setMsg(2);
-     // alert('선택할 수 없는 좌석입니다.');
-      return ;
+        // 예매인원이 1명일 때 1명의 좌석을 선택하고 난 후 짝수쪽 열의 좌석을 선택할 경우
+        if(choiceSeatNumber.length !== 0){
+            setmodalOpen(true)
+            setMsg(3)
+            // alert('좌석 선택이 완료 되었습니다.');
+            return;
+        }else{ // 예매인원이 1명일때 좌석을 선택하지 않고 짝수쪽 열의 좌석을 선택할 경우
+            setmodalOpen(true);
+            setMsg(2);
+            // alert('선택할 수 없는 좌석입니다.');
+            return ;
+        }
     }
-     // confirm에서 취소버튼을 클릭한 상태에서 다른 좌석을 선택할 때 modal출력 됨
-     if(totalSelectCount < selectGroupCount.length){
+   // confirm에서 취소버튼을 클릭한 상태에서 다른 좌석을 선택할 때 modal출력 됨
+   if(totalSelectCount < selectGroupCount.length){
       setmodalOpen(true)
       setMsg(3)
       return ;
-    } 
-    // 좌석 선택 가능 여부 확인
+   } 
+    // 좌석 선택이 가능 하면 선택한 좌석을 selectSeat 배열 변수에 저장하는 부분
     setSelectSeat((prev) => {
       //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
       const isSeatSelected = selectSeat.some(
@@ -159,7 +167,7 @@ const Reservation = () => {
           // 선택한 좌석의 수가 전체인원수 보다 크면 좌석추가 하지 않음
           setmodalOpen(true);
           setMsg(3)
-         // alert('이미 좌석을 모두 선택하였습니다.');
+         // alert('좌석 선택이 완료 되었습니다.');
           return prev;
         } 
       } 
@@ -301,7 +309,6 @@ const Reservation = () => {
               seatReset();
             }else{
               //confirm에서 취소 버튼 클릭시 이전에 선택한 예매인원을 selectGroupCount에 저장한다.
-              //이전 상태로 복원이 안되는 이유는 selectSeatCount를 UI로 연결하지 않았기때문이다.
                 setSelectGroupCount((prev)=>
                   [...prev,  adultCount, teenagerCount, childernCount, seniorCount, spacialCount ])
                 // selectGroupCount 총계구하는 부분
@@ -346,24 +353,24 @@ const Reservation = () => {
         //예매인원이 0인 경우 마우스오버해도 배경이미지가 변경되지 않는 부분
         return hoverSeat ? {} : {};
       }
-      // 마우스를 오버하면 배경이미지 변경하고, 선택한 좌석의 배경이미지를 변경하는 부분
-      return hoverSeat &&
-        hoverSeat.rowIndex === rowIndex &&
-        hoverSeat.colIndex === colIndex
-        ? {
-            backgroundImage: `url(${choice})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }
-        : selectSeat.some(
-            (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
-          )
-        ? {
-            backgroundImage: `url(${choice})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }
-        : {};
+    // 마우스를 오버하면 배경이미지 변경하고, 선택한 좌석의 배경이미지를 변경하는 부분
+    return hoverSeat &&
+      hoverSeat.rowIndex === rowIndex &&
+      hoverSeat.colIndex === colIndex
+      ? {
+          backgroundImage: `url(${choice})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }
+      : selectSeat.some(
+          (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
+        )
+      ? {
+          backgroundImage: `url(${choice})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }
+      : {};
   };
 
   // 모달 close 함수 ReservateionMoadal 컴포넌트의 매개변수로 보내기 위해 작성한 함수
