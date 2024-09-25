@@ -19,11 +19,9 @@ const Booking = () => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
   // 요일 btutton클릭시 button 배경색과 border색 변경하는 토글
-  const [btnActive, setBtnActive] = useState(false);
+  const [btnActive, setBtnActive] = useState(0); // 기본적으로 첫 번째 버튼 활성화
   const toggleActive = (e) => {
-    setBtnActive((prev) => {
-      return e.target.value;
-    });
+    setBtnActive(e.target.value);
   };
   
   return (
@@ -33,7 +31,7 @@ const Booking = () => {
         <div className="date-area">
           {dayCate.map((d, i) => {
             return (
-              <Link to={`/booking/BookinglistCard/${d.date}`}>
+              <Link to={`/booking/BookinglistCard/${d.date}`} key={d.id}>
                 <button
                   key={d.id}
                   value={i}
@@ -58,7 +56,10 @@ const Booking = () => {
           })}
         </div>
         <div className="bookingWrap">
-          <BookinglistCard  />
+          {/* dayCate[btnActive].date => btnActive=0 이기 때문에 제일 첫 번째 날짜를 기본으로
+              bookinglistCard에 넘겨 주기때문에 제일 첫번째 날짜의 영화 리스트가 자동으로 출력되도록 할 수 있다. 또한 일자 버튼을 클릭 할 때마다 btnActive의 값이 변경되기 때문에 요일별 영화 리스트를 출력할 수 있다.
+          */}
+          <BookinglistCard selectDate ={dayCate[btnActive].date} />
         </div>
       </div>
     </>

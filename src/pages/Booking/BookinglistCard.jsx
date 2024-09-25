@@ -6,7 +6,7 @@ import { useParams , Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 
-function BookinglistCard() {
+function BookinglistCard({selectDate}) {
   // TMDB에서 가져온 영화정보를 담는 변수지정
   const [movies, setMovies] = useState([]);   
   
@@ -21,24 +21,21 @@ function BookinglistCard() {
       .then((res) => res.json())
       .then((res) => {
         setMovies(res.results);
+        console.log(res.results); // fetch한 영화 데이터 확인
       });
     // .then((json) => console.log(json))
     // .catch((err) => console.error('error:' + err));
-    }, []);
+    }, [url,options]);
 
   // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
-  let { Paramdate } = useParams(); 
-  const day = new Date(Paramdate);
-  // toDateString() => 주어진 일를 'Mon Aug 05 2024'문자 형식으로 출력하는 함수
-  // redux를 사용하기 위해 작성한 store.js에서 받아온 자료
-  const startDay = new Date(dayCate[0].date);
-  const releaseDate = new Date(movies.release_date)
-  const isSamday = releaseDate.toDateString() === day.toDateString();
-  const isStartday = releaseDate.toDateString() === startDay.toDateString();
+  // let { Paramdate } = useParams(); 
 
-  console.log('Paramdate:',day.toDateString());
-  console.log('Start Day:', startDay.toDateString());
-  console.log('Movies:', movies.map(movie => ({ title: movie.title, releaseDate: new Date(movie.release_date).toDateString() }))); 
+  // toDateString() => 주어진 일자를 'Mon Aug 05 2024'문자 형식으로 출력하는 함수
+  // paramDate는 booking 페이지에 넘겨준 날짜이다.
+  const paramDate = new Date(selectDate).toDateString();
+  
+  // redux를 사용하기 위해 작성한 store.js에서 받아온 시작일자
+  const startDate = new Date(dayCate[0].date).toDateString();
 
   return (
     <>
@@ -54,10 +51,11 @@ function BookinglistCard() {
             </div>
             <div className="list-area">
               {movies
-                .filter((movies) => 
-                  new Date(movies.release_date).toDateString() === day.toDateString() 
-                      )
-                // .filter((movies) => new Date(movies.release_date).getDate() === day )
+                .filter((movie) => {
+                    const releaseDate = new Date(movie.release_date).toDateString()
+                    console.log('releaseDate:', releaseDate, 'paramDate:', paramDate); // 확인용
+                    return releaseDate === paramDate 
+                  })
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
