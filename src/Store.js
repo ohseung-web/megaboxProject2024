@@ -36,7 +36,7 @@ let movie = createSlice({
 let url = createSlice({
     name: 'url',
     initialState:
-        'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-8-05&primary_release_date.lte=2024-8-11&sort_by=popularity.desc',
+        'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-9-05&primary_release_date.lte=2024-9-19&sort_by=popularity.desc',
 });
 let options = createSlice({
     name: 'options',
@@ -51,13 +51,21 @@ let options = createSlice({
 let dayCate = createSlice({
     name: 'dayCate',
     initialState: [
-        { id: 0, date: '2024-08-05' },
-        { id: 1, date: '2024-08-06' },
-        { id: 2, date: '2024-08-07' },
-        { id: 3, date: '2024-08-08' },
-        { id: 4, date: '2024-08-09' },
-        { id: 5, date: '2024-08-10' },
-        { id: 6, date: '2024-08-11' },
+        { id: 0, date: '2024-09-05' },
+        { id: 1, date: '2024-09-06' },
+        { id: 2, date: '2024-09-07' },
+        { id: 3, date: '2024-09-08' },
+        { id: 4, date: '2024-09-09' },
+        { id: 5, date: '2024-09-10' },
+        { id: 6, date: '2024-09-11' },
+        { id: 7, date: '2024-09-12' },
+        { id: 8, date: '2024-09-13' },
+        { id: 9, date: '2024-09-14' },
+        { id: 10, date: '2024-09-15' },
+        { id: 11, date: '2024-09-16' },
+        { id: 12, date: '2024-09-17' },
+        { id: 13, date: '2024-09-18' },
+        { id: 16, date: '2024-09-19' },
     ],
 });
 let countList = createSlice({

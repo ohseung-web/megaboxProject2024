@@ -26,10 +26,7 @@ function BookinglistCard({selectDate}) {
     // .then((json) => console.log(json))
     // .catch((err) => console.error('error:' + err));
     }, [url,options]);
-
-  // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
-  // let { Paramdate } = useParams(); 
-
+    
   // toDateString() => 주어진 일자를 'Mon Aug 05 2024'문자 형식으로 출력하는 함수
   // paramDate는 booking 페이지에 넘겨준 날짜이다.
   const paramDate = new Date(selectDate).toDateString();

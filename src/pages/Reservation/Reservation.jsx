@@ -19,7 +19,7 @@ import Modal from 'react-modal';
 
 const Reservation = () => {
   //예매좌석 100좌석 2차원 배열로 지정
-  //const seatArray = Array.from(Array(10), () => new Array(10));
+  //const seatArray = Array.from(Array(10), () => new Array(10)); 
   // 좌석 배열을 1부터 100까지 숫자로 채움 고로, 값이 배열에 저장됨
   const seatArray = Array.from(Array(10), (row, rowIndex) =>
     Array.from(Array(10), (col, colIndex) => rowIndex * 10 + colIndex + 1)
@@ -116,8 +116,7 @@ const Reservation = () => {
   let spacialCount = state.countList.items[4].count; // 선택한 우대 인원수
   let totalSelectCount = 0; // adultCount+teenagerCount+childernCount+seniorCount+spacialCount
 
-  // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하는 함수
-  // 조건에 만족할 때 Modal창이 뜨도록 작성한 함수
+  // 클릭한 좌석의 행번호, 열번호를 selectSeat의 배열에 저장하고, 조건에 만족할 때 Modal창이 뜨도록 작성한 함수
   // some 메서드는 배열의 각 요소를 순회하면서 제공된 조건 함수가 하나라도 true를 반환하면 true를 반환한다.
   const handleSeatClick = (rowIndex, colIndex) => {
     // 예매인원을 선택하지 않은 경우
@@ -142,7 +141,7 @@ const Reservation = () => {
             return ;
         }
     }
-   // confirm에서 취소버튼을 클릭한 상태에서 다른 좌석을 선택할 때 modal출력 됨
+   // confirm에서 취소버튼을 클릭한 상태에서 다른 좌석을 선택할 겨우
    if(totalSelectCount < selectGroupCount.length){
       setmodalOpen(true)
       setMsg(3)
@@ -191,7 +190,7 @@ const Reservation = () => {
       setChoiceSeatNumber(choiceSeatNumber);
     };
    
-    // 예매인원 선택우선 순위 좌석 클릭 할때마다 예매정보창에 예매인원수 증가하는 함수
+    // 예매인원 선택우선 순위 : 좌석 클릭 할때마다 예매정보창에 예매인원수 증가하는 함수
     const choiceCountHandler = () => {
       let  adult = 0,teenager = 0,childern = 0,senior = 0,spacial = 0
 
@@ -232,7 +231,7 @@ const Reservation = () => {
       setChoicePeople(people);
     };
     //==========================================================================================
-     // 예매좌석을 선택할때 마다 아래 함수들을 실행하는 useEffect()
+     // 예매좌석을 선택할때 마다 위의 선택한 관람인원이름&인원수, 최종결재금액, 선택좌석 함수들을 실행하는 useEffect()
     useEffect(() => {
         totalPriceHandler();
         choicePeopleHandler();
@@ -396,15 +395,8 @@ const Reservation = () => {
           <div className="reserve_left">
             <div className="reserve_header">
               <span>관람인원선택</span>
-              <button
-                type="button"
-                className="resetbtn"
-                onClick={() => {
-                  seatReset();
-                }}
-              >
-                <img src={reset} alt="" />
-                &nbsp;<span>초기화</span>
+              <button type="button" className="resetbtn" onClick={() => { seatReset();}}>
+                <img src={reset} alt="" />&nbsp;<span>초기화</span>
               </button>
             </div>
             <div className="screen">
@@ -413,19 +405,16 @@ const Reservation = () => {
                   return (
                     <div key={state.countList.items[i].id} className="distinguishCnt">
                       <span>{state.countList.items[i].listname}</span>
-                      <button
-                        className="minus"
-                        onClick={() => handleMinusClick(state.countList.items[i].id,minusCount)}
-                      >
+                      <button className="minus"
+                        onClick={() => handleMinusClick(state.countList.items[i].id,minusCount)}>
                         -
                       </button>
-                      <label className="cnt">{
-                      selectGroupCount.length === 0 ? state.countList.items[i].count : selectGroupCount[i] 
-                      }</label>
-                      <button
-                        className="plus"
-                        onClick={() => handleButtonClick(plusCount,state.countList.items[i].id)}
-                      >
+                      <label className="cnt">
+                        {selectGroupCount.length === 0 ? state.countList.items[i].count  
+                         :selectGroupCount[i] }
+                      </label>
+                      <button className="plus"
+                        onClick={() => handleButtonClick(plusCount,state.countList.items[i].id)}>
                         +
                       </button>
                     </div>
@@ -435,25 +424,16 @@ const Reservation = () => {
               <div className="screen_seat">
                 <p className="screentext">SCREEN</p>
                 <div className="seat">
-                  <table
-                    className="seattable"
-                    onChange={seatTableCheckHandler()}
-                  >
+                  <table className="seattable" onChange={seatTableCheckHandler()}>
                     <tbody>
                       {seatArray.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                           <td className="alpha">{alpha[rowIndex]}</td>
                           {seatArray[0].map((col, colIndex) => (
-                            <td
-                              key={`${rowIndex}-${colIndex}`}
-                              className="seatTd"
-                              onMouseEnter={() =>
-                                hoverSeatEnter(rowIndex, colIndex)
-                              }
+                            <td key={`${rowIndex}-${colIndex}`} className="seatTd"
+                              onMouseEnter={() => hoverSeatEnter(rowIndex, colIndex)}
                               onMouseLeave={hoverSeatRemove}
-                              onClick={() =>
-                                handleSeatClick(rowIndex, colIndex)
-                              }
+                              onClick={() =>handleSeatClick(rowIndex, colIndex)}
                               style={getSeatStyle(rowIndex, colIndex)}
                             >
                               {colIndex + 1}

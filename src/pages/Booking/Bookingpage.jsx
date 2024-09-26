@@ -15,10 +15,10 @@ const Booking = () => {
   // redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
   let dayCate = useSelector((state) => {return state.dayCate});
  
-  // 날짜의 요일을 한글로 담는다.
+  // 날짜의 요일을 한글로 저장한 변수
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
-  // 요일 btutton클릭시 button 배경색과 border색 변경하는 토글
+  // 요일 btutton 클릭시 button 배경색과 border색 변경하는 토글
   const [btnActive, setBtnActive] = useState(0); // 기본적으로 첫 번째 버튼 활성화
   const toggleActive = (e) => {
     setBtnActive(e.target.value);
@@ -47,10 +47,7 @@ const Booking = () => {
                         : 'black',
                   }}
                   date-data={d.date}
-                >
-                  <span>{new Date(d.date).getDate()}</span>
-                  <em>·{week[new Date(d.date).getDay()]}</em>
-                </button>
+                > {new Date(d.date).getDate()}·{week[new Date(d.date).getDay()]}</button>
                </Link>
             );
           })}

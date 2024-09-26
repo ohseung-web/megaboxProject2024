@@ -44,20 +44,6 @@ button {
   height: 39px;
   /* border: 1px solid red; */
 }
-.bookingContainer .date-area button span {
-  font-size: 20px;
-}
-.bookingContainer .date-area button em {
-  font-size: 16px;
-  pointer-events: none;
-  font-style: normal;
-}
-/* .bookingContainer .date-area #sat {
-  color: #3b5fcb;
-}
-.bookingContainer .date-area #holi {
-  color: #e81002;
-} */
 .bookingContainer .date-area button.active {
   background-color: #f7f8f9;
   border-bottom: 2px solid #503396;
