@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart as faHeartBlank, faHeart, faPlus } from "@fortawesome/free-regular-svg-icons"
 //redux
 import { useDispatch } from "react-redux" //redux action dispatch 연결
-import { addToMovies } from "../../../Store";
+import { addToMovies } from "../../../Store2";
 
 
 export default function BoxOffices(){

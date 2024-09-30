@@ -6,27 +6,14 @@ import { useParams , Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 
-
-function BookinglistCard() {
+function BookinglistCard({selectDate}) {
   // TMDB에서 가져온 영화정보를 담는 변수지정
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);   
   
   // redux를 사용하기 위해 작성한 store.js에 존재하는 변수 가져옴
   let url = useSelector((state) => {return state.url});
   let options = useSelector((state) => {return state.options});
   let dayCate = useSelector((state) => {return state.dayCate});
-
- // useQuery 훅을 이용하여 간편하게 아래처럼 API와 연결할 수 있다.
-  const getServerData = async () => {
-    const data = await fetch(url,options)
-    .then((response) => response.json());
-    return data;
-  };
-  // useQuery 훅을 이용하여 아래처럼 movies 변수에 가져온 데이터를 담는다.
-
-  //  const { data } = useQuery(["data"], getServerData);
-  
-  
 
    // useEffect()를 이용하여 return()안이 랜더링 될 때 위의 TMDB에서 불러온 url과 options을 json으로 response(응답)받는다, 그런 다음 그  자료를 setMovies의 변수에 저장한다.
    useEffect(() => {
@@ -34,19 +21,19 @@ function BookinglistCard() {
       .then((res) => res.json())
       .then((res) => {
         setMovies(res.results);
+        console.log(res.results); // fetch한 영화 데이터 확인
       });
     // .then((json) => console.log(json))
     // .catch((err) => console.error('error:' + err));
-  }, []);
+    }, [url,options]);
+    
+  // toDateString() => 주어진 일자를 'Mon Aug 05 2024'문자 형식으로 출력하는 함수
+  // paramDate는 booking 페이지에 넘겨준 날짜이다.
+  const paramDate = new Date(selectDate).toDateString();
+  
+  // redux를 사용하기 위해 작성한 store.js에서 받아온 시작일자
+  const startDate = new Date(dayCate[0].date).toDateString();
 
-  // useParams()로 넘겨받은 매개변수 값인 Paramdate의 일자만 추출한다.
- // const inputDate = Paramdate;
-  let { Paramdate } = useParams(); 
-  const newDate = new Date(Paramdate);
-  const day = newDate.getDate();
- 
-  // redux를 사용하기 위해 작성한 store.js에서 받아온 자료
-  let startDay = new Date(dayCate[0].date).getDate();
   return (
     <>
           <div className="movie-choice">
@@ -61,9 +48,7 @@ function BookinglistCard() {
             </div>
             <div className="list-area">
               {movies
-                // .filter((movies) => new Date(movies.release_date).getDate() === startDay ?  
-                // new Date(movies.release_date).getDate() === startDay: new Date(movies.release_date).getDate() === day)
-                .filter((movies) => new Date(movies.release_date).getDate() === day )
+                .filter((movie) => new Date(movie.release_date).toDateString() === paramDate )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
@@ -72,13 +57,12 @@ function BookinglistCard() {
                         <p className='movie-tit'>{movie.title}</p>
                         {/* <p>{date.getDate( movie.release_date )}</p> */}
                       </div>
-                    </Link>  
+                   </Link>  
                   );
                 })}
             </div>
           </div>
     </>
-    
   );
 }
 
