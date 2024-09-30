@@ -399,7 +399,8 @@ const Reservation = () => {
           isOpen={modalOpen}
           ariaHideApp={false} 
           style={customStyles}
-          onRequestClose={() => setmodalOpen(false)} // overlay클릭하면 모달종료
+          onRequestClose={() => setmodalOpen(true)} // overlay클릭해도 모달이 종료되지 않음
+         // onRequestClose={() => setmodalOpen(false)} // overlay클릭하면 모달종료
         >
             {/* UserModal 컴포넌트를 이곳에 추가하세요 */}
             <ReservationModal modalClose={modalClose} msg={msg}/>

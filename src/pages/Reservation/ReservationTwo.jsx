@@ -363,10 +363,16 @@ const Reservation = () => {
 
   //마우스 오버될때 배경이미지 변경하는 함수
   const hoverSeatEnter = (rowIndex, colIndex) => {
-      if(seatTableTotalcount.current % 2 === 0){
+      if(seatTableTotalcount.current % 2 === 0){ //예매인원이 짝수일 때
          setHoverSeat([{rowIndex,colIndex},{rowIndex,colIndex : colIndex + 1}])
-      }else if(seatTableTotalcount.current === 1){
+      }else if(seatTableTotalcount.current === 1){ //예매인원이 1명일 때
         setHoverSeat([{ rowIndex, colIndex }]);
+      }else if(seatTableTotalcount.current % 2 !== 0){ //예매인원이 홀수일 때
+         if(seatTableTotalcount.current / 2 === 0){
+            setHoverSeat([{rowIndex,colIndex},{rowIndex,colIndex : colIndex + 1}])
+         }else{
+            setHoverSeat([{ rowIndex, colIndex }]);
+         }
       }
   };
   //마우스 오버삭제될 때 배경이미지 초기화 함수
