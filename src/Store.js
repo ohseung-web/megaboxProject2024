@@ -36,7 +36,11 @@ let movie = createSlice({
 let url = createSlice({
     name: 'url',
     initialState:
+<<<<<<< HEAD
         'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-8-05&primary_release_date.lte=2024-8-11&sort_by=popularity.desc',
+=======
+        'https://api.themoviedb.org/3/discover/movie?certification_country=south%20korea&include_adult=false&include_video=false&language=ko-kr&page=1&primary_release_year=2024&primary_release_date.gte=2024-9-05&primary_release_date.lte=2024-9-19&sort_by=popularity.desc',
+>>>>>>> seung
 });
 let options = createSlice({
     name: 'options',
@@ -51,69 +55,82 @@ let options = createSlice({
 let dayCate = createSlice({
     name: 'dayCate',
     initialState: [
-        { id: 0, date: '2024-08-05' },
-        { id: 1, date: '2024-08-06' },
-        { id: 2, date: '2024-08-07' },
-        { id: 3, date: '2024-08-08' },
-        { id: 4, date: '2024-08-09' },
-        { id: 5, date: '2024-08-10' },
-        { id: 6, date: '2024-08-11' },
+        { id: 0, date: '2024-09-05' },
+        { id: 1, date: '2024-09-06' },
+        { id: 2, date: '2024-09-07' },
+        { id: 3, date: '2024-09-08' },
+        { id: 4, date: '2024-09-09' },
+        { id: 5, date: '2024-09-10' },
+        { id: 6, date: '2024-09-11' },
+        { id: 7, date: '2024-09-12' },
+        { id: 8, date: '2024-09-13' },
+        { id: 9, date: '2024-09-14' },
+        { id: 10, date: '2024-09-15' },
+        { id: 11, date: '2024-09-16' },
+        { id: 12, date: '2024-09-17' },
+        { id: 13, date: '2024-09-18' },
+        { id: 16, date: '2024-09-19' },
     ],
 });
 let countList = createSlice({
     name: 'countList',
-    initialState: [
-        {
-        id: 0,
-        listname: '성인',
-        count: 0,
-        price: 14000,
-        },
-        {
-        id: 1,
-        listname: '청소년',
-        count: 0,
-        price: 11000,
-        },
-        {
-        id: 2,
-        listname: '어린이',
-        count: 0,
-        price: 7000,
-        },
-        {
-        id: 3,
-        listname: '경로',
-        count: 0,
-        price: 7000,
-        },
-        {
-        id: 4,
-        listname: '우대',
-        count: 0,
-        price: 5000,
-        },
-    ],
+    initialState: { 
+      items : [
+            {
+            id: 0,
+            listname: '성인',
+            count: 0,
+            price: 14000,
+            },
+            {
+            id: 1,
+            listname: '청소년',
+            count: 0,
+            price: 11000,
+            },
+            {
+            id: 2,
+            listname: '어린이',
+            count: 0,
+            price: 7000,
+            },
+            {
+            id: 3,
+            listname: '경로',
+            count: 0,
+            price: 7000,
+            },
+            {
+            id: 4,
+            listname: '우대',
+            count: 0,
+            price: 5000,
+            },
+       ],
+      msg: 0
+   },
     // redux에서 state를 변경하는 방법
     // state를 변경하고 싶은 함수를 작성하여 사용한다.
     // action.payload는 countList의 index값 0, 1, 2,3,4가 출력된다.
     reducers: {
         //plus버튼 클릭시 인원수 증가함수
         plusCount(state, action) {
-        let index = state.findIndex((a) => {
+        let index = state.items.findIndex((a) => {
             return a.id === action.payload;
         });
         let totalCount = 0;
-        for (let i = 0; i < 5; i++) {
-            totalCount += state[i].count;
+        for (let i = 0; i < state.items.length; i++) {
+            totalCount += state.items[i].count;
         }
 
         if (totalCount < 8) {
-            state[index].count++;
+            state.items[index].count++;
+            //state.msg = 0;
         } else {
-            alert('예매인원은 최대 8명까지 가능합니다.');
+            state.msg = 4;
+            //alert('예매인원은 최대 8명까지 가능합니다.');
         }
-
+        //console.log("모달 메시지 번호 :" + state.msg);
         // console.log("action.payload :" + action.payload);
         // console.log("a.id "+ index)
         // console.log("state "+ state[index].listname)
@@ -122,30 +139,33 @@ let countList = createSlice({
         },
         // minus 버튼 클릭시 인원수 감소함수
         minusCount(state, action) {
-        let index = state.findIndex((a) => {
+        let index = state.items.findIndex((a) => {
             return a.id === action.payload;
         });
         let totalCount = 0;
-        for (let i = 0; i < 5; i++) {
-            totalCount += state[i].count;
+        for (let i = 0; i < state.items.length; i++) {
+            totalCount += state.items[i].count;
         }
 
-        if (totalCount > 0 && state[index].count > 0) {
-            state[index].count--;
+        if (totalCount > 0 && state.items[index].count > 0) {
+            state.items[index].count--;
+            //state.msg = 0;
         } else {
-            alert('최소 예매인원은 1명 입니다.');
+            state.msg =5;
+           // alert('최소 예매인원은 1명 입니다.');
         }
         },
         //초기화 함수
         reSet(state) {
-        for (let i = 0; i < 5; i++) {
-            state[i].count = 0;
+        for (let i = 0; i < state.items.length; i++) {
+            state.items[i].count = 0;
         }
+            state.msg = 0;
         },
     },
 });
 // 작성한 함수는 반드시 export 하여 사용한다.
-export let { plusCount, minusCount, reSet } = countList.actions;
+export let { plusCount, minusCount, reSet} = countList.actions;
 
 // 위에서 생성한 변수들을 redux에 등록한다.
 //==============seung + yuna 공통 default configureStroe

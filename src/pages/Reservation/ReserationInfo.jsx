@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+//import { useState,useEffect } from 'react';
 import './Reservation.style.css';
 import './../../common/Common.css';
 import choice from './images/bg-seat-condition-choice-s.png';
@@ -8,14 +8,14 @@ import impossible from './images/bg-seat-condition-impossible-s.png';
 import common from './images/bg-seat-condition-common-s.png';
 import poster from './images/hero.jpg';
 import age from './images/age12.png';
-import { useSelector , useDispatch} from 'react-redux';
-import { plusCount, minusCount, reSet, totalPrice } from '../../Store.js';
-import { useRef } from 'react';
+//import { useSelector , useDispatch} from 'react-redux';
+//import { plusCount, minusCount, reSet } from '../../Store.js';
+//import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
-import { atom, useRecoilState } from 'recoil';
+//import { atom, useRecoilState } from 'recoil';
 
-const ReserationInfo = () =>{
-
+const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,choiceSeatNumber}) =>{
+ 
   //좌석 선택
   const seatChoice = [
     {id:0,chooseseat : '-'},
@@ -28,33 +28,6 @@ const ReserationInfo = () =>{
     {id:7,chooseseat : '-'},
     ];
 
-   let state = useSelector((state) => state) //redux에서 state는 자료를 읽어오기만 할 수 있다.
-   let dispatch = useDispatch() 
-   let totalprice = useRef(0)
-   let choicePeople = useRef('')
-   
-   // 영화 예매 총금액 구하는 함수
-   const totalPriceHandler = () =>{
-     let total = 0;
-      state.countList.map((e,i)=>{
-        total =  total + (state.countList[i].count *  state.countList[i].price);
-      }) 
-        totalprice.current =  total;
-        // console.log("total " + total)
-        // console.log("totalprice " + totalprice.current)
-    }
-  
-    // 관람인원 구분하는 함수 성인, 청소년, 어린이, 경로, 우대
-    const choicePeopleHandler = () =>{
-       let people = "";
-       state.countList.map((e,i)=>{
-          if(state.countList[i].count > 0){
-            people = people + ( state.countList[i].listname +" "+ state.countList[i].count +" · " )
-         }
-       })
-        choicePeople.current = people;
-    }
-    
   return (
     <>
          <div className="movieTitle">
@@ -100,6 +73,7 @@ const ReserationInfo = () =>{
                     <img src={common} alt="" />
                     <span>일반</span>
                   </li>
+                  {/* <li><span>{selectSeat}</span></li> */}
               </ul>
             </div>
             <div className="detail_right">
@@ -107,22 +81,25 @@ const ReserationInfo = () =>{
               <div className="seatchoice">
                 {seatChoice.map((choice,i)=>{
                   return(
-                    <div key={choice.id} className="choice">{choice.chooseseat}</div>
+                    <div key={choice.id} className="choice" 
+                        style={ i < choiceSeatNumber.length ? 
+                          {backgroundColor: 'rgb(80,51,150)',color: 'white', lineHeight:'35px'}:null}>
+                      {i < choiceSeatNumber.length ? choiceSeatNumber[i]:choice.chooseseat }
+                    </div>
                   )
                 })}
               </div>
             </div>
           </div>
-          <div class="reserveStatus">
-            <div class="choicecount">
-              <span onChange={choicePeopleHandler()}>{choicePeople.current}</span>
-              {/* <em >{countPeople.current}</em> */}
+          <div className="reserveStatus">
+            <div className="choicecount">
+              <span>{choicePeople}</span>
             </div>
           </div>
           <div className="moviePrice">
               <div className="pricetitle">최종결제금액</div>
               <div className="price">
-                <span onChange={totalPriceHandler()}>{totalprice.current.toLocaleString('ko-kr')}</span>
+                <span>{ totalPrice.toLocaleString('ko-kr')}</span> 
                 <em>원</em>
               </div>
           </div>
@@ -131,9 +108,9 @@ const ReserationInfo = () =>{
               <button className="nextbtn"  
                 style={{
                       backgroundColor:
-                        totalprice.current != 0
+                      totalPrice != 0 && selectSeat === seatTableTotalcount
                           ? 'rgb(50, 158, 177)': ' rgb(224, 224, 224)',
-                      color : totalprice.current !=0 ? 'white':'gray'    
+                      color : totalPrice !=0 && selectSeat === seatTableTotalcount ? 'white':'gray'    
                     }}>
               다음</button>
           </div>

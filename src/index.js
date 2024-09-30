@@ -5,8 +5,8 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import store from './Store'; // redux
 import { Provider } from 'react-redux';
+import store from './Store';
 
 const queryClient = new QueryClient();
 
@@ -15,11 +15,11 @@ root.render(
   // <React.StrictMode>
   // <Provider store={store}>
   <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
+    {/* <Provider  store={store1}> */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    {/* </Provider> */}
   </QueryClientProvider>
   // </Provider> 
   // </React.StrictMode>
