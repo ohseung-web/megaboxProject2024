@@ -16,13 +16,9 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react-modal": "^3.16.3",
     "axios": "^1.7.4",
-<<<<<<< HEAD
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "Express": "^3.0.1",
-=======
-    "node-fetch": "^2.7.0",
->>>>>>> 873dae9539228616a95328d772ea4b58177435ac
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.1",
