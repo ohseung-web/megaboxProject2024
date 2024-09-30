@@ -18,8 +18,8 @@ import {
   faCalendarDays,
 } from '@fortawesome/free-regular-svg-icons';
 //redux
-import { useDispatch } from 'react-redux'; //redux action dispatch 연결
-// import { addToMovies } from "../../Store"
+import { useDispatch } from "react-redux" //redux action dispatch 연결
+import { addToMovies } from '../../store';
 
 const Home = () => {
   return (
