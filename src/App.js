@@ -5,7 +5,7 @@ import Footer from './common/Footer/Footer';
 import Home from './pages/Home/Homepage';
 import Movies from './pages/Movies/Moviespage';
 import Booking from './pages/Booking/Bookingpage';
-import Store from './pages/Store/Storepage';
+import StorePage from './pages/StorePage/Storepage';
 import BookinglistCard from './pages/Booking/BookinglistCard';
 import Reservation from './pages/Reservation/Reservation';
 //Moviepage/TabContent 무비 탭 클릭 시 출력되는 탭 내용 import + 무비 디테일 페이지
@@ -32,7 +32,7 @@ function App() {
         <Route path="/Reservation" element={<Reservation />} />
         <Route path="/theater" element={<div>극장</div>} />
         <Route path="/events" element={<div>이벤트 페이지</div>} />
-        <Route path="/store" element={<Store />} />
+        <Route path="/store" element={<StorePage />} />
         <Route path="/benefits" element={<div>혜택 페이지</div>} />
         <Route path="/movies" element={<Movies />}>
           <Route path="" element={<BoxOffices />} />
