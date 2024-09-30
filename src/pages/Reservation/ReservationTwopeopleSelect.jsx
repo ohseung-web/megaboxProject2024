@@ -147,49 +147,88 @@ const Reservation = () => {
       setMsg(3)
       return ;
    } 
-    // 좌석 선택이 가능 하면 선택한 좌석을 selectSeat 배열 변수에 저장하는 부분
-    setSelectSeat((prev) => {
-      //좌석이 선택되지 않으면  무조건 false 출력, 좌석이 선택이 되고 난후 true 출력
-      const isSeatSelected = selectSeat.some(
-        (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
-      );
+   setSelectSeat((prev) => {
+    const isSeatSelected = selectSeat.some(
+      (seat) => seat.rowIndex === rowIndex && seat.colIndex === colIndex
+    );
+
+    if (seatTableTotalcount.current === 1) {
       if (isSeatSelected) {
-        //좌석이 이미 선택된경우, 좌석취소
+        // 좌석이 이미 선택된 경우, 좌석 취소
         return prev.filter(
           (seat) => !(seat.rowIndex === rowIndex && seat.colIndex === colIndex)
         );
       } else {
-        //좌석이 선택되지 않은경우, 좌석추가
-        if (seatTableTotalcount.current > prev.length ) {
+        // 좌석이 선택되지 않은 경우, 좌석 추가
+        if (seatTableTotalcount.current > prev.length) {
           return [...prev, { rowIndex, colIndex }];
         } else {
-          // 선택한 좌석의 수가 전체인원수 보다 크면 좌석추가 하지 않음
           setmodalOpen(true);
-          setMsg(3)
-         // alert('좌석 선택이 완료 되었습니다.');
+          setMsg(3);
           return prev;
-        } 
-      } 
-    });
-  };
+        }
+      }
+    } else if (seatTableTotalcount.current % 2 === 0) {
+      if (isSeatSelected) {
+        // 좌석이 이미 선택된 경우, 좌석 취소
+        return prev.filter(
+          (seat) => !(seat.rowIndex === rowIndex && (seat.colIndex === colIndex || seat.colIndex === (colIndex + 1)))
+        );
+      } else {
+        // 좌석이 선택되지 않은 경우, 좌석 추가
+        if (seatTableTotalcount.current > prev.length) {
+          
+          if (colIndex !== undefined) {
+           // const newColIndex = colIndex + 1; // 인접 좌석의 열 번호
+            return [...prev, { rowIndex, colIndex }, { rowIndex, colIndex:colIndex+1 }];
+
+            // 상태 업데이트 후의 값을 출력
+            //console.log(`새로운 좌석 추가: ${JSON.stringify(newSeats)}`);
+            //return newSeats
+          }
+        } else {
+          setmodalOpen(true);
+          setMsg(3);
+          
+        }
+      }
+    }
+     return prev; 
+  });
+};
+  // console.log(
+  //   '선택좌석 화면 : ' +
+  //     choiceSeatNumber
+  //       .map((seat) => seat)
+  //       .join(',')
+  // );
 
  // 좌석을 선택할때 일어나는 함수들 모음 ============================================================================
     // 선택한 좌석의 selectSeat (행번호, 열번호) 콘솔출력
-    console.log(
-      '선택한 좌석 번호 : ' +
-        selectSeat
-          .map((seat) => `row:${seat.rowIndex} col:${seat.colIndex}`)
-          .join(',')
-    );
+    // console.log(
+    //   '선택한 좌석 번호 : ' +
+    //     selectSeat
+    //       .map((seat) => `row:${seat.rowIndex} col:${seat.colIndex}`)
+    //       .join(',')
+    // );
 
     //선택한 좌석의 행번호,열번호가 예매정보창의 선택좌석에 A1,B3처럼 출력되도록 하는 함수
     const choiceSeatDisply = () => {
-      let choiceSeatNumber = selectSeat.map((seat, i) => {
-        return `${alpha[seat.rowIndex]}${seat.colIndex + 1}`;
-      });
+      let choiceSeatNumber = selectSeat.flatMap((seat, i) => {
+        if(seat.colIndex !== undefined && seat.colIndex >= 0){
+            return `${alpha[seat.rowIndex]}${seat.colIndex + 1}`;
+        }
+        return []; // 기본적으로 빈 배열 반환
+      }).filter((value,index, slef) => slef.indexOf(value) === index) //중복 제거
+     
       setChoiceSeatNumber(choiceSeatNumber);
+
+      console.log(
+        '선택한 화면 : ' +
+          choiceSeatNumber.join(', ')
+      );
     };
-   
+    
     // 예매인원 선택우선 순위 : 좌석 클릭 할때마다 예매정보창에 예매인원수 증가하는 함수
     const choiceCountHandler = () => {
       let  adult = 0,teenager = 0,childern = 0,senior = 0,spacial = 0
@@ -284,12 +323,12 @@ const Reservation = () => {
   //    }
     
   // }; 
-  console.log(
-    'confirm 취소 버튼 클릭 시 : ' +
-    selectGroupCount
-        .map((select) => select),
-  );
-  console.log("selectGroupCount : " + selectGroupCount.length)
+  // console.log(
+  //   'confirm 취소 버튼 클릭 시 : ' +
+  //   selectGroupCount
+  //       .map((select) => select),
+  // );
+  // console.log("selectGroupCount : " + selectGroupCount.length)
  //---------------------------------------------------------------------------------------
   //minus, plus 버튼클릭 시 redux에서 호출 되는 함수
   const handleButtonClick = (action,id) =>{
@@ -324,7 +363,11 @@ const Reservation = () => {
 
   //마우스 오버될때 배경이미지 변경하는 함수
   const hoverSeatEnter = (rowIndex, colIndex) => {
-    setHoverSeat({ rowIndex, colIndex });
+      if(seatTableTotalcount.current % 2 === 0){
+         setHoverSeat([{rowIndex,colIndex},{rowIndex,colIndex : colIndex + 1}])
+      }else if(seatTableTotalcount.current === 1){
+        setHoverSeat([{ rowIndex, colIndex }]);
+      }
   };
   //마우스 오버삭제될 때 배경이미지 초기화 함수
   const hoverSeatRemove = () => {
@@ -349,15 +392,15 @@ const Reservation = () => {
         backgroundSize: 'cover',
       };
     }
-    //예매인원이 0인 경우 마우스오버해도 배경이미지가 변경되지 않는 부분
     if (seatTableTotalcount.current === 0) {
-      return {};
-    }
+        //예매인원이 0인 경우 마우스오버해도 배경이미지가 변경되지 않는 부분
+        return {};
+      }
 
-    // 마우스를 오버했을 때
-    // 선택한 좌석의 상태 확인
-    const isSelected = selectSeat.some((seat)=> seat.rowIndex===rowIndex && seat.colIndex===colIndex)
-    // 선택된 좌석이 존재하는 경우 그 좌석에 배경색 변경 됨
+     // 마우스를 오버했을 때
+     // 선택한 좌석의 상태 확인
+     const isSelected = selectSeat.some((seat)=> seat.rowIndex===rowIndex && seat.colIndex===colIndex)
+      // 선택된 좌석이 존재하는 경우 hover됨
       if(isSelected){
         return{
           backgroundImage: `url(${choice})`,
@@ -366,26 +409,25 @@ const Reservation = () => {
         }
       }
 
-    // 선택한 좌석의 수가 예매인원의 수보다 크거나 같으면 더이상 다른 좌석 hover되지 않음
-    if(seatCount >= seatTableTotalcount.current){
-        return {};
-    }  
-      
-    // hover상태를 확인
-    const isHovered = hoverSeat ? hoverSeat.rowIndex===rowIndex && hoverSeat.colIndex===colIndex:false;
-    // hover상태일 때 스타일 적용
-    if(isHovered){
-      return{
-        backgroundImage: `url(${choice})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+      // 선택한 좌석의 수가 예매인원의 수보다 크거나 같으면 더이상 다른 좌석 hover되지 않음
+      if(seatCount >= seatTableTotalcount.current){
+          return {};
       }
-    }
-    
-    //기본스타일
-    return {};
 
-  };
+     // hover상태를 확인
+     const isHovered = hoverSeat ? hoverSeat.some((seat)=>seat.rowIndex===rowIndex && seat.colIndex==colIndex ):false;
+     // hover상태일 때 스타일 적용
+      if(isHovered){
+        return{
+          backgroundImage: `url(${choice})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }
+      }
+ 
+     //기본스타일
+     return {};
+  }
 
   // 모달 close 함수 ReservateionMoadal 컴포넌트의 매개변수로 보내기 위해 작성한 함수
   const modalClose =() =>{

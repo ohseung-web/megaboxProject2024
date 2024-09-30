@@ -35,18 +35,18 @@ const UserModal = ({modalClose, msg}) =>{
 
    return(
     <>
-       <div class="modal">
-            <div class="modal_header">
-                <h3 class="title">알림</h3>
+       <div className="modal">
+            <div className="modal_header">
+                <h3 className="title">알림</h3>
             </div>
-            <div class="modal_content">
+            <div className="modal_content">
                 <p>{msgString}</p>
-                <div class="btn_group">
+                <div className="btn_group">
                     {/* <button type="button" class="close">취소</button> */}
-                    <button type="button" class="purple confirm" onClick={modalClose} >확인</button>
+                    <button type="button" className="purple confirm" onClick={modalClose} >확인</button>
                 </div>
             </div>
-            <button type="button" class="btn-close">
+            <button type="button" className="btn-close">
                 <FontAwesomeIcon icon={faXmark} className='icon' onClick={modalClose} />
             </button>
         </div>

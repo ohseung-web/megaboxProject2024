@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+//import { useState,useEffect } from 'react';
 import './Reservation.style.css';
 import './../../common/Common.css';
 import choice from './images/bg-seat-condition-choice-s.png';
@@ -8,11 +8,11 @@ import impossible from './images/bg-seat-condition-impossible-s.png';
 import common from './images/bg-seat-condition-common-s.png';
 import poster from './images/hero.jpg';
 import age from './images/age12.png';
-import { useSelector , useDispatch} from 'react-redux';
-import { plusCount, minusCount, reSet } from '../../Store.js';
-import { useRef } from 'react';
+//import { useSelector , useDispatch} from 'react-redux';
+//import { plusCount, minusCount, reSet } from '../../Store.js';
+//import { useRef } from 'react';
 //npm install recoil 먼저 설치한다.
-import { atom, useRecoilState } from 'recoil';
+//import { atom, useRecoilState } from 'recoil';
 
 const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,choiceSeatNumber}) =>{
  
@@ -91,8 +91,8 @@ const ReserationInfo = ({selectSeat,seatTableTotalcount,totalPrice,choicePeople,
               </div>
             </div>
           </div>
-          <div class="reserveStatus">
-            <div class="choicecount">
+          <div className="reserveStatus">
+            <div className="choicecount">
               <span>{choicePeople}</span>
             </div>
           </div>

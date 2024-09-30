@@ -48,11 +48,7 @@ function BookinglistCard({selectDate}) {
             </div>
             <div className="list-area">
               {movies
-                .filter((movie) => {
-                    const releaseDate = new Date(movie.release_date).toDateString()
-                    console.log('releaseDate:', releaseDate, 'paramDate:', paramDate); // 확인용
-                    return releaseDate === paramDate 
-                  })
+                .filter((movie) => new Date(movie.release_date).toDateString() === paramDate )
                 .map((movie, i) => {
                   return (
                    <Link to={`/Reservation`} key={movie.id}>
@@ -61,13 +57,12 @@ function BookinglistCard({selectDate}) {
                         <p className='movie-tit'>{movie.title}</p>
                         {/* <p>{date.getDate( movie.release_date )}</p> */}
                       </div>
-                    </Link>  
+                   </Link>  
                   );
                 })}
             </div>
           </div>
     </>
-    
   );
 }
 
