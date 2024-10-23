@@ -11,7 +11,7 @@ const dataFilePath = path.join(__dirname, 'db.json');
 
 // CORS 설정
 app.use(cors({
-  origin: 'http://localhost:3000', // 클라이언트의 출처
+  origin: 'http://localhost:000', // 클라이언트의 출처
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));

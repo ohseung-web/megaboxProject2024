@@ -29,6 +29,7 @@ function App() {
       <Header />
 
       <Routes>
+
         <Route path="/booking" element={<Booking />}>
           <Route
             path="BookinglistCard/:Paramdate"
@@ -48,7 +49,7 @@ function App() {
           <Route path="classicfilm" element={<ClassicFilm />} />
         </Route>
         <Route path="/moviesdetail" element={<MoviesDetail />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/megabox2024" element={<Home />} />
         <Route path="*" element={<div>404 페이지</div>} />
       </Routes>
       <Footer />

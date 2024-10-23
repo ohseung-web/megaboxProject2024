@@ -34,7 +34,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:server": "json-server --watch server/db.json --port 5000"
+    "start:server": "json-server --watch server/db.json --port 5000",
+    "redeploy":"npm run build",
+    "deploy":"gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -57,5 +59,6 @@
   "devDependencies": {
     "json-server": "^1.0.0-beta.1"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "homepage":"https://yuna.pe.kr/megabox2024/"
 }

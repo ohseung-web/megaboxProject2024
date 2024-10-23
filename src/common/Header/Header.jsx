@@ -31,7 +31,7 @@ const Header = () => {
                     <Link to="/booking">예매</Link>
                     <Link to="/theater">극장</Link>
                 </nav>
-                <h1><Link to="/"><img src={Logo} alt="MEGABOX" /></Link></h1>
+                <h1><Link to="/megabox2024"><img src={Logo} alt="MEGABOX" /></Link></h1>
                 <nav className="eventNav">
                     <Link to="/events">이벤트</Link>
                     <Link to="/store">스토어</Link>
