@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart as faHeartBlank, faHeart, faPlus } from "@fortawesome/free-regular-svg-icons"
 //redux
 import { useDispatch } from "react-redux"
-import { addToMovies } from "../../../Store2"
+import { addToMovies } from "../../../store"
 
 export default function SingleMovie(){
     const {data, isLoading, isError, error} = useSingleMoviesQuery()
