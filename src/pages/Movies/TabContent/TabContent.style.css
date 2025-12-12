@@ -1,0 +1,16 @@
+/* 탭 내용 src/pages/TabContent/... */
+main .tab-container {padding-top:50px;}
+main .tab-container .movie-list {flex-flow:row wrap;}
+main .tab-container .movie-list li {width:25%;}
+main .tab-container .movie-list li .info_detail * {color:#000; text-align:left;}
+main .tab-container .movie-list li .vote_reservation .count {background:#f5f5f5; color:#111;}
+main .tab-container .movie-list li .info_detail {}
+main .tab-container .movie-list li .info_detail .title {display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space:nowrap; width:200px;}
+main .tab-container .movie-list li .info_detail .title img {margin-right:5px;}
+main .tab-container .movie-list li .info_detail .title span {font-weight:400; letter-spacing: -1px;}
+main .tab-container .movie-list li .info_detail p {font-size:0.91rem; letter-spacing: -0.5px;}
+main .tab-container .movie-list li .info_detail p .count {}
+main .tab-container .movie-list li .info_detail p .count::after {content:''; display:inline-block; width:1px; height:12px; background:#aaa; margin:0 7px;}
+main .tab-container .movie-list li .info_detail p span:last-child {}
+main .tab-container .movie-list li .vote_reservation {}
+main .tab-container .movie-list li .vote_reservation .reservation {background:#503396;}

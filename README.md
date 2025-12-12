@@ -1,4 +1,18 @@
+<<<<<<< HEAD
+# megabox 2024 project
+=======
 ## megabox 2024 -by yuna :kissing_heart:
+>>>>>>> yuna
+## 실행 위한 npm 설치 명령어 모음
+* `npm install recoil`
+* `npm install @fortawesome/free-regular-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons`
+* `npm install #reduxjs/toolkit react-redux`
+* `npm install react-router-dom`
+* `npm install react-modal`
+* ...npm 설치 필요 시 추가 예정 목록
+------
+<<<<<<< HEAD
+=======
 ### gitHub & google Drive url
 * https://github.com/ohseung-web/megaboxProject2024.git
 * https://drive.google.com/drive/folders/1uEduYI6iV4O97hh_ENqxVRg9NQlzd9ZF?usp=sharing
@@ -141,3 +155,4 @@
         * `const {data:dataPopular, isLoading:isLoadingPopular} = usePopularMoviesQuery()`
         * `const {data:dataSingle, isLoading:isLoadingSingle} = useSingleMoviesQuery()`
     * useState는 별도로 각각 상태 변수를 만들고 useEffect에서 `isLoadingPopular, isLoadingSingle`이 로딩되면 `dataSingle, dataPopular`로 상태 변수에 삽입해야함.
+>>>>>>> yuna
