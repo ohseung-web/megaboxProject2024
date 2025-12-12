@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+import "./Storepage.style.css"
+
+const Store = () => {
+    return (
+    <div>
+        스토어 페이지
+    </div>
+    )
+}
+
+export default Store
+=======
 import { useState, useEffect } from "react";
 import "./Storepage.style.css";
 import TabMenu from "./TabMenu/TabMenu";
@@ -95,3 +108,4 @@ const Store = () => {
 };
 
 export default Store;
+>>>>>>> main

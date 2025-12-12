@@ -8,7 +8,7 @@ import common from './images/bg-seat-condition-common.png';
 import ReserationInfo from './ReserationInfo';
 import { current } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { plusCount, minusCount, reSet } from '../../Store.js';
+import { plusCount, minusCount, reSet } from '../../store.js';
 import { useRef } from 'react';
 import ReservationModal from './ReservationModal.jsx';
 // 모달창 만들기 위해 아래 react-modal 라이브러리를 설치한다.

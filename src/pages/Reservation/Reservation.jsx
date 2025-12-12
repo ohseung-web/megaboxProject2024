@@ -17,6 +17,8 @@ import ReservationModal from './ReservationModal.jsx';
 // modal을 import 한다.
 import Modal from 'react-modal';
 
+// 2025-12-12 병합 연습하기
+
 const Reservation = () => {
   //예매좌석 100좌석 2차원 배열로 지정
   //const seatArray = Array.from(Array(10), () => new Array(10)); 
